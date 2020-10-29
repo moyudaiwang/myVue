@@ -138,9 +138,8 @@ export default {
                   this.userList = res.body
               })
           },
-          //初始化
+          //初始化&查询
           init(){
-         // debugger;
               var that  = this;
               let userInfoEntity ={
                 userName:this.param.userName,
@@ -211,8 +210,8 @@ export default {
       },
       handSea(){
           var that  = this;
-          //this.init();
-          this.init2();
+          this.init();
+          //this.init2();
       },
       //新增
       handAddTo(){
