@@ -13,8 +13,9 @@
                  <el-input placeholder="用户名" v-model="param.userName" size="medium" style="width: 200px;" class="filter-item"/>
                  <el-input placeholder="昵称"   v-model="param.nickname" size="medium" style="width: 200px;" class="filter-item"/>
                  <el-input placeholder="邮箱" v-model="param.email" size="medium" style="width: 200px;" class="filter-item"/>
-                 <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-search" @click="handSea()">查11询</el-button>
-                 <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-search" @click="onSubmit()">onSubmit</el-button>
+                 <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-search" @click="handQue()">Search</el-button>
+                 <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="reset()">Reset</el-button>
+       <!--      <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="onSubmit()">onSubmit</el-button>    -->
            	 </div>
            </div>
       </div>
@@ -43,15 +44,15 @@
 
             <el-table-column label="操作" fixed="right" width="160">
       	      <template slot-scope="scope">
-      	        <el-button size="mini"  type="success"  @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-      	        <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+      	        <el-button size="mini"  type="success"  @click="handEdit(scope.$index, scope.row)">Edit</el-button>
+      	        <el-button size="mini" type="danger" @click="handDel(scope.$index, scope.row)">Delete</el-button>
       	      </template>
       	    </el-table-column>
            </el-table>
            <!--  	描述：分页 -->
             <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
+                    @size-change="handSizeChange"
+                    @current-change="handCurrentChange"
                     :current-page="pageNum"
                     :page-sizes="[10, 20, 50, 100]"
                     :page-size="pageSize"
@@ -64,20 +65,74 @@
       <div>
         	<!--	add 对话框 -->
           <el-dialog title="新增用户信息" :visible.sync="addVisible" width="65%">
-      		  <el-form ref="tempData" :rules="rules" :model="tempForm" label-position="left" label-width="100px" style="width: 420px; margin-left:30px;">
-      		    <el-form-item label="用户名" prop="projectName">
-      		      <el-input v-model="tempForm.projectName" placeholder="用户名"/>
-      		    </el-form-item>
-      		    <el-form-item label="昵称" prop="projectManager">
-      		      <el-input v-model="tempForm.projectManager" placeholder="昵称"/>
-      		    </el-form-item>
-      		    <el-form-item label="外文名" prop="projectMember">
-      		      <el-input v-model="tempForm.projectMember" placeholder="外文名"/>
-      		    </el-form-item>
+      		  <el-form ref="addRef" :model="addForm" :rules="addRules" :label-position="right" label-width="100px" style="width: 85%; margin-left:30px;">
+                     <el-row>
+                         <el-col :span="12">
+                                <el-form-item label="用户名" prop="userName">
+                                  <el-input v-model="addForm.userName" placeholder="用户名"/>
+                                </el-form-item>
+                         </el-col>
+                         <el-col :span="12">
+                                <el-form-item label="昵称" prop="nickname">
+                                  <el-input v-model="addForm.nickname" placeholder="昵称"/>
+                                </el-form-item>
+                         </el-col>
+                     </el-row>
+                     <el-row>
+                         <el-col :span="12">
+                              <el-form-item label="外文名" prop="userForeignName">
+                                <el-input v-model="addForm.userForeignName" placeholder="外文名"/>
+                              </el-form-item>
+                         </el-col>
+                         <el-col :span="12">
+                              <el-form-item label="性别" prop="sex">
+                                <el-radio-group v-model="addForm.sex">
+                                  <el-radio label="女"></el-radio>
+                                  <el-radio label="男"></el-radio>
+                                </el-radio-group>
+                              </el-form-item>
+                         </el-col>
+                     </el-row>
+                     <el-row>
+                         <el-col :span="12">
+                              <el-form-item label="出生日期" prop="birthday">
+                                    <el-date-picker type="date" placeholder="出生日期" v-model="addForm.birthday" style="width: 100%;"></el-date-picker>
+                              </el-form-item>
+                         </el-col>
+                         <el-col :span="12">
+                              <el-form-item label="手机号" prop="phoneNo">
+                                <el-input v-model="addForm.phoneNo" placeholder="手机号"/>
+                              </el-form-item>
+                         </el-col>
+                     </el-row>
+                     <el-row>
+                         <el-col :span="12">
+                              <el-form-item label="电子邮箱" prop="email">
+                                <el-input v-model="addForm.email" placeholder="电子邮箱"/>
+                              </el-form-item>
+                         </el-col>
+                         <el-col :span="12">
+                              <el-form-item label="地址" prop="address">
+                                <el-input v-model="addForm.address" placeholder="地址"/>
+                              </el-form-item>
+                         </el-col>
+                     </el-row>
+                     <el-row>
+                         <el-col :span="12">
+                              <el-form-item label="用户状态" prop="userStatus">
+                                  <el-switch v-model="addForm.userStatus" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+                              </el-form-item>
+                         </el-col>
+                         <el-col :span="12">
+                              <el-form-item label="备注" prop="remark">
+                                <el-input v-model="addForm.remark" placeholder="备注"/>
+                              </el-form-item>
+                         </el-col>
+                     </el-row>
       		  </el-form>
       		  <div slot="footer" class="dialog-footer">
       		    <el-button @click="addVisible = false">取 消</el-button>
-      		    <el-button type="primary" @click="createData()">确 定</el-button>
+      		    <el-button type="primary" @click="handAdd()">确 定</el-button>
       		  </div>
           </el-dialog>
       </div>
@@ -99,10 +154,7 @@ export default {
       param:{
         userName:'',
         nickname:'',
-        email:'hello@163.com.cn'
-      },
-      tempForm: {
-         name: ''
+        email:''
       },
       userInfo: {
         userName: "",
@@ -111,8 +163,24 @@ export default {
       tableData1: Array(15).fill(item),
       tableData:[],
       addVisible:false,
-      rules: {},
-      // 列表数据默认为空
+      addRules: {},
+      addForm: {
+        userName: '',
+        nickname: '',
+        userForeignName: '',
+        sex: '',
+        birthday: '',
+        phoneNo: '',
+        email: '',
+        address: '',
+        userStatus: '',
+        remark: ''
+      },
+      sex:[
+          {label :'女',value:'F'},
+          {label :'男',value:'M'}
+      ],
+      userStatus:true,
       pageNum:1, //初始页
       pageSize:10, //每页的数据
       total:0
@@ -122,75 +190,46 @@ export default {
         this.init()
   },
   methods: {
-          // 初始页pageNum、初始每页数据数pageSize和数据data
-          handleSizeChange: function (size) {
-                  this.pageSize = size;
-                  console.log(this.pageSize)  //每页下拉显示数据
-                  this.init();
-          },
-          handleCurrentChange: function(pageNum){
-                  this.pageNum = pageNum;
-                  console.log(this.pageNum)  //点击第几页
-                  this.init();
-          },
-          handleUserList() {
-              this.$http.get('http://localhost:8000/userList').then(res => {  //这是从本地请求的数据接口，
-                  this.userList = res.body
-              })
-          },
-          //初始化&查询
-          init(){
-              var that  = this;
-              let userInfoEntity ={
-                userName:this.param.userName,
-                nickname:this.param.nickname,
-                email:this.param.email,
-                pageNum:this.pageNum,
-                pageSize:this.pageSize
-              }
-             var url = "/api/web/userInfo/queryUserInfoPage";
-             console.log("url>>>>>",url);
-             this.$axios.post(url, userInfoEntity).then(response => {
-                     console.log(response.data.list.total)
-                     this.tableData = response.data.list;
-                     this.total = response.data.total
-             }).catch(error => {
-                 console.log(error)
-             })
-          },
-          //初始化2
-          init2(){
-          //debugger;
-              var that  = this;
-              let userInfoEntity ={
-                userName:this.param.userName,
-                nickname:this.param.nickname,
-                email:this.param.email,
-                pageNum:this.pageNum,
-                pageSize:this.pageSize
-              }
-             var url = "/web/userInfo/getUserInfo";
-             console.log("url>>>>>",url);
-             this.$axios.get('/web/userInfo/getUserInfo', {
-                      // get传递的query参数（传递的参数应与后台人员协商，本次模拟不做限制，不做判断）
-                      params: {
-                        userName: '嬴政'
-                      }
-                    }).then((response) => {
-                      // then 指成功之后的回调 (注意：使用箭头函数，可以不考虑this指向)
-                      console.log(response);
-                      console.log(response.data);
-                      this.resData = response.data;
-                    }).catch((error) => {
-                      // catch 指请求出错的处理
-                      console.log(error);
-             })
-          },
-
+      // 初始页pageNum、初始每页数据数pageSize和数据data
+      handSizeChange: function (size) {
+          this.pageSize = size;
+          console.log(this.pageSize)  //每页下拉显示数据
+          this.init();
+      },
+      handCurrentChange: function(pageNum){
+          this.pageNum = pageNum;
+          console.log(this.pageNum)  //点击第几页
+          this.init();
+      },
+      handUserList() {
+          this.$http.get('http://localhost:8000/userList').then(res => {  //这是从本地请求的数据接口，
+              this.userList = res.body
+          })
+      },
+      //初始化&查询
+      init(){
+          var that  = this;
+          let userInfoEntity ={
+            userName:this.param.userName,
+            nickname:this.param.nickname,
+            email:this.param.email,
+            pageNum:this.pageNum,
+            pageSize:this.pageSize
+          }
+          var url = "/api/web/userInfo/queryUserInfoPage";
+          console.log("url>>>>>",url);
+          this.$axios.post(url, userInfoEntity).then(response => {
+             console.log(response.data.list.total)
+             this.tableData = response.data.list;
+             this.total = response.data.total
+          }).catch(error => {
+             console.log(error)
+          })
+      },
       onSubmit(){
           var that  = this;
           var names ='mars';
-         // names= that.form.name;
+          //names= that.form.name;
           that.$axios.get('http://localhost:8000/web/userInfo/getUserInfo/ji',{headers: { 'Content-Type':'application/json;charset=UTF-8'}} ).then(function (response) {
                if(response.data=='M'){
                     that.$message({
@@ -208,14 +247,38 @@ export default {
               that.$message.error('请求失败！');
           });
       },
-      handSea(){
-          var that  = this;
+      handQue(){
+          var _this = this;
           this.init();
-          //this.init2();
       },
-      //新增
+      //重置
+      reset(){
+         var _this = this;
+         this.param.userName='';
+         this.param.nickname='';
+         this.param.email='';
+      },
+      //新增TO
       handAddTo(){
         this.addVisible=true;
+      },
+      //新增
+      handAdd(){
+          var that  = this;
+          let userInfoEntity ={
+            userName:this.addForm.userName,
+            nickname:this.addForm.nickname,
+            email:this.addForm.email
+          }
+          var url = "/api/web/userInfo/insertUserInfo";
+          console.log("url>>>>>",url);
+          this.$axios.post(url, userInfoEntity).then(response => {
+             console.log(response.data.list.total)
+             this.tableData = response.data.list;
+             this.total = response.data.total
+          }).catch(error => {
+             console.log(error)
+          })
       },
       //导入
       uploadExcel(){
