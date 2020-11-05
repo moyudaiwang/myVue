@@ -44,8 +44,8 @@
 
             <el-table-column label="操作" fixed="right" width="160">
       	      <template slot-scope="scope">
-      	        <el-button size="mini"  type="success"  @click="handEdit(scope.$index, scope.row)">Edit</el-button>
-      	        <el-button size="mini" type="danger" @click="handDel(scope.$index, scope.row)">Delete</el-button>
+      	        <el-button size="mini"  type="success"  @click="handUpdTo(scope.row)">Edit</el-button>
+      	        <el-button size="mini" type="danger" @click="handDel(scope.row)">Delete</el-button>
       	      </template>
       	    </el-table-column>
            </el-table>
@@ -87,8 +87,8 @@
                          <el-col :span="12">
                               <el-form-item label="性别" prop="sex">
                                 <el-radio-group v-model="addForm.sex">
-                                  <el-radio label="女"></el-radio>
-                                  <el-radio label="男"></el-radio>
+                                  <el-radio label="F">女</el-radio>
+                                  <el-radio label="M">男</el-radio>
                                 </el-radio-group>
                               </el-form-item>
                          </el-col>
@@ -96,7 +96,7 @@
                      <el-row>
                          <el-col :span="12">
                               <el-form-item label="出生日期" prop="birthday">
-                                    <el-date-picker type="date" placeholder="出生日期" v-model="addForm.birthday" style="width: 100%;"></el-date-picker>
+                                    <el-date-picker type="date" placeholder="出生日期" v-model="addForm.birthday" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                               </el-form-item>
                          </el-col>
                          <el-col :span="12">
@@ -120,7 +120,9 @@
                      <el-row>
                          <el-col :span="12">
                               <el-form-item label="用户状态" prop="userStatus">
-                                  <el-switch v-model="addForm.userStatus" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+                                  <el-select v-model="addForm.userStatus" placeholder="用户状态">
+                                      <el-option v-for="item in userStatusOptions":key="item.value" :label="item.label" :value="item.value"></el-option>
+                                  </el-select>
                               </el-form-item>
                          </el-col>
                          <el-col :span="12">
@@ -136,7 +138,82 @@
       		  </div>
           </el-dialog>
       </div>
-
+      <div>
+        	<!--	upd 对话框 -->
+          <el-dialog title="修改用户信息" :visible.sync="updVisible" width="65%">
+      		  <el-form ref="updRef" :model="updForm" :rules="updRules" :label-position="right" label-width="100px" style="width: 85%; margin-left:30px;">
+                     <el-row>
+                         <el-col :span="12">
+                                <el-form-item label="用户名" prop="userName">
+                                  <el-input v-model="updForm.userName" placeholder="用户名"/>
+                                </el-form-item>
+                         </el-col>
+                         <el-col :span="12">
+                                <el-form-item label="昵称" prop="nickname">
+                                  <el-input v-model="updForm.nickname" placeholder="昵称"/>
+                                </el-form-item>
+                         </el-col>
+                     </el-row>
+                     <el-row>
+                         <el-col :span="12">
+                              <el-form-item label="外文名" prop="userForeignName">
+                                <el-input v-model="updForm.userForeignName" placeholder="外文名"/>
+                              </el-form-item>
+                         </el-col>
+                         <el-col :span="12">
+                              <el-form-item label="性别" prop="sex">
+                                <el-radio-group v-model="updForm.sex">
+                                  <el-radio label="F">女</el-radio>
+                                  <el-radio label="M">男</el-radio>
+                                </el-radio-group>
+                              </el-form-item>
+                         </el-col>
+                     </el-row>
+                     <el-row>
+                         <el-col :span="12">
+                              <el-form-item label="出生日期" prop="birthday">
+                                    <el-date-picker type="date" placeholder="出生日期" v-model="updForm.birthday" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
+                              </el-form-item>
+                         </el-col>
+                         <el-col :span="12">
+                              <el-form-item label="手机号" prop="phoneNo">
+                                <el-input v-model="updForm.phoneNo" placeholder="手机号"/>
+                              </el-form-item>
+                         </el-col>
+                     </el-row>
+                     <el-row>
+                         <el-col :span="12">
+                              <el-form-item label="电子邮箱" prop="email">
+                                <el-input v-model="updForm.email" placeholder="电子邮箱"/>
+                              </el-form-item>
+                         </el-col>
+                         <el-col :span="12">
+                              <el-form-item label="地址" prop="address">
+                                <el-input v-model="updForm.address" placeholder="地址"/>
+                              </el-form-item>
+                         </el-col>
+                     </el-row>
+                     <el-row>
+                         <el-col :span="12">
+                              <el-form-item label="用户状态" prop="userStatus">
+                                  <el-select v-model="updForm.userStatus" placeholder="用户状态">
+                                      <el-option v-for="item in userStatusOptions":key="item.value" :label="item.label" :value="item.value"></el-option>
+                                  </el-select>
+                              </el-form-item>
+                         </el-col>
+                         <el-col :span="12">
+                              <el-form-item label="备注" prop="remark">
+                                <el-input v-model="updForm.remark" placeholder="备注"/>
+                              </el-form-item>
+                         </el-col>
+                     </el-row>
+      		  </el-form>
+      		  <div slot="footer" class="dialog-footer">
+      		    <el-button @click="updVisible = false">取 消</el-button>
+      		    <el-button type="primary" @click="handUpd()">确 定</el-button>
+      		  </div>
+          </el-dialog>
+      </div>
 
   </div>
 </template>
@@ -176,9 +253,24 @@ export default {
         userStatus: '',
         remark: ''
       },
-      sex:[
-          {label :'女',value:'F'},
-          {label :'男',value:'M'}
+      updVisible:false,
+      updRules: {},
+      updForm: {
+        userName: '',
+        nickname: '',
+        userForeignName: '',
+        sex: '',
+        birthday: '',
+        phoneNo: '',
+        email: '',
+        updress: '',
+        userStatus: '',
+        remark: ''
+      },
+      userStatusOptions: [
+         {label: '正常', value: 'Y'},
+         {label: '暂停', value: 'Z'},
+         {label: '注销', value: 'N'}
       ],
       userStatus:true,
       pageNum:1, //初始页
@@ -265,17 +357,58 @@ export default {
       //新增
       handAdd(){
           var that  = this;
-          let userInfoEntity ={
-            userName:this.addForm.userName,
-            nickname:this.addForm.nickname,
-            email:this.addForm.email
-          }
+          let userInfoEntity =this.addForm;
           var url = "/api/web/userInfo/insertUserInfo";
-          console.log("url>>>>>",url);
-          this.$axios.post(url, userInfoEntity).then(response => {
-             console.log(response.data.list.total)
-             this.tableData = response.data.list;
-             this.total = response.data.total
+          this.$axios.post(url, userInfoEntity).then(res => {
+             if(res.data.code=='200'){
+                this.addVisible=false;
+                this.$message({message: res.data.message,type: 'success',center: true,duration:2000});
+             }else {
+                 this.addVisible=false;
+                 this.$message({message: res.data.message,type: 'error',center: true,duration:2000});
+             }
+          }).catch(error => {
+             console.log(error)
+          })
+      },
+      //修改TO
+      handUpdTo(row){
+        this.updForm = row;
+        this.updVisible=true;
+      },
+      //修改
+      handUpd(){
+          var that  = this;
+          let userInfoEntity =this.updForm;
+          var url = "/api/web/userInfo/updateUserInfo";
+          this.$axios.post(url, userInfoEntity).then(res => {
+             if(res.data.code=='200'){
+                this.updVisible=false;
+                this.$message({message: res.data.message,type: 'success',center: true,duration:2000});
+             }else {
+                 this.updVisible=false;
+                 this.$message({message: res.data.message,type: 'error',center: true,duration:2000});
+             }
+          }).catch(error => {
+             console.log(error)
+          })
+      },
+      //删除
+      handDel(row){
+          var that  = this;
+          let userInfoEntity =row;
+          console.log(userInfoEntity)
+          var url = "/api/web/userInfo/deleteUserInfo";
+          this.$axios.post(url, userInfoEntity).then(res => {
+             if(res.data.code=='200'){
+                this.param = '';
+                this.init();
+                this.$message({message: res.data.message,type: 'success',center: true,duration:2000});
+             }else {
+                 this.param = '';
+                 this.init();
+                 this.$message({message: res.data.message,type: 'error',center: true,duration:2000});
+             }
           }).catch(error => {
              console.log(error)
           })
