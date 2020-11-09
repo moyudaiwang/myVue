@@ -3,12 +3,14 @@ import Router from 'vue-router'
 import VueRouter from "vue-router"
 Vue.use(VueRouter)
 import BookMain  from '@/components/views/book/bookMain'
+import BookFlowMain  from '@/components/views/book/bookFlowMain'
 import ChartMain from '@/components/views/chart/chartMain'
 import LifeMain  from '@/components/views/life/lifeMain'
-import RoleMain  from '@/components/views/role/roleMain'
+import RoleMain  from '@/components/views/auth/roleMain'
 import UserMain  from '@/components/views/user/userMain'
 import SettingMain  from '@/components/views/setting/settingMain'
 import TimeLineMain  from '@/components/views/setting/timeLineMain'
+import ContactMain  from '@/components/views/setting/contactMain'
 import Login from '@/components/views/login'
 import Index from '@/components/views/Index'
 import NotFound from '@/components/views/404'
@@ -38,7 +40,7 @@ const routes = [
                         component:UserMain,
                     },
                     {
-                        path: '/role/roleMain',
+                        path: '/auth/roleMain',
                         name: 'RoleMain',
                         component:RoleMain,
                     },
@@ -46,6 +48,11 @@ const routes = [
                         path: '/book/bookMain',
                         name: 'BookMain',
                         component:BookMain,
+                    },
+                    {
+                        path: '/book/bookFlowMain',
+                        name: 'BookFlowMain',
+                        component:BookFlowMain,
                     },
                     {
                         path: '/chart/chartMain',
@@ -66,6 +73,11 @@ const routes = [
                         path: '/setting/timeLineMain',
                         name: 'TimeLineMain',
                         component:TimeLineMain,
+                    },
+                    {
+                        path: '/setting/contactMain',
+                        name: 'ContactMain',
+                        component:ContactMain,
                     },
                     {
                         path:'/*', // 注意，这里不是嵌套路由了，这是为了设置404页面，一定要放在最后面，这样当服务器找不到页面的时候就会全部跳转到404

@@ -14,27 +14,25 @@
                        <span slot="title">用户管理</span>
                      </template>
                        <el-menu-item index="/user/userMain" @click="goTo('/user/userMain')">用户列表</el-menu-item>
-                       <el-menu-item index="1-2">选项2</el-menu-item>
-                       <el-submenu index="1-4">
-                         <span slot="title">选项4</span>
-                         <el-menu-item index="1-4-1">选项1</el-menu-item>
-                       </el-submenu>
                    </el-submenu>
-                   <el-menu-item index="/role/roleMain" @click="goTo('/role/roleMain')">
-                     <i class="el-icon-bank-card"></i>
-                     <span slot="title">角色管理</span>
-                   </el-menu-item>
+                    <el-submenu index="5">
+                        <template slot="title">
+                             <i class="el-icon-setting"></i>
+                             <span slot="title">权限管理</span>
+                        </template>
+                        <el-menu-item index="/auth/roleMain" @click="goTo('/auth/roleMain')">
+                             <i class="el-icon-bank-card"></i>
+                             <span slot="title">角色列表</span>
+                        </el-menu-item>
+                         <el-menu-item index="1-2">用户授权</el-menu-item>
+                    </el-submenu>
                     <el-submenu index="2">
                       <template slot="title">
                         <i class="el-icon-s-custom"></i>
                         <span slot="title">图书管理</span>
                       </template>
-                        <el-menu-item index="/book/bookMain" @click="goTo('/book/bookMain')">图书新增</el-menu-item>
-                        <el-menu-item index="2-2">选项2</el-menu-item>
-                        <el-submenu index="2-4">
-                          <span slot="title">选项4</span>
-                          <el-menu-item index="2-4-1">选项1</el-menu-item>
-                        </el-submenu>
+                        <el-menu-item index="/book/bookMain" @click="goTo('/book/bookMain')">基本信息</el-menu-item>
+                        <el-menu-item index="/book/bookFlowMain" @click="goTo('/book/bookFlowMain')">动态管理</el-menu-item>
                     </el-submenu>
                    <el-menu-item index="/chart/chartMain" @click="goTo('/chart/chartMain')">
                      <i class="el-icon-s-data"></i>
@@ -57,7 +55,10 @@
                             <i class="el-icon-date"></i>
                            <span slot="title">时间线</span>
                         </el-menu-item>
-                        <el-menu-item index="1-2">选项5-2</el-menu-item>
+                        <el-menu-item index="/setting/contactMain" @click="goTo('/setting/contactMain')">
+                            <i class="el-icon-date"></i>
+                           <span slot="title">联系我们</span>
+                        </el-menu-item>
                     </el-submenu>
 
                  </el-menu>

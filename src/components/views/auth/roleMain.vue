@@ -9,7 +9,7 @@ export default {
   name: 'role',
   data(){
     return{
-      msg:"hello,ROLE"
+      msg:"hello,AUTH-------角色管理"
     };
   }
 }
