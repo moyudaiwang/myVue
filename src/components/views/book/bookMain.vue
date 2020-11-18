@@ -30,48 +30,48 @@
             <el-table-column prop="isbnSid" label="ISBN_SID" min-width="150px"></el-table-column>
             <el-table-column prop="bookName" label="中文书名" min-width="150px"></el-table-column>
             <el-table-column prop="bookForeignName" label="外文书名" min-width="150px"></el-table-column>
-            <el-table-column prop="author " label="作者" min-width="150px"></el-table-column>
-            <el-table-column prop="authorForeignName " label="作者外文名" min-width="150px"></el-table-column>
+            <el-table-column prop="author" label="作者" min-width="150px"></el-table-column>
+            <el-table-column prop="authorForeignName" label="作者外文名" min-width="150px"></el-table-column>
             <el-table-column prop="authorCountry" label="作者国籍" min-width="150px"></el-table-column>
-            <el-table-column prop="translator " label="译者" min-width="150px"></el-table-column>
+            <el-table-column prop="translator" label="译者" min-width="150px"></el-table-column>
             <el-table-column prop="translatorForeignName" label="译者外文名" min-width="150px"></el-table-column>
-            <el-table-column prop="editorCharge " label="责任编辑" min-width="150px"></el-table-column>
+            <el-table-column prop="editorCharge" label="责任编辑" min-width="150px"></el-table-column>
             <el-table-column prop="coverDesign" label="封面设计" min-width="150px"></el-table-column>
-            <el-table-column prop="collection " label="丛书系列" min-width="150px"></el-table-column>
+            <el-table-column prop="collection" label="丛书系列" min-width="150px"></el-table-column>
             <el-table-column prop="press" label="出版社" min-width="150px"></el-table-column>
             <el-table-column prop="issue" label="发行单位" min-width="150px"></el-table-column>
             <el-table-column prop="printHouse" label="印装厂" min-width="150px"></el-table-column>
             <el-table-column prop="price" label="定价" min-width="150px"></el-table-column>
-            <el-table-column prop="currencyType " label="货币类型" min-width="150px"></el-table-column>
+            <el-table-column prop="currencyType" label="货币类型" min-width="150px"></el-table-column>
             <el-table-column prop="editionFirstDate" label="首版时间" min-width="150px"></el-table-column>
             <el-table-column prop="impressionFirstDate" label="首印时间" min-width="150px"></el-table-column>
             <el-table-column prop="editionDate" label="出版时间" min-width="150px"></el-table-column>
             <el-table-column prop="impressionDate" label="印刷时间" min-width="150px"></el-table-column>
             <el-table-column prop="edition" label="版次" min-width="150px"></el-table-column>
-            <el-table-column prop="impression " label="印次" min-width="150px"></el-table-column>
-            <el-table-column prop="sheetsNum " label="印张" min-width="150px"></el-table-column>
+            <el-table-column prop="impression" label="印次" min-width="150px"></el-table-column>
+            <el-table-column prop="sheetsNum" label="印张" min-width="150px"></el-table-column>
             <el-table-column prop="bookFormat" label="开本" min-width="150px"></el-table-column>
             <el-table-column prop="wordNum" label="字数" min-width="150px"></el-table-column>
             <el-table-column prop="pageNum" label="页数" min-width="150px"></el-table-column>
             <el-table-column prop="printNumStart" label="印量起始" min-width="150px"></el-table-column>
-            <el-table-column prop="printNumEnd " label="印量终止" min-width="150px"></el-table-column>
+            <el-table-column prop="printNumEnd" label="印量终止" min-width="150px"></el-table-column>
             <el-table-column prop="printNum" label="印量" min-width="150px"></el-table-column>
             <el-table-column prop="language" label="语言" min-width="150px"></el-table-column>
-            <el-table-column prop="clc " label="中图法分类" min-width="150px"></el-table-column>
-            <el-table-column prop="flc " label="四库分类" min-width="150px"></el-table-column>
+            <el-table-column prop="clc" label="中图法分类" min-width="150px"></el-table-column>
+            <el-table-column prop="flc" label="四库分类" min-width="150px"></el-table-column>
             <el-table-column prop="bindType" label="装帧类型" min-width="150px"></el-table-column>
-            <el-table-column prop="lwh " label="长宽高" min-width="150px"></el-table-column>
-            <el-table-column prop="volume " label="体积(cm^3)" min-width="150px"></el-table-column>
-            <el-table-column prop="weight " label="重量(kg)" min-width="150px"></el-table-column>
+            <el-table-column prop="lwh" label="长宽高" min-width="150px"></el-table-column>
+            <el-table-column prop="volume" label="体积(cm^3)" min-width="150px"></el-table-column>
+            <el-table-column prop="weight" label="重量(kg)" min-width="150px"></el-table-column>
             <el-table-column prop="signFlag" label="签名本" min-width="150px"></el-table-column>
             <el-table-column prop="signetFlag" label="铃印本" min-width="150px"></el-table-column>
             <el-table-column prop="bookAvatar" label="书像" min-width="150px"></el-table-column>
-            <el-table-column prop="remark " label="备注" min-width="150px"></el-table-column>
+            <el-table-column prop="remark" label="备注" min-width="150px"></el-table-column>
             <el-table-column prop="createBy" label="创建人" min-width="150px"></el-table-column>
             <el-table-column prop="createDate" label="创建时间" min-width="150px"></el-table-column>
             <el-table-column prop="updateBy" label="修改人" min-width="150px"></el-table-column>
             <el-table-column prop="updateDate" label="修改时间" min-width="150px"></el-table-column>
-            <el-table-column prop="donBookInfoId " label="主键ID" min-width="150px"></el-table-column>
+            <el-table-column prop="donBookInfoId" label="主键ID" min-width="150px"></el-table-column>
 
             <el-table-column label="操作" fixed="right" width="160">
       	      <template slot-scope="scope">
@@ -717,19 +717,19 @@ export default {
           isbnSid : '',
           bookName : '',
           bookForeignName : '',
-          author  : '',
+          author : '',
           authorForeignName  : '',
           authorCountry : '',
-          translator  : '',
+          translator : '',
           translatorForeignName : '',
-          editorCharge  : '',
+          editorCharge : '',
           coverDesign : '',
-          collection  : '',
+          collection : '',
           press : '',
           issue : '',
           printHouse : '',
           price : '',
-          currencyType  : '',
+          currencyType : '',
           editionFirstDate : '',
           impressionFirstDate : '',
           editionDate : '',
