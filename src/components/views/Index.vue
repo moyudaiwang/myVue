@@ -1,7 +1,7 @@
 <template>
-<el-container style="height: 700px; border: 1px">
+<el-container style="height: 100%; border: 1px">
 
-   <el-container style="height: 650px; border: 1px">
+   <el-container style="height: 100%; border: 1px">
            <el-aside width="auto">
                  <el-menu default-active="1-4-1" class="el-menu-vertical-demo"   :unique-opened="true"router background-color="#545c64" text-color="#fff" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
                   <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;" >
@@ -78,8 +78,6 @@
                 </el-col>
                 <el-col :span="21"><div class="grid-content bg-purple-light">
                        <el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-                          <el-menu-item index="4" @click="gotolink">日常</el-menu-item>
-                          <el-menu-item index="1">首页</el-menu-item>
                             <el-submenu index="2">
                                <template slot="title">图书查阅</template>
                                <el-menu-item index="2-1">新增图书</el-menu-item>
@@ -87,10 +85,7 @@
                                <el-menu-item index="2-3">删除图书</el-menu-item>
                             </el-submenu>
                           <el-menu-item index="3"><a href="https://element.eleme.cn/#/zh-CN/component/layout" target="_blank">数据分析</a></el-menu-item>
-                          <el-menu-item index="4" @click="gotolink">日常生活</el-menu-item>
-                          <el-menu-item index="4" @click="gotolink" >日常生活</el-menu-item>
                        </el-menu>
-
                 </div></el-col>
 
                 <el-col :span="2">
@@ -116,7 +111,7 @@
      </el-container>
     </el-container>
 
-  <el-footer  style=" height: 60px;padding-left: 0px;padding-right: 0px;">唐吉诃德    |    @版权所有</el-footer>
+  <el-footer  style=" height: 100%;padding-left: 0px;padding-right: 0px;">唐吉诃德    |    @版权所有</el-footer>
 </el-container>
 
 </template>
@@ -189,51 +184,54 @@
   .el-container:nth-child(7) {
     line-height: 320px;
   }
-
   .el-menu-vertical-demo:not(.el-menu--collapse) {
       width: 200px;
-      min-height: 400px;
+      min-height: 100%;
+  }
+  .el-menu--collapse {
+    width: 64px;
+    min-height: 100%;
+  }
+
+  .el-row {
+    margin-bottom: 2px;
+    &:last-child {
+      margin-bottom: 0;
     }
+  }
+  .el-col {
+    border-radius: 4px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .bg-purple {
+    background: #d3dce6;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
 
-      .el-row {
-        margin-bottom: 2px;
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
-      .el-col {
-        border-radius: 4px;
-      }
-      .bg-purple-dark {
-        background: #99a9bf;
-      }
-      .bg-purple {
-        background: #d3dce6;
-      }
-      .bg-purple-light {
-        background: #e5e9f2;
-      }
-      .grid-content {
-        border-radius: 4px;
-        min-height: 36px;
-      }
-      .row-bg {
-        padding: 10px 0;
-        background-color: #f9fafc;
-      }
-
-      .el-radio-group {
-        font-size: 20px;
-        line-height: 20px;
-        margin-top: 20px;
-        margin-left: 20px;
-        .shrinkBtn {
-          position: fixed;
-          left: -18px;
-          top: 38px;
-          color: #151d41;
-          margin-left: 10px;
-          transform: rotate(180deg);
-        }
-      }
+  .el-radio-group {
+    font-size: 20px;
+    line-height: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+    .shrinkBtn {
+      position: fixed;
+      left: -18px;
+      top: 38px;
+      color: #151d41;
+      margin-left: 10px;
+      transform: rotate(180deg);
+    }
+  }
 </style>
