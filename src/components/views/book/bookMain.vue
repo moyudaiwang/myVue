@@ -5,7 +5,7 @@
            <div class="filter-container">
            	 <div class="letf-items" style="float: left;" size="medium" >
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handAddTo()">新  增</el-button>
-                 <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-delete" >删  除</el-button>
+                 <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-delete" @click="delBatch(sel)">删  除</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="uploadExcel()">导  入</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-download" @click="downloadExcel()">导  出</el-button>
            	 </div>
@@ -22,7 +22,7 @@
 
       <div>
           <!--	描述：项目列表展示-->
-           <el-table  :data="tableData" border fit height="470px"style="width: 100%" :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}" header-align="center">
+           <el-table  :data="tableData" border fit height="470px"style="width: 100%" @selection-change="selChange" :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}" header-align="center">
             <el-table-column type="selection" fixed width="55"></el-table-column>
             <el-table-column prop="bookId" label="图书ID" min-width="150px"></el-table-column>
             <el-table-column prop="isbn" label="ISBN" min-width="150px"></el-table-column>
@@ -820,7 +820,8 @@ export default {
       bookStatus:true,
       pageNum:1, //初始页
       pageSize:10, //每页的数据
-      total:0
+      total:0,
+      sel:[]
     };
   },
   mounted () {
@@ -842,6 +843,9 @@ export default {
           this.$http.get('http://localhost:8000/bookList').then(res => {  //这是从本地请求的数据接口，
               this.bookList = res.body
           })
+      },
+      selChange(sel) {
+          this.sel = sel
       },
       //初始化&查询
       init(){
@@ -957,6 +961,32 @@ export default {
           }).catch(error => {
              console.log(error)
           })
+      },
+      //批量删除
+      delBatch() {
+        var donBookInfoIds = this.sel.map(item => item.donBookInfoId).join();//获取所有选中行的id组成的字符串，以逗号分隔
+        var params = new URLSearchParams();
+        params.append('donBookInfoIds', donBookInfoIds);
+        this.$confirm('此操作将永久删除该文件及其子文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+           var url = "/api/web/bookInfo/deleteBatchBookInfo";
+           this.$axios.post(url,params).then(res => {
+              if(res.data.code=='200'){
+                 this.init();
+                 this.$message({message: res.data.message,type: 'success',center: true,duration:2000});
+              }else {
+                  this.init();
+                  this.$message({message: res.data.message,type: 'error',center: true,duration:2000});
+              }
+           }).catch(error => {
+              console.log(error)
+           })
+        }).catch(error => {
+           console.log(error)
+        })
       },
       //导入
       uploadExcel(){
