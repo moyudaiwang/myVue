@@ -13,11 +13,11 @@
                        <i class="el-icon-s-custom"></i>
                        <span slot="title">用户管理</span>
                      </template>
-                       <el-menu-item index="/user/userMain" @click="goTo('/user/userMain')">用户列表</el-menu-item>
+                       <el-menu-item index="/user/userMain" @click="goTo('/user/userMain')"><i class="el-icon-user-solid"></i>用户列表</el-menu-item>
                    </el-submenu>
                     <el-submenu index="5">
                         <template slot="title">
-                             <i class="el-icon-setting"></i>
+                             <i class="el-icon-lock"></i>
                              <span slot="title">权限管理</span>
                         </template>
                         <el-menu-item index="/auth/roleMain" @click="goTo('/auth/roleMain')">
@@ -28,10 +28,10 @@
                     </el-submenu>
                     <el-submenu index="2">
                       <template slot="title">
-                        <i class="el-icon-s-custom"></i>
+                        <i class="el-icon-reading"></i>
                         <span slot="title">图书管理</span>
                       </template>
-                        <el-menu-item index="/book/bookMain" @click="goTo('/book/bookMain')">基本信息</el-menu-item>
+                        <el-menu-item index="/book/bookMain" @click="goTo('/book/bookMain')"><i class="el-icon-notebook-2"></i>基本信息</el-menu-item>
                         <el-menu-item index="/book/bookFlowMain" @click="goTo('/book/bookFlowMain')">动态管理</el-menu-item>
                     </el-submenu>
                    <el-menu-item index="/chart/chartMain" @click="goTo('/chart/chartMain')">
@@ -76,7 +76,7 @@
                      </el-radio-group>
                   </div>
                 </el-col>
-                <el-col :span="21"><div class="grid-content bg-purple-light">
+                <el-col :span="20"><div class="grid-content bg-purple-light">
                        <el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
                             <el-submenu index="2">
                                <template slot="title">图书查阅</template>
@@ -88,8 +88,11 @@
                        </el-menu>
                 </div></el-col>
 
-                <el-col :span="2">
+                <el-col :span="3">
                   <div style="background:#545c64; color:#FFF;height: 60px">
+                      <el-badge is-dot class="item" style="padding-top:0px">
+                        <el-button class="share-button" icon="el-icon-message-solid" type="primary"></el-button>
+                      </el-badge>
                       <el-dropdown>
                         <div style="padding-top:10px;color:#FFF" >
                           <el-avatar  src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
@@ -233,5 +236,10 @@
       margin-left: 10px;
       transform: rotate(180deg);
     }
+  }
+
+  .item {
+    margin-top: -30px;
+    margin-right: 10px;
   }
 </style>

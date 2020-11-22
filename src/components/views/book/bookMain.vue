@@ -73,10 +73,10 @@
             <el-table-column prop="updateDate" label="修改时间" min-width="150px"></el-table-column>
             <el-table-column prop="donBookInfoId" label="主键ID" min-width="150px"></el-table-column>
 
-            <el-table-column label="操作" fixed="right" width="160">
+            <el-table-column label="操作" fixed="right" width="80">
       	      <template slot-scope="scope">
       	        <el-button size="mini"  type="success"  @click="handUpdTo(scope.row)">Edit</el-button>
-      	        <el-button size="mini" type="danger" @click="handDel(scope.row)">Delete</el-button>
+      	       <!-- <el-button size="mini" type="danger" @click="handDel(scope.row)">Delete</el-button>   -->
       	      </template>
       	    </el-table-column>
            </el-table>
@@ -213,26 +213,26 @@
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="首版时间" prop="editionFirstDate">
-                            <el-input v-model="addForm.editionFirstDate" placeholder="首版时间"/>
+                            <el-date-picker v-model="addForm.editionFirstDate" type="date" placeholder="首版时间" value-format="yyyy-MM-dd"></el-date-picker>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
                         <el-form-item label="首印时间" prop="impressionFirstDate">
-                            <el-input v-model="addForm.impressionFirstDate" placeholder="首印时间"/>
+                            <el-date-picker v-model="addForm.impressionFirstDate" type="date" placeholder="首印时间" value-format="yyyy-MM-dd"></el-date-picker>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="出版时间" prop="editionDate">
-                            <el-input v-model="addForm.editionDate" placeholder="出版时间"/>
+                            <el-date-picker v-model="addForm.editionDate" type="date" placeholder="出版时间" value-format="yyyy-MM-dd"></el-date-picker>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
                         <el-form-item label="印刷时间" prop="impressionDate">
-                            <el-input v-model="addForm.impressionDate" placeholder="印刷时间"/>
+                            <el-date-picker v-model="addForm.impressionDate" type="date" placeholder="印刷时间" value-format="yyyy-MM-dd"></el-date-picker>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
@@ -512,26 +512,26 @@
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="首版时间" prop="editionFirstDate">
-                            <el-input v-model="updForm.editionFirstDate" placeholder="首版时间"/>
+                            <el-date-picker v-model="updForm.editionFirstDate" type="date" placeholder="首版时间" value-format="yyyy-MM-dd"></el-date-picker>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
                         <el-form-item label="首印时间" prop="impressionFirstDate">
-                            <el-input v-model="updForm.impressionFirstDate" placeholder="首印时间"/>
+                            <el-date-picker v-model="updForm.impressionFirstDate" type="date" placeholder="首印时间" value-format="yyyy-MM-dd"></el-date-picker>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="出版时间" prop="editionDate">
-                            <el-input v-model="updForm.editionDate" placeholder="出版时间"/>
+                            <el-date-picker v-model="updForm.editionDate" type="date" placeholder="出版时间" value-format="yyyy-MM-dd"></el-date-picker>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
                         <el-form-item label="印刷时间" prop="impressionDate">
-                            <el-input v-model="updForm.impressionDate" placeholder="印刷时间"/>
+                            <el-date-picker v-model="updForm.impressionDate" type="date" placeholder="印刷时间" value-format="yyyy-MM-dd"></el-date-picker>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
@@ -701,7 +701,7 @@ export default {
   data(){
     return{
       param:{
-        bookId:'',
+        bookId:'B00000000069',
         isbn:'',
         bookName:''
       },
@@ -851,9 +851,9 @@ export default {
       init(){
           var that  = this;
           let bookInfoEntity ={
+            bookId:this.param.bookId,
+            isbn:this.param.isbn,
             bookName:this.param.bookName,
-            nickname:this.param.nickname,
-            email:this.param.email,
             pageNum:this.pageNum,
             pageSize:this.pageSize
           }
@@ -895,9 +895,10 @@ export default {
       //重置
       reset(){
          var _this = this;
+         this.param.bookId='';
+         this.param.isbn='';
          this.param.bookName='';
-         this.param.nickname='';
-         this.param.email='';
+         this.init();
       },
       //新增TO
       handAddTo(){
