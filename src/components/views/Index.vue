@@ -1,7 +1,7 @@
 <template>
-<el-container style="height: 100%; border: 1px">
+<el-container style="{ height: screenHeight + 'px' }; border: 1px">
 
-   <el-container style="height: 100%; border: 1px">
+   <el-container style="height: 890px; border: 1px">
            <el-aside width="auto">
                  <el-menu default-active="1-4-1" class="el-menu-vertical-demo"   :unique-opened="true"router background-color="#545c64" text-color="#fff" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
                   <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;" >
@@ -81,8 +81,6 @@
                             <el-submenu index="2">
                                <template slot="title">图书查阅</template>
                                <el-menu-item index="2-1">新增图书</el-menu-item>
-                               <el-menu-item index="2-2">修改图书</el-menu-item>
-                               <el-menu-item index="2-3">删除图书</el-menu-item>
                             </el-submenu>
                           <el-menu-item index="3"><a href="https://element.eleme.cn/#/zh-CN/component/layout" target="_blank">数据分析</a></el-menu-item>
                        </el-menu>
@@ -128,6 +126,17 @@
     activeIndex2: '1',
     input: ''
    };
+        screenHeight: document.body.clientHeight
+  },
+  mounted () {
+    const that = this
+    window.onresize = () => {
+      return (() => {
+         window.screenHeight = document.body.clientHeight
+         that.screenHeight = window.screenHeight
+         console.log('that.screenHeightthat.screenHeight---------',that.screenHeight);
+      })()
+    }
   },
   methods: {
    handleSelect(key, keyPath) {
@@ -144,6 +153,22 @@
       this.$router.replace(path);
    }
 
+  },
+  watch: {
+    screenHeight (val) {
+      // 为了避免频繁触发resize函数导致页面卡顿，使用定时器
+      if (!this.timer) {
+        // 一旦监听到的screenWidth值改变，就将其重新赋给data里的screenWidth
+        this.screenHeight = val
+        this.timer = true
+        let that = this
+        setTimeout(function () {
+          // 打印screenWidth变化的值
+          console.log(that.screenHeight)
+          that.timer = false
+        }, 400)
+      }
+    }
   },
   components: {
   }
