@@ -47,10 +47,14 @@
                         <i class="el-icon-setting"></i>
                         <span slot="title">设置</span>
                       </template>
-                         <el-menu-item index="/setting/settingMain" @click="goTo('/setting/settingMain')">
+                        <el-menu-item index="/setting/settingMain" @click="goTo('/setting/settingMain')">
                          <i class="el-icon-setting"></i>
                          <span slot="title">系统设置</span>
-                       </el-menu-item>
+                        </el-menu-item>
+                        <el-menu-item index="/setting/toolMain" @click="goTo('/setting/toolMain')">
+                         <i class="el-icon-setting"></i>
+                         <span slot="title">研发工具</span>
+                        </el-menu-item>
                         <el-menu-item index="/setting/timeLineMain" @click="goTo('/setting/timeLineMain')">
                             <i class="el-icon-date"></i>
                            <span slot="title">时间线</span>

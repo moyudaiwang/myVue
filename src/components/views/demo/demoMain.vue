@@ -362,10 +362,10 @@ export default {
           this.$axios.post(url, userInfoEntity).then(res => {
              if(res.data.code=='200'){
                 this.addVisible=false;
-                this.$message({message: res.data.message,type: 'success',center: true,duration:2000});
+                this.$message({message: res.data.msg,type: 'success',center: true,duration:2000});
              }else {
                  this.addVisible=false;
-                 this.$message({message: res.data.message,type: 'error',center: true,duration:2000});
+                 this.$message({message: res.data.msg,type: 'error',center: true,duration:2000});
              }
           }).catch(error => {
              console.log(error)
@@ -384,10 +384,10 @@ export default {
           this.$axios.post(url, userInfoEntity).then(res => {
              if(res.data.code=='200'){
                 this.updVisible=false;
-                this.$message({message: res.data.message,type: 'success',center: true,duration:2000});
+                this.$message({message: res.data.msg,type: 'success',center: true,duration:2000});
              }else {
                  this.updVisible=false;
-                 this.$message({message: res.data.message,type: 'error',center: true,duration:2000});
+                 this.$message({message: res.data.msg,type: 'error',center: true,duration:2000});
              }
           }).catch(error => {
              console.log(error)
@@ -403,11 +403,11 @@ export default {
              if(res.data.code=='200'){
                 this.param = '';
                 this.init();
-                this.$message({message: res.data.message,type: 'success',center: true,duration:2000});
+                this.$message({message: res.data.msg,type: 'success',center: true,duration:2000});
              }else {
                  this.param = '';
                  this.init();
-                 this.$message({message: res.data.message,type: 'error',center: true,duration:2000});
+                 this.$message({message: res.data.msg,type: 'error',center: true,duration:2000});
              }
           }).catch(error => {
              console.log(error)

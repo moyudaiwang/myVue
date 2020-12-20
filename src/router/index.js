@@ -9,6 +9,7 @@ import LifeMain  from '@/components/views/life/lifeMain'
 import RoleMain  from '@/components/views/auth/roleMain'
 import UserMain  from '@/components/views/user/userMain'
 import SettingMain  from '@/components/views/setting/settingMain'
+import ToolMain  from '@/components/views/setting/toolMain'
 import TimeLineMain  from '@/components/views/setting/timeLineMain'
 import ContactMain  from '@/components/views/setting/contactMain'
 import Login from '@/components/views/login'
@@ -68,6 +69,11 @@ const routes = [
                         path: '/setting/settingMain',
                         name: 'SettingMain',
                         component:SettingMain,
+                    },
+                    {
+                        path: '/setting/toolMain',
+                        name: 'ToolMain',
+                        component:ToolMain,
                     },
                     {
                         path: '/setting/timeLineMain',
