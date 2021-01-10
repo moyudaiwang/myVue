@@ -7,6 +7,7 @@
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handAddTo()">新  增</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-delete" @click="delBatch(sel)">删  除</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="uploadExcel()">导  入</el-button>
+                 <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="createTblIm()">建表导入</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-download" @click="downloadExcel()">导  出</el-button>
            	 </div>
              <div class="right-items" style="float: right">
@@ -118,6 +119,11 @@ export default {
           }).catch(function (error) {
               that.$message.error('请求失败！');
           });
+      },
+      //建表导入
+      createTblIm(){
+          var that  = this;
+           that.$message.info('建表ing！！');
       }
   }
 
