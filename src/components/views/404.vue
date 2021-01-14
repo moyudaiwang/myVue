@@ -4,6 +4,9 @@
     <div class="background">
      <img :src="imgSrc" width="100%" height="100%" alt="" />
     </div>
+       <h1> 404页面</h1>
+       <h1> 404页面</h1>
+       <h1> 404页面</h1>
   </body>
   </div>
 </template>

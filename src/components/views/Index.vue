@@ -95,13 +95,13 @@
                       <el-badge is-dot class="item" style="padding-top:0px">
                         <el-button class="share-button" icon="el-icon-message-solid" type="primary"></el-button>
                       </el-badge>
-                      <el-dropdown>
+                      <el-dropdown @command="handleCommand">
                         <div style="padding-top:10px;color:#FFF" >
                           <el-avatar  src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
                         </div>
                         <el-dropdown-menu slot="dropdown">
-                          <el-dropdown-item>个人中心</el-dropdown-item>
-                          <el-dropdown-item>退出</el-dropdown-item>
+                          <el-dropdown-item command="/setting/settingMain">个人中心</el-dropdown-item>
+                          <el-dropdown-item command="/">退 出</el-dropdown-item>
                         </el-dropdown-menu>
                       </el-dropdown>
 
@@ -154,6 +154,9 @@
      console.log(key, keyPath);
    },
    goTo(path){
+      this.$router.replace(path);
+   },
+   handleCommand(path) {
       this.$router.replace(path);
    }
 
@@ -271,4 +274,12 @@
     margin-top: -30px;
     margin-right: 10px;
   }
+  .el-dropdown-link {
+    cursor: pointer;
+    color: #409EFF;
+  }
+  .el-icon-arrow-down {
+    font-size: 12px;
+  }
+
 </style>

@@ -25,7 +25,7 @@ VueRouter.prototype.push = function push(location) {
 const routes = [
     {
         // 重定向，用来指向一打开网页就跳转到哪个路由
-        path: '/login',
+        path: '/',
         name: 'login',
         component: Login
     },
