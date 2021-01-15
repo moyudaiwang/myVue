@@ -693,24 +693,24 @@
       </div>
 
       <div>
-      <el-dialog title="导入" :visible.sync="uplVisible" width="50%" :before-close="handleClose">
-        <el-upload drag
-             :limit=limitNum
-             :auto-upload="false"
-             :disabled="isExamSolt"
-             accept=".xlsx"
-             :action="UploadUrl()"
-             :before-upload="beforeUploadExcel"
-             :on-change="fileChange"
-             :on-exceed="exceedFile"
-             :on-success="handleSuccess"
-             :on-error="handleError"
-             :file-list="fileList"
-             multiple>
-          <i class="el-icon-upload"></i>
-          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-          <div class="el-upload__tip" slot="tip">只能上传xlsx文件，且不超过10M</div>
-        </el-upload>
+      <el-dialog title="导入" :visible.sync="uplVisible" width="50%">
+           <el-upload
+                ref="upload"
+                class="upload-demo"
+                action
+                accept=".xlsx"
+                :limit=limitNum
+                :auto-upload="false"
+                :before-upload="beforeUpload"
+                :on-change="handleChange"
+                :on-remove="handleRemove"
+                :on-exceed="handleExceed"
+                :on-success="handleSuccess"
+                :on-error="handleError"
+                :file-list="fileList"
+              >
+                <el-button size="small" type="text">+点击上传</el-button>
+              </el-upload>
         <span slot="footer" class="dialog-footer">
           <el-button size="small">取消</el-button>
           <el-button size="small" type="primary" @click="uploadExcel">上传</el-button>
@@ -1021,79 +1021,68 @@ export default {
       },
       //导入
       uploadExcelTo(){
-
         this.uplVisible=true;
-           var url = "/api/web/excel/analyze";
-           var params = new URLSearchParams();
-           params.append('donBookInfoIds', donBookInfoIds);
-           this.$axios.post(url,params).then(res => {
-              if(res.data.code=='200'){
-                 this.init();
-                 this.$message({message: res.data.msg,type: 'success',center: true,duration:2000});
-              }else {
-                  this.init();
-                  this.$message({message: res.data.msg,type: 'error',center: true,duration:2000});
-              }
-           }).catch(error => {
-              console.log(error)
-           })
-
-
       },
 
-      // 文件超出个数限制时的钩子
-      exceedFile(files, fileList) {
-        this.$message.warning(`只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length + fileList.length} 个`);
-      },
-      // 文件状态改变时的钩子
-      fileChange(file, fileList) {
-        console.log(file.raw);
-        this.fileList.push(file.raw) ;
-        console.log(this.fileList);
-      },
       // 上传文件之前的钩子, 参数为上传的文件,若返回 false 或者返回 Promise 且被 reject，则停止上传
-      beforeUploadExcel(file) {
-        console.log('before upload');
-        console.log(file);
-        let extension = file.name.substring(file.name.lastIndexOf('.')+1);
-        let size = file.size / 1024 / 1024;
+      beforeUpload(file) {
+      let extension = file.name.substring(file.name.lastIndexOf('.')+1)
+        let size = file.size / 1024 / 1024
         if(extension !== 'xlsx') {
-          this.$message.warning('只能上传后缀是.xlsx的文件');
+          this.$message.warning('只能上传后缀是.xlsx的文件')
         }
         if(size > 10) {
-          this.$message.warning('文件大小不得超过10M');
+          this.$message.warning('文件大小不得超过10M')
         }
       },
-      // 文件上传成功时的钩子
+
+      // 文件状态改变
+      handleChange(file, fileList) {
+        if (file) {
+          this.fileList = fileList.slice(-3)
+        }
+      },
+
+      // 删除文件
+      handleRemove(file, fileList) {
+        this.fileList = []
+      },
+
+      // 文件超出个数限制
+      handleExceed(files, fileList) {
+        this.$message.warning(`只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length + fileList.length} 个`)
+      },
+
+      // 文件上传成功
       handleSuccess(res, file, fileList) {
-        this.$message.success('文件上传成功');
+        this.$message.success('文件上传成功')
       },
-      // 文件上传失败时的钩子
+
+      // 文件上传失败
       handleError(err, file, fileList) {
-        this.$message.error('文件上传失败');
+        this.$message.error('文件上传失败')
       },
-      UploadUrl:function(){
-       // 因为action参数是必填项，我们使用二次确认进行文件上传时，直接填上传文件的url会因为没有参数导致api报404，所以这里将action设置为一个返回为空的方法就行，避免抛错
-        return ""
-      },
+      // 覆盖默认的上传行为，自定义上传的实现
       uploadExcel() {
         if (this.fileList.length === 0){
-          this.$message.warning('请上传文件');
+          this.$message.warning('请上传文件')
         } else {
-          let form = new FormData();
-          form.append('donBookInfoIds', this.fileList);
+          const data = new FormData();
+          console.log("ffffffff",this.fileList)
+          data.append('multipartFiles', this.fileList)
+          data.append('module', 'bookExcel')
           this.$axios({
-            method:"post",
-            url: "/api/web/excel/analyze",
-            headers:{
-              'Content-type': 'multipart/form-data'
+            headers: {
+              'Content-Type': 'multipart/form-data'
             },
-            data:form
-          }).then(
-            res=>{
-
-            },err =>{
-            });
+            url: '/api/web/excel/analyze',
+            data: data,
+            method: 'post'
+          }).then(res=>{
+            console.log(res)
+          },err =>{
+            console.log(err)
+          })
         }
       },
 
