@@ -12,6 +12,7 @@ import SettingMain  from '@/components/views/setting/settingMain'
 import ToolMain  from '@/components/views/setting/toolMain'
 import TimeLineMain  from '@/components/views/setting/timeLineMain'
 import ContactMain  from '@/components/views/setting/contactMain'
+import AboutMain  from '@/components/views/setting/aboutMain'
 import Login from '@/components/views/login'
 import Index from '@/components/views/Index'
 import NotFound from '@/components/views/404'
@@ -84,6 +85,11 @@ const routes = [
                         path: '/setting/contactMain',
                         name: 'ContactMain',
                         component:ContactMain,
+                    },
+                    {
+                        path: '/setting/aboutMain',
+                        name: 'AboutMain',
+                        component:AboutMain,
                     },
                     {
                         path:'/*', // 注意，这里不是嵌套路由了，这是为了设置404页面，一定要放在最后面，这样当服务器找不到页面的时候就会全部跳转到404
