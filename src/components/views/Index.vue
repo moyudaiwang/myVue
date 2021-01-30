@@ -9,62 +9,77 @@
                     <h4 class="menuTitle"  v-show="isCollapse" style="background:#545c64; color:#FFF;text-align: center">Book</h4>
                   </el-radio-group>
                    <el-submenu index="1">
-                     <template slot="title">
-                       <i class="el-icon-s-custom"></i>
-                       <span slot="title">用户管理</span>
-                     </template>
-                       <el-menu-item index="/user/userMain" @click="goTo('/user/userMain')"><i class="el-icon-user-solid"></i>用户列表</el-menu-item>
+                      <template slot="title">
+                          <i class="el-icon-s-custom"></i>
+                          <span slot="title">用户管理</span>
+                      </template>
+                      <el-menu-item index="1-1" @click="goTo('/user/userMain')">
+                          <i class="el-icon-user-solid"></i>
+                          <span slot="title">用户列表</span>
+                      </el-menu-item>
                    </el-submenu>
-                    <el-submenu index="5">
-                        <template slot="title">
-                             <i class="el-icon-lock"></i>
-                             <span slot="title">权限管理</span>
-                        </template>
-                        <el-menu-item index="/auth/roleMain" @click="goTo('/auth/roleMain')">
-                             <i class="el-icon-bank-card"></i>
-                             <span slot="title">角色列表</span>
-                        </el-menu-item>
-                         <el-menu-item index="1-2">用户授权</el-menu-item>
-                    </el-submenu>
-                    <el-submenu index="2">
+                   <el-submenu index="2">
                       <template slot="title">
-                        <i class="el-icon-reading"></i>
-                        <span slot="title">图书管理</span>
+                          <i class="el-icon-lock"></i>
+                          <span slot="title">权限管理</span>
                       </template>
-                        <el-menu-item index="/book/bookMain" @click="goTo('/book/bookMain')"><i class="el-icon-notebook-2"></i>基本信息</el-menu-item>
-                        <el-menu-item index="/book/bookFlowMain" @click="goTo('/book/bookFlowMain')">动态管理</el-menu-item>
-                    </el-submenu>
-                   <el-menu-item index="/chart/chartMain" @click="goTo('/chart/chartMain')">
-                     <i class="el-icon-s-data"></i>
-                     <span slot="title">图表统计</span>
-                   </el-menu-item>
-                   <el-menu-item index="/life/lifeMain" @click="goTo('/life/lifeMain')">
-                     <i class="el-icon-bicycle"></i>
-                     <span slot="title">生活服务</span>
-                   </el-menu-item>
-                   <el-submenu index="5">
+                      <el-menu-item index="2-1" @click="goTo('/auth/roleMain')">
+                          <i class="el-icon-bank-card"></i>
+                          <span slot="title">角色列表</span>
+                      </el-menu-item>
+                      <el-menu-item index="2-2">
+                          <i class="el-icon-s-check"></i>
+                          <span slot="title">用户授权</span>
+                      </el-menu-item>
+                   </el-submenu>
+                   <el-submenu index="3">
                       <template slot="title">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title">设置</span>
+                          <i class="el-icon-reading"></i>
+                          <span slot="title">图书管理</span>
                       </template>
-                        <el-menu-item index="/setting/settingMain" @click="goTo('/setting/settingMain')">
-                         <i class="el-icon-setting"></i>
-                         <span slot="title">系统设置</span>
-                        </el-menu-item>
-                        <el-menu-item index="/setting/toolMain" @click="goTo('/setting/toolMain')">
-                         <i class="el-icon-setting"></i>
-                         <span slot="title">研发工具</span>
-                        </el-menu-item>
-                        <el-menu-item index="/setting/timeLineMain" @click="goTo('/setting/timeLineMain')">
-                            <i class="el-icon-date"></i>
-                           <span slot="title">时间线</span>
-                        </el-menu-item>
-                        <el-menu-item index="/setting/contactMain" @click="goTo('/setting/contactMain')">
-                            <i class="el-icon-date"></i>
-                           <span slot="title">联系我们</span>
-                        </el-menu-item>
-                    </el-submenu>
-
+                      <el-menu-item index="3-1" @click="goTo('/book/bookMain')">
+                          <i class="el-icon-notebook-2"></i>
+                          <span slot="title">基本信息</span>
+                      </el-menu-item>
+                      <el-menu-item index="3-2" @click="goTo('/book/bookFlowMain')">
+                          <i class="el-icon-notebook-2"></i>
+                          <span slot="title">动态管理</span>
+                      </el-menu-item>
+                   </el-submenu>
+                   <el-menu-item index="4" @click="goTo('/chart/chartMain')">
+                      <i class="el-icon-s-data"></i>
+                      <span slot="title">图表统计</span>
+                   </el-menu-item>
+                   <el-menu-item index="5" @click="goTo('/life/lifeMain')">
+                      <i class="el-icon-bicycle"></i>
+                      <span slot="title">生活服务</span>
+                   </el-menu-item>
+                   <el-submenu index="6">
+                      <template slot="title">
+                          <i class="el-icon-setting"></i>
+                          <span slot="title">设置</span>
+                      </template>
+                      <el-menu-item index="6-1" @click="goTo('/setting/settingMain')">
+                          <i class="el-icon-setting"></i>
+                          <span slot="title">系统设置</span>
+                      </el-menu-item>
+                      <el-menu-item index="6-2" @click="goTo('/setting/toolMain')">
+                          <i class="el-icon-setting"></i>
+                          <span slot="title">研发工具</span>
+                      </el-menu-item>
+                      <el-menu-item index="6-3" @click="goTo('/setting/timeLineMain')">
+                          <i class="el-icon-date"></i>
+                          <span slot="title">时间线</span>
+                      </el-menu-item>
+                      <el-menu-item index="6-4" @click="goTo('/setting/contactMain')">
+                          <i class="el-icon-date"></i>
+                          <span slot="title">联系我们</span>
+                      </el-menu-item>
+                      <el-menu-item index="6-5" @click="goTo('/setting/aboutMain')">
+                          <i class="el-icon-date"></i>
+                          <span slot="title">关于</span>
+                      </el-menu-item>
+                   </el-submenu>
                  </el-menu>
 
            </el-aside>
@@ -116,7 +131,9 @@
      </el-container>
     </el-container>
 
-  <el-footer  style=" height: 100%;padding-left: 0px;padding-right: 0px;">唐吉诃德    |    @版权所有</el-footer>
+  <el-footer  style=" height: 100%;padding-left: 0px;padding-right: 0px;">
+      <div>备案号：豫ICP备2020035146号    |    @2020-2021 唐吉诃德 版权所有</div>
+  </el-footer>
 </el-container>
 
 </template>
