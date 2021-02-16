@@ -2,6 +2,9 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+// 导入ElementUI
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 import router from './router'
 import 'jquery/dist/jquery.min'
 import 'bootstrap/dist/js/bootstrap.min.js'
@@ -9,9 +12,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import VueResource from 'vue-resource'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-// 导入ElementUI
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
 // 导入font-awesome(导入就可以直接用了)
 
 Vue.config.productionTip = false

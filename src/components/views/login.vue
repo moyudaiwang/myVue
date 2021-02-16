@@ -43,16 +43,23 @@
         },
         methods: {
             login() {
-               this.$router.replace('/user/userMain')
-                this.$axios.post('/login', {
-                        username: this.loginForm.username,
-                        password: this.loginForm.password
-                    }).then(successResponse => {
-                        if (successResponse.data.code === 200) {
-                            this.$router.replace('/Index')
-                        }
-                    }).catch(failResponse => {
-                    })
+                var that  = this;
+                let accountCodeEntity ={
+                  account:this.loginForm.username,
+                  pwd:this.loginForm.password
+                }
+                var url = "/api/web/login/check";
+                console.log("url>>>>>",url);
+                this.$axios.post(url, accountCodeEntity).then(response => {
+                     if(response.data.code=='200'){
+                          that.$message({message: response.data.msg,type: 'success'});
+                          this.$router.replace('/user/userMain');
+                     }else{
+                          that.$message({message: response.data.msg,type: 'warning'});
+                     }
+                }).catch(error => {
+                   that.$message({message: response.data.msg,type: 'error'});
+                })
             }
         }
     }
