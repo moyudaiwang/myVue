@@ -42,7 +42,7 @@
                           <span slot="title">基本信息</span>
                       </el-menu-item>
                       <el-menu-item index="3-2" @click="goTo('/book/bookFlowMain')">
-                          <i class="el-icon-notebook-2"></i>
+                          <i class="el-icon-odometer"></i>
                           <span slot="title">动态管理</span>
                       </el-menu-item>
                    </el-submenu>
@@ -108,7 +108,7 @@
                 <el-col :span="3">
                   <div style="background:#545c64; color:#FFF;height: 60px">
                       <el-badge is-dot class="item" style="padding-top:0px">
-                        <el-button class="share-button" icon="el-icon-message-solid" type="primary"></el-button>
+                        <el-button class="share-button" icon="el-icon-message-solid" type="primary" @click="drawer = true"></el-button>
                       </el-badge>
                       <el-dropdown @command="handleCommand">
                         <div style="padding-top:10px;color:#FFF" >
@@ -127,12 +127,20 @@
          </el-header>
          <el-main  hight="200px">
             <router-view></router-view>
+                    <el-drawer  :visible.sync="drawer" direction="rtl" size="25%">
+                                <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+                                  <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
+                                  <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
+                                  <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
+                                  <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
+                                </el-tabs>
+                    </el-drawer>
          </el-main>
      </el-container>
     </el-container>
 
   <el-footer  style=" height: 100%;padding-left: 0px;padding-right: 0px;">
-      <div>备案号：豫ICP备2020035146号    |    @2020-2021 唐吉诃德 版权所有</div>
+      <div>豫公网安备 豫ICP备2020035146号    | Copyright ©2020-2021 www.donQuixotey.com All Rights Reserved</div>
   </el-footer>
 </el-container>
 
@@ -145,7 +153,9 @@
     isCollapse: false,
     activeIndex: '1',
     activeIndex2: '1',
-    input: ''
+    input: '',
+    drawer: false,
+     activeName: 'first'
    };
         screenHeight: document.body.clientHeight
   },
