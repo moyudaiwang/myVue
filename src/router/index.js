@@ -12,6 +12,7 @@ import SettingMain  from '@/components/views/setting/settingMain'
 import ToolMain  from '@/components/views/setting/toolMain'
 import TimeLineMain  from '@/components/views/setting/timeLineMain'
 import ContactMain  from '@/components/views/setting/contactMain'
+import PersonalMain  from '@/components/views/setting/personalMain'
 import AboutMain  from '@/components/views/setting/aboutMain'
 import Login from '@/components/views/login'
 import Index from '@/components/views/Index'
@@ -85,6 +86,11 @@ const routes = [
                         path: '/setting/contactMain',
                         name: 'ContactMain',
                         component:ContactMain,
+                    },
+                    {
+                        path: '/setting/personalMain',
+                        name: 'PersonalMain',
+                        component:PersonalMain,
                     },
                     {
                         path: '/setting/aboutMain',

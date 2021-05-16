@@ -6,7 +6,7 @@
            	 <div class="letf-items" style="float: left;" size="medium" >
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handAddTo()">新  增</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-delete" @click="delBatch(sel)">删  除</el-button>
-                 <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="uploadExcel()">导  入</el-button>
+                 <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="createTableVisible = true">Create Table</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="createTblIm()">建表导入</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-download" @click="downloadExcel()">导  出</el-button>
            	 </div>
@@ -34,7 +34,7 @@
                         <el-option label="ENTITY" value="entity"></el-option>
                         <el-option label="DTO" value="dto"></el-option>
                       </el-select>
-                      <el-button slot="append" icon="el-icon-search" @click="createTable()"></el-button>
+                      <el-button slot="append" icon="el-icon-search" @click="createTableTest()"></el-button>
                     </el-input>
                   </div>
                   </div>
@@ -50,6 +50,29 @@
                     {{'列表内容 ' + o }}
                   </div>
                 </el-card>
+            </div>
+            <div >
+              <el-dialog title="提示" :visible.sync="createTableVisible" width="30%">
+                <el-upload drag
+                         :limit=limitNum
+                         :auto-upload="false"
+                         accept=".xlsx"
+                         :action="uploadUrl()"
+                         :before-upload="beforeUploadFile"
+                         :on-change="fileChange"
+                         :on-exceed="exceedFile"
+                         :on-success="handleSuccess"
+                         :on-error="handleError"
+                         :file-list="fileList">
+                      <i class="el-icon-upload"></i>
+                      <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                      <div class="el-upload__tip" slot="tip">只能上传xlsx文件，且不超过10M</div>
+                    </el-upload>
+                <span slot="footer" class="dialog-footer">
+                  <el-button size="small" @click="createTableVisible = false">取 消</el-button>
+                  <el-button size="small" type="primary" @click="createTable()">确 定</el-button>
+                </span>
+              </el-dialog>
             </div>
       </div>
   </div>
@@ -72,7 +95,10 @@ export default {
       pageNum:1, //初始页
       pageSize:10, //每页的数据
       total:0,
-      sel:[]
+      sel:[],
+      createTableVisible:false,
+       limitNum: 10,  // 上传excell时，同时允许上传的最大数
+       fileList: []   // excel文件列表
     };
   },
   mounted () {
@@ -99,7 +125,7 @@ export default {
              console.log(error)
           })
       },
-      createTable(){
+      createTableTest(){
           var that  = this;
           var names ='mars';
           //names= that.form.name;
@@ -124,7 +150,86 @@ export default {
       createTblIm(){
           var that  = this;
            that.$message.info('建表ing！！');
+      },
+
+     // 文件超出个数限制时的钩子
+      exceedFile(files, fileList) {
+        this.$message.warning(`只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length + fileList.length} 个`);
+      },
+      // 文件状态改变时的钩子
+      fileChange(file, fileList) {
+        console.log(file.raw);
+        this.fileList.push(file.raw) ;
+        console.log(this.fileList);
+      },
+      // 上传文件之前的钩子, 参数为上传的文件,若返回 false 或者返回 Promise 且被 reject，则停止上传
+      beforeUploadFile(file) {
+        console.log('before upload');
+        console.log(file);
+        let extension = file.name.substring(file.name.lastIndexOf('.')+1);
+        let size = file.size / 1024 / 1024;
+        if(extension !== 'xlsx') {
+          this.$message.warning('只能上传后缀是.xlsx的文件');
+        }
+        if(size > 10) {
+          this.$message.warning('文件大小不得超过10M');
+        }
+      },
+      // 文件上传成功时的钩子
+      handleSuccess(res, file, fileList) {
+        this.$message.success('文件上传成功');
+      },
+      // 文件上传失败时的钩子
+      handleError(err, file, fileList) {
+        this.$message.error('文件上传失败');
+      },
+      uploadUrl:function(){
+       // 因为action参数是必填项，我们使用二次确认进行文件上传时，直接填上传文件的url会因为没有参数导致api报404，所以这里将action设置为一个返回为空的方法就行，避免抛错
+        return ""
+      },
+      createTable() {
+        if (this.fileList.length === 0){
+          this.$message.warning('请上传文件');
+        } else {
+          let form = new FormData();
+                    console.log("this.fileList-----------",this.fileList);
+
+
+          for (var i = 0;i<this.fileList.length; i++){
+            form.append('excelFiles', this.fileList[i]);
+          }
+          form.append('module', 'okok');
+
+          console.log("file-----------",form.get(0));
+
+          this.$axios({
+            method:"post",
+            url: "/api/web/data/createTable",
+            headers:{
+              'Content-Type': 'multipart/form-data'
+            },
+            data:form
+          }).then(
+            res=>{
+
+            },err =>{
+            });
+          this.createTableVisible = false;
+        }
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
 }

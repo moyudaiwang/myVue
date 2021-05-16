@@ -63,19 +63,23 @@
                           <i class="el-icon-setting"></i>
                           <span slot="title">系统设置</span>
                       </el-menu-item>
-                      <el-menu-item index="6-2" @click="goTo('/setting/toolMain')">
+                      <el-menu-item index="6-2" @click="goTo('/setting/personalMain')">
+                          <i class="el-icon-setting"></i>
+                          <span slot="title">个人中心</span>
+                      </el-menu-item>
+                      <el-menu-item index="6-3" @click="goTo('/setting/toolMain')">
                           <i class="el-icon-setting"></i>
                           <span slot="title">研发工具</span>
                       </el-menu-item>
-                      <el-menu-item index="6-3" @click="goTo('/setting/timeLineMain')">
+                      <el-menu-item index="6-4" @click="goTo('/setting/timeLineMain')">
                           <i class="el-icon-date"></i>
                           <span slot="title">时间线</span>
                       </el-menu-item>
-                      <el-menu-item index="6-4" @click="goTo('/setting/contactMain')">
+                      <el-menu-item index="6-5" @click="goTo('/setting/contactMain')">
                           <i class="el-icon-date"></i>
                           <span slot="title">联系我们</span>
                       </el-menu-item>
-                      <el-menu-item index="6-5" @click="goTo('/setting/aboutMain')">
+                      <el-menu-item index="6-6" @click="goTo('/setting/aboutMain')">
                           <i class="el-icon-date"></i>
                           <span slot="title">关于</span>
                       </el-menu-item>
@@ -115,7 +119,7 @@
                           <el-avatar  src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
                         </div>
                         <el-dropdown-menu slot="dropdown">
-                          <el-dropdown-item command="/setting/settingMain">个人中心</el-dropdown-item>
+                          <el-dropdown-item command="/setting/personalMain">个人中心</el-dropdown-item>
                           <el-dropdown-item command="/">退 出</el-dropdown-item>
                         </el-dropdown-menu>
                       </el-dropdown>
