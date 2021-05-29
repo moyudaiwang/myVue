@@ -12,6 +12,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import VueResource from 'vue-resource'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+//主题（放最后加载）
+import '../static/theme/green/index.css'
 // 导入font-awesome(导入就可以直接用了)
 
 Vue.config.productionTip = false
