@@ -6,7 +6,7 @@
            	 <div class="letf-items" style="float: left;" size="medium" >
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handAddTo()">新  增</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-delete" @click="delBatch(sel)">删  除</el-button>
-                 <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="createTableVisible = true">Create Table</el-button>
+                 <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="createTableVisibleTo()">Create Table</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="createTblIm()">建表导入</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-download" @click="downloadExcel()">导  出</el-button>
            	 </div>
@@ -192,16 +192,10 @@ export default {
           this.$message.warning('请上传文件');
         } else {
           let form = new FormData();
-                    console.log("this.fileList-----------",this.fileList);
-
-
           for (var i = 0;i<this.fileList.length; i++){
             form.append('excelFiles', this.fileList[i]);
           }
           form.append('module', 'okok');
-
-          console.log("file-----------",form.get(0));
-
           this.$axios({
             method:"post",
             url: "/api/web/data/createTable",
@@ -209,14 +203,24 @@ export default {
               'Content-Type': 'multipart/form-data'
             },
             data:form
-          }).then(
-            res=>{
-
+          }).then(res=>{
+              if(res.data.code=='200'){
+                this.createTableVisible = false;
+                this.fileList = [];
+                this.$message.success(res.data.msg);
+              }else {
+                this.$message.success(res.data.msg);
+              }
             },err =>{
+              this.$message.success(res.data.msg);
             });
-          this.createTableVisible = false;
         }
-      }
+      },
+
+    createTableVisibleTo(){
+      this.fileList = [];
+      this.createTableVisible = true;
+    }
 
 
 
