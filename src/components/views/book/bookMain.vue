@@ -68,9 +68,9 @@
             <el-table-column prop="bookAvatar" label="书像" min-width="150px"></el-table-column>
             <el-table-column prop="remark" label="备注" min-width="150px"></el-table-column>
             <el-table-column prop="createBy" label="创建人" min-width="150px"></el-table-column>
-            <el-table-column prop="createDate" label="创建时间" min-width="150px"></el-table-column>
+            <el-table-column prop="createDate" label="创建时间" min-width="150px" value-format="yyyy-MM-dd"></el-table-column>
             <el-table-column prop="updateBy" label="修改人" min-width="150px"></el-table-column>
-            <el-table-column prop="updateDate" label="修改时间" min-width="150px"></el-table-column>
+            <el-table-column prop="updateDate" label="修改时间" min-width="150px" value-format="yyyy-MM-dd"></el-table-column>
             <el-table-column prop="donBookInfoId" label="主键ID" min-width="150px"></el-table-column>
 
             <el-table-column label="操作" fixed="right" width="80">
@@ -732,8 +732,6 @@ export default {
         isbn:'',
         bookName:''
       },
-      bookInfo: {
-      },
       tableData:[],
       addVisible:false,
       addRules: {},
@@ -1097,23 +1095,12 @@ export default {
 }
 </script>
 
-<style>
-/*表头高度 */
+<style scoped>
 
-.el-table__header tr,
-  .el-table__header th {
-    padding: 0;
-    height: 40px;
-    line-height: 50px;
+
+.sysBox .el-pagination.is-background .el-pager li:not(.disabled).active {
+  background-color: #FD7A3A;   // 进行修改背景和字体
+  color: #ff2f;
 }
-.el-table__body tr,
-  .el-table__body td {
-    padding: 0;
-    height: 40px;
-    line-height: 40px;
-}
-/*表格与表头线对齐 */
-.el-table th.gutter{
-	    display: table-cell!important;
-}
+
 </style>

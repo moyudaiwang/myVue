@@ -7,7 +7,7 @@
     </div>
     <div class="login">
     <el-form class="login-container" label-position="left" label-width="0px">
-      <h3 class="login_title">系统登录</h3>
+      <h3 class="login_title">LOGIN</h3>
       <el-form-item>
         <el-input type="text" v-model="loginForm.username" auto-complete="off" placeholder="账号"></el-input>
       </el-form-item>
@@ -17,7 +17,7 @@
       </el-form-item>
 
       <el-form-item style="width: 100%">
-        <el-button type="primary" style="width: 100%;background: #505458;border: none" @click="login()">登 录</el-button>
+        <el-button type="primary" style="width: 100%;border: none" @click="login()">登 录</el-button>
       </el-form-item>
     </el-form>
     </div>
@@ -67,7 +67,6 @@
 
 <style>
   #poster {
-    background:;
     background-position: center;
     height: 100%;
     width: 100%;
@@ -94,7 +93,6 @@
   .login_title {
     margin: 0px auto 40px auto;
     text-align: center;
-    color: #505458;
   }
 
 .background{

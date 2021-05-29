@@ -13,7 +13,7 @@ export default {
     };
   },
   mounted() {
-          document.querySelector('body').setAttribute('style', 'background-color:#f6f6f6')
+          document.querySelector('body').setAttribute('style')
       },
       beforeDestroy() {
           document.querySelector('body').removeAttribute('style')

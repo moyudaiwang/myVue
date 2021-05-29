@@ -3,10 +3,10 @@
 
    <el-container style="height: 890px; border: 1px">
            <el-aside width="auto">
-                 <el-menu default-active="1-4-1" class="el-menu-vertical-demo"   :unique-opened="true"router background-color="#545c64" text-color="#fff" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+                 <el-menu default-active="1-4-1" class="el-menu-vertical-demo"   :unique-opened="true"router  @open="handleOpen" @close="handleClose" :collapse="isCollapse">
                   <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;" >
-                    <h4 class="menuTitle"  v-show="!isCollapse" style="background:#545c64; color:#FFF;text-align: center">DonQuixotey Book</h4>
-                    <h4 class="menuTitle"  v-show="isCollapse" style="background:#545c64; color:#FFF;text-align: center">Book</h4>
+                    <h4 class="menuTitle"  v-show="!isCollapse" style="text-align: center">DonQuixotey Book</h4>
+                    <h4 class="menuTitle"  v-show="isCollapse" style="text-align: center">Book</h4>
                   </el-radio-group>
                    <el-submenu index="1">
                       <template slot="title">
@@ -50,10 +50,20 @@
                       <i class="el-icon-s-data"></i>
                       <span slot="title">图表统计</span>
                    </el-menu-item>
-                   <el-menu-item index="5" @click="goTo('/life/lifeMain')">
-                      <i class="el-icon-bicycle"></i>
-                      <span slot="title">生活服务</span>
-                   </el-menu-item>
+                  <el-submenu index="5">
+                     <template slot="title">
+                         <i class="el-icon-bicycle"></i>
+                         <span slot="title">生活服务</span>
+                     </template>
+                     <el-menu-item index="3-1" @click="goTo('/life/lifeInfo')">
+                         <i class="el-icon-notebook-2"></i>
+                         <span slot="title">信息查询</span>
+                     </el-menu-item>
+                     <el-menu-item index="3-2" @click="goTo('/life/lifeMain')">
+                         <i class="el-icon-odometer"></i>
+                         <span slot="title">其他管理</span>
+                     </el-menu-item>
+                  </el-submenu>
                    <el-submenu index="6">
                       <template slot="title">
                           <i class="el-icon-setting"></i>
@@ -92,15 +102,15 @@
          <el-header>
          <el-row>
                 <el-col :span="1" >
-                  <div  style="background:#545c64; color:#FFF;height: 60px">
-                     <el-radio-group v-model="isCollapse" style=""  >
+                  <div  style="background:#eef6f6;height: 60px">
+                     <el-radio-group v-model="isCollapse">
                        <i v-if="!isCollapse" style="font-size:23px" class="el-icon-s-fold" @click="isCollapse=true"></i>
                        <i v-if="isCollapse" style="font-size:23px" class="el-icon-s-unfold" @click="isCollapse=false"></i>
                      </el-radio-group>
                   </div>
                 </el-col>
-                <el-col :span="20"><div class="grid-content bg-purple-light">
-                       <el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+                <el-col :span="20"><div class="grid-content">
+                       <el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect" >
                             <el-submenu index="2">
                                <template slot="title">图书查阅</template>
                                <el-menu-item index="2-1">新增图书</el-menu-item>
@@ -110,12 +120,12 @@
                 </div></el-col>
 
                 <el-col :span="3">
-                  <div style="background:#545c64; color:#FFF;height: 60px">
+                  <div style="background:#eef6f6;height: 60px">
                       <el-badge is-dot class="item" style="padding-top:0px">
                         <el-button class="share-button" icon="el-icon-message-solid" type="primary" @click="drawer = true"></el-button>
                       </el-badge>
                       <el-dropdown @command="handleCommand">
-                        <div style="padding-top:10px;color:#FFF" >
+                        <div style="padding-top:10px" >
                           <el-avatar  src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
                         </div>
                         <el-dropdown-menu slot="dropdown">
@@ -214,26 +224,18 @@
 </script>
 <style>
   .el-header {
-    background-color: #B3C0D1;
-    color: #333;
     text-align: center;
     line-height: 20px;
     padding-left: 0px;
     padding-right: 0px;
 
   }
-
-
   .el-main {
-    background-color: #E9EEF3;
-    color: #333;
     text-align: center;
     line-height: 60px;
   }
 
   .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
     text-align: center;
     line-height: 60px;
   }
@@ -268,22 +270,12 @@
   .el-col {
     border-radius: 4px;
   }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
   .grid-content {
     border-radius: 4px;
     min-height: 36px;
   }
   .row-bg {
     padding: 10px 0;
-    background-color: #f9fafc;
   }
 
   .el-radio-group {
@@ -295,7 +287,6 @@
       position: fixed;
       left: -18px;
       top: 38px;
-      color: #151d41;
       margin-left: 10px;
       transform: rotate(180deg);
     }
@@ -307,7 +298,6 @@
   }
   .el-dropdown-link {
     cursor: pointer;
-    color: #409EFF;
   }
   .el-icon-arrow-down {
     font-size: 12px;

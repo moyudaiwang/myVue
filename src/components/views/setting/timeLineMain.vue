@@ -26,16 +26,13 @@
           icon: 'el-icon-more'
         }, {
           content: '新增时间线，头像',
-          timestamp: '2020/08/21',
-          color: '#0bbd87'
+          timestamp: '2020/08/21'
         }, {
           content: '支持自定义尺寸',
-          timestamp: '2018-04-03 20:46',
-          color: '#0bbd87'
+          timestamp: '2018-04-03 20:46'
         }, {
           content: '默认样式的节点',
-          timestamp: '2018-04-03 20:46',
-          color: '#0bbd87'
+          timestamp: '2018-04-03 20:46'
         }]
       };
     }

@@ -6,6 +6,7 @@ import BookMain  from '@/components/views/book/bookMain'
 import BookFlowMain  from '@/components/views/book/bookFlowMain'
 import ChartMain from '@/components/views/chart/chartMain'
 import LifeMain  from '@/components/views/life/lifeMain'
+import LifeInfo  from '@/components/views/life/lifeInfo'
 import RoleMain  from '@/components/views/auth/roleMain'
 import UserMain  from '@/components/views/user/userMain'
 import SettingMain  from '@/components/views/setting/settingMain'
@@ -66,6 +67,11 @@ const routes = [
                         path: '/life/lifeMain',
                         name: 'LifeMain',
                         component:LifeMain,
+                    },
+                    {
+                        path: '/life/lifeInfo',
+                        name: 'LifeInfo',
+                        component:LifeInfo,
                     },
                     {
                         path: '/setting/settingMain',
