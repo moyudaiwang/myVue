@@ -7,14 +7,18 @@ import BookFlowMain  from '@/components/views/book/bookFlowMain'
 import ChartMain from '@/components/views/chart/chartMain'
 import LifeMain  from '@/components/views/life/lifeMain'
 import LifeInfo  from '@/components/views/life/lifeInfo'
-import RoleMain  from '@/components/views/auth/roleMain'
-import UserMain  from '@/components/views/user/userMain'
+import AccountInfoMain  from '@/components/views/auth/accountInfoMain'
+import RoleInfoMain  from '@/components/views/auth/roleInfoMain'
+import MenuInfoMain  from '@/components/views/auth/menuInfoMain'
+import UserInfoMain  from '@/components/views/user/userInfoMain'
 import SettingMain  from '@/components/views/setting/settingMain'
 import ToolMain  from '@/components/views/setting/toolMain'
 import TimeLineMain  from '@/components/views/setting/timeLineMain'
 import ContactMain  from '@/components/views/setting/contactMain'
 import PersonalMain  from '@/components/views/setting/personalMain'
 import AboutMain  from '@/components/views/setting/aboutMain'
+import LogMain  from '@/components/views/monitor/logMain'
+import MapMain  from '@/components/views/map/mapMain'
 import Login from '@/components/views/login'
 import Index from '@/components/views/Index'
 import NotFound from '@/components/views/404'
@@ -39,14 +43,24 @@ const routes = [
         component: Index,
         children:[// 开始嵌套路由，这下面的所有路由都是Main路由的子路由
                     {
-                        path: '/user/userMain',
-                        name: 'UserMain',
-                        component:UserMain,
+                        path: '/user/userInfoMain',
+                        name: 'UserInfoMain',
+                        component:UserInfoMain,
                     },
                     {
-                        path: '/auth/roleMain',
-                        name: 'RoleMain',
-                        component:RoleMain,
+                        path: '/auth/accountInfoMain',
+                        name: 'AccountInfoMain',
+                        component:AccountInfoMain,
+                    },
+                    {
+                        path: '/auth/roleInfoMain',
+                        name: 'RoleInfoMain',
+                        component:RoleInfoMain,
+                    },
+                    {
+                        path: '/auth/menuInfoMain',
+                        name: 'MenuInfoMain',
+                        component:MenuInfoMain,
                     },
                     {
                         path: '/book/bookMain',
@@ -102,6 +116,16 @@ const routes = [
                         path: '/setting/aboutMain',
                         name: 'AboutMain',
                         component:AboutMain,
+                    },
+                    {
+                        path: '/monitor/logMain',
+                        name: 'LogMain',
+                        component:LogMain,
+                    },
+                    {
+                        path: '/map/mapMain',
+                        name: 'MapMain',
+                        component:MapMain,
                     },
                     {
                         path:'/*', // 注意，这里不是嵌套路由了，这是为了设置404页面，一定要放在最后面，这样当服务器找不到页面的时候就会全部跳转到404

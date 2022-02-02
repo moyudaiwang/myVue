@@ -4,16 +4,16 @@
    <el-container style="height: 890px; border: 1px">
            <el-aside width="auto">
                  <el-menu default-active="1-4-1" class="el-menu-vertical-demo"   :unique-opened="true"router  @open="handleOpen" @close="handleClose" :collapse="isCollapse">
-                  <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;" >
-                    <h4 class="menuTitle"  v-show="!isCollapse" style="text-align: center">DonQuixotey Book</h4>
-                    <h4 class="menuTitle"  v-show="isCollapse" style="text-align: center">Book</h4>
+                  <el-radio-group v-model="isCollapse" style="text-align: center">
+                    <h4 class="menuTitle"  v-if="!isCollapse" style="text-align: center">DonQuixotey Book</h4>
+                    <h4 class="menuTitle"  v-if="isCollapse" style="text-align: center">Book</h4>
                   </el-radio-group>
                    <el-submenu index="1">
                       <template slot="title">
                           <i class="el-icon-s-custom"></i>
                           <span slot="title">用户管理</span>
                       </template>
-                      <el-menu-item index="1-1" @click="goTo('/user/userMain')">
+                      <el-menu-item index="1-1" @click="goTo('/user/userInfoMain')">
                           <i class="el-icon-user-solid"></i>
                           <span slot="title">用户列表</span>
                       </el-menu-item>
@@ -23,11 +23,19 @@
                           <i class="el-icon-lock"></i>
                           <span slot="title">权限管理</span>
                       </template>
-                      <el-menu-item index="2-1" @click="goTo('/auth/roleMain')">
+                      <el-menu-item index="2-1" @click="goTo('/auth/accountInfoMain')">
+                          <i class="el-icon-bank-card"></i>
+                          <span slot="title">账号列表</span>
+                      </el-menu-item>
+                      <el-menu-item index="2-2" @click="goTo('/auth/roleInfoMain')">
                           <i class="el-icon-bank-card"></i>
                           <span slot="title">角色列表</span>
                       </el-menu-item>
-                      <el-menu-item index="2-2">
+                     <el-menu-item index="2-3" @click="goTo('/auth/menuInfoMain')">
+                       <i class="el-icon-bank-card"></i>
+                       <span slot="title">菜单列表</span>
+                     </el-menu-item>
+                      <el-menu-item index="2-4">
                           <i class="el-icon-s-check"></i>
                           <span slot="title">用户授权</span>
                       </el-menu-item>
@@ -39,11 +47,11 @@
                       </template>
                       <el-menu-item index="3-1" @click="goTo('/book/bookMain')">
                           <i class="el-icon-notebook-2"></i>
-                          <span slot="title">基本信息</span>
+                          <span slot="title">图书列表</span>
                       </el-menu-item>
                       <el-menu-item index="3-2" @click="goTo('/book/bookFlowMain')">
                           <i class="el-icon-odometer"></i>
-                          <span slot="title">动态管理</span>
+                          <span slot="title">图书动态列表</span>
                       </el-menu-item>
                    </el-submenu>
                    <el-menu-item index="4" @click="goTo('/chart/chartMain')">
@@ -55,11 +63,11 @@
                          <i class="el-icon-bicycle"></i>
                          <span slot="title">生活服务</span>
                      </template>
-                     <el-menu-item index="3-1" @click="goTo('/life/lifeInfo')">
+                     <el-menu-item index="5-1" @click="goTo('/life/lifeInfo')">
                          <i class="el-icon-notebook-2"></i>
                          <span slot="title">信息查询</span>
                      </el-menu-item>
-                     <el-menu-item index="3-2" @click="goTo('/life/lifeMain')">
+                     <el-menu-item index="5-2" @click="goTo('/life/lifeMain')">
                          <i class="el-icon-odometer"></i>
                          <span slot="title">其他管理</span>
                      </el-menu-item>
@@ -94,6 +102,21 @@
                           <span slot="title">关于</span>
                       </el-menu-item>
                    </el-submenu>
+                   <el-submenu index="7">
+                     <template slot="title">
+                       <i class="el-icon-bicycle"></i>
+                       <span slot="title">监控中心</span>
+                     </template>
+                     <el-menu-item index="5-1" @click="goTo('/monitor/logMain')">
+                       <i class="el-icon-notebook-2"></i>
+                       <span slot="title">日志列表</span>
+                     </el-menu-item>
+                   </el-submenu>
+                   <el-menu-item index="8" @click="goTo('/map/mapMain')">
+                     <i class="el-icon-s-data"></i>
+                     <span slot="title">书式地图</span>
+                   </el-menu-item>
+
                  </el-menu>
 
            </el-aside>
@@ -199,8 +222,9 @@
    },
    handleCommand(path) {
       this.$router.replace(path);
+   },
+   handleClick(){
    }
-
   },
   watch: {
     screenHeight (val) {

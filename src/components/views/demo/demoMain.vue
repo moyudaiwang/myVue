@@ -6,8 +6,9 @@
            	 <div class="letf-items" style="float: left;" size="medium" >
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handAddTo()">新  增</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-delete" >删  除</el-button>
-                 <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="uploadExcel()">导  入</el-button>
-                 <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-download" @click="downloadExcel()">导  出</el-button>
+                 <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="uploadExcel()">导er  入</el-button>
+                 <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-download" @click="downloadExcel()">导we  出</el-button>
+                 <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-download" @click="testCookie()">TESTTESET</el-button>
            	 </div>
              <div class="right-items" style="float: right">
                  <el-input placeholder="用户名" v-model="param.userName" size="medium" style="width: 200px;" class="filter-item"/>
@@ -64,27 +65,27 @@
 
       <div>
         	<!--	add 对话框 -->
-          <el-dialog title="新增用户信息" :visible.sync="addVisible" width="65%">
-      		  <el-form ref="addRef" :model="addForm" :rules="addRules" :label-position="right" label-width="100px" style="width: 85%; margin-left:30px;">
+          <el-dialog title="新增用户信息" :visible.sync="addVisible" width="50%">
+      		  <el-form ref="addRef" :model="addForm" :rules="addRules" label-position="right" label-width="100px" style="margin-left:40px;">
                      <el-row>
-                         <el-col :span="12">
+                         <el-col :span="10">
                                 <el-form-item label="用户名" prop="userName">
                                   <el-input v-model="addForm.userName" placeholder="用户名"/>
                                 </el-form-item>
                          </el-col>
-                         <el-col :span="12">
+                         <el-col :span="10">
                                 <el-form-item label="昵称" prop="nickname">
                                   <el-input v-model="addForm.nickname" placeholder="昵称"/>
                                 </el-form-item>
                          </el-col>
                      </el-row>
                      <el-row>
-                         <el-col :span="12">
+                         <el-col :span="10">
                               <el-form-item label="外文名" prop="userForeignName">
                                 <el-input v-model="addForm.userForeignName" placeholder="外文名"/>
                               </el-form-item>
                          </el-col>
-                         <el-col :span="12">
+                         <el-col :span="10">
                               <el-form-item label="性别" prop="sex">
                                 <el-radio-group v-model="addForm.sex">
                                   <el-radio label="F">女</el-radio>
@@ -94,38 +95,38 @@
                          </el-col>
                      </el-row>
                      <el-row>
-                         <el-col :span="12">
+                         <el-col :span="10">
                               <el-form-item label="出生日期" prop="birthday">
                                     <el-date-picker type="date" placeholder="出生日期" v-model="addForm.birthday" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                               </el-form-item>
                          </el-col>
-                         <el-col :span="12">
+                         <el-col :span="10">
                               <el-form-item label="手机号" prop="phoneNo">
                                 <el-input v-model="addForm.phoneNo" placeholder="手机号"/>
                               </el-form-item>
                          </el-col>
                      </el-row>
                      <el-row>
-                         <el-col :span="12">
+                         <el-col :span="10">
                               <el-form-item label="电子邮箱" prop="email">
                                 <el-input v-model="addForm.email" placeholder="电子邮箱"/>
                               </el-form-item>
                          </el-col>
-                         <el-col :span="12">
+                         <el-col :span="10">
                               <el-form-item label="地址" prop="address">
                                 <el-input v-model="addForm.address" placeholder="地址"/>
                               </el-form-item>
                          </el-col>
                      </el-row>
                      <el-row>
-                         <el-col :span="12">
+                         <el-col :span="10">
                               <el-form-item label="用户状态" prop="userStatus">
                                   <el-select v-model="addForm.userStatus" placeholder="用户状态">
                                       <el-option v-for="item in userStatusOpt":key="item.value" :label="item.label" :value="item.value"></el-option>
                                   </el-select>
                               </el-form-item>
                          </el-col>
-                         <el-col :span="12">
+                         <el-col :span="10">
                               <el-form-item label="备注" prop="remark">
                                 <el-input v-model="addForm.remark" placeholder="备注"/>
                               </el-form-item>
@@ -140,27 +141,27 @@
       </div>
       <div>
         	<!--	upd 对话框 -->
-          <el-dialog title="修改用户信息" :visible.sync="updVisible" width="65%">
-      		  <el-form ref="updRef" :model="updForm" :rules="updRules" :label-position="right" label-width="100px" style="width: 85%; margin-left:30px;">
+          <el-dialog title="修改用户信息" :visible.sync="updVisible" width="50%">
+      		  <el-form ref="updRef" :model="updForm" :rules="updRules" label-position="right" label-width="100px" style="margin-left:40px;">
                      <el-row>
-                         <el-col :span="12">
+                         <el-col :span="10">
                                 <el-form-item label="用户名" prop="userName">
                                   <el-input v-model="updForm.userName" placeholder="用户名"/>
                                 </el-form-item>
                          </el-col>
-                         <el-col :span="12">
+                         <el-col :span="10">
                                 <el-form-item label="昵称" prop="nickname">
                                   <el-input v-model="updForm.nickname" placeholder="昵称"/>
                                 </el-form-item>
                          </el-col>
                      </el-row>
                      <el-row>
-                         <el-col :span="12">
+                         <el-col :span="10">
                               <el-form-item label="外文名" prop="userForeignName">
                                 <el-input v-model="updForm.userForeignName" placeholder="外文名"/>
                               </el-form-item>
                          </el-col>
-                         <el-col :span="12">
+                         <el-col :span="10">
                               <el-form-item label="性别" prop="sex">
                                 <el-radio-group v-model="updForm.sex">
                                   <el-radio label="F">女</el-radio>
@@ -170,38 +171,38 @@
                          </el-col>
                      </el-row>
                      <el-row>
-                         <el-col :span="12">
+                         <el-col :span="10">
                               <el-form-item label="出生日期" prop="birthday">
                                     <el-date-picker type="date" placeholder="出生日期" v-model="updForm.birthday" value-format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
                               </el-form-item>
                          </el-col>
-                         <el-col :span="12">
+                         <el-col :span="10">
                               <el-form-item label="手机号" prop="phoneNo">
                                 <el-input v-model="updForm.phoneNo" placeholder="手机号"/>
                               </el-form-item>
                          </el-col>
                      </el-row>
                      <el-row>
-                         <el-col :span="12">
+                         <el-col :span="10">
                               <el-form-item label="电子邮箱" prop="email">
                                 <el-input v-model="updForm.email" placeholder="电子邮箱"/>
                               </el-form-item>
                          </el-col>
-                         <el-col :span="12">
+                         <el-col :span="10">
                               <el-form-item label="地址" prop="address">
                                 <el-input v-model="updForm.address" placeholder="地址"/>
                               </el-form-item>
                          </el-col>
                      </el-row>
                      <el-row>
-                         <el-col :span="12">
+                         <el-col :span="10">
                               <el-form-item label="用户状态" prop="userStatus">
                                   <el-select v-model="updForm.userStatus" placeholder="用户状态">
                                       <el-option v-for="item in userStatusOpt":key="item.value" :label="item.label" :value="item.value"></el-option>
                                   </el-select>
                               </el-form-item>
                          </el-col>
-                         <el-col :span="12">
+                         <el-col :span="10">
                               <el-form-item label="备注" prop="remark">
                                 <el-input v-model="updForm.remark" placeholder="备注"/>
                               </el-form-item>
@@ -343,6 +344,17 @@ export default {
           var _this = this;
           this.init();
       },
+
+      testCookie(){
+        var _this = this;
+        this.setCookie('kkk','vvv','sssss');
+      },
+      setCookie(key,value,t){
+          var oDate=new Date();
+          oDate.setDate(oDate.getDate()+t);
+          document.cookie=key+"="+value+"; expires="+oDate.toDateString();
+      },
+
       //重置
       reset(){
          var _this = this;

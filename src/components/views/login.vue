@@ -51,7 +51,7 @@
                 var url = "/api/web/login/check";
                 console.log("url>>>>>",url);
                 this.$axios.post(url, accountCodeEntity).then(response => {
-                     if(response.data.code=='200'){
+                     if(response.data.code=='100200'){
                           that.$message({message: response.data.msg,type: 'success'});
                           this.$router.replace('/user/userMain');
                      }else{
