@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Index from './components/views/Index.vue'
-import Login from './components/views/login.vue'
+import Index from './views/index.vue'
+import Login from './views/login.vue'
 export default {
   data:{
     indexFlag:true,

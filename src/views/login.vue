@@ -36,9 +36,7 @@
                     password: ''
                 },
                 responseResult: [],
-               // imgSrc:require('../../assets/eva.jpg')
-                imgSrc:require('../../assets/grild001.jpg')
-                //imgSrc:require('../../assets/loginBG001.jpg')
+                imgSrc:require('../assets/grild001.jpg')
             }
         },
         methods: {
