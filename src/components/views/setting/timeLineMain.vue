@@ -18,23 +18,39 @@
   export default {
     data() {
       return {
-        activities: [{
-          content: '支持使用图标',
-          timestamp: '2018-04-12 20:46',
-          size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more'
-        }, {
-          content: '新增时间线，头像',
-          timestamp: '2020/08/21'
-        }, {
-          content: '支持自定义尺寸',
-          timestamp: '2018-04-03 20:46'
-        }, {
-          content: '默认样式的节点',
-          timestamp: '2018-04-03 20:46'
-        }]
+        activities: [
+          {
+            content: '新增时间线，头像',
+            timestamp: '2020-08-21 01:01',
+            type: 'success',
+          },
+          {
+            content: '系统前后台发布1.1.0版本',
+            timestamp: '2022-02-03 01:01',
+            type: 'success',
+          }
+        ]
       };
     }
   };
 </script>
+<style scoped>
+::v-deep .el-timeline-item__timestamp.is-top {
+    position: absolute;
+    left: -117px;
+    top: -3px;
+    color: #333333;
+}
+::v-deep .el-timeline {
+    padding-left: 150px;
+}
+/deep/.el-timeline-item__timestamp.is-top {
+    position: absolute;
+    left: -117px;
+    top: -3px;
+    color: #333333;
+}
+/deep/.el-timeline {
+    padding-left: 150px;
+}
+</style>

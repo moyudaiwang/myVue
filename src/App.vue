@@ -8,12 +8,10 @@
 <script>
 import Index from './components/views/Index.vue'
 import Login from './components/views/login.vue'
-import Main from './views/Main.vue'
 export default {
   data:{
     indexFlag:true,
     loginFlag:true
-
   },
 
   methods: {
