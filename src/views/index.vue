@@ -3,10 +3,10 @@
 
    <el-container style="height: 890px; border: 1px">
            <el-aside width="auto">
-                 <el-menu default-active="1-4-1" class="el-menu-vertical-demo"   :unique-opened="true"router  @open="handleOpen" @close="handleClose" :collapse="isCollapse">
-                  <el-radio-group v-model="isCollapse" style="text-align: center">
-                    <h4 class="menuTitle"  v-if="!isCollapse" style="text-align: center">DonQuixotey Book</h4>
-                    <h4 class="menuTitle"  v-if="isCollapse" style="text-align: center">Book</h4>
+                 <el-menu default-active="1-4-1" class="el-menu-vertical-demo" :unique-opened="true"router  @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+                  <el-radio-group v-model="isCollapse" style="padding-left: 16px;cursor: pointer">
+                    <h4 style="padding-top: 10px" class="menuTitle"  v-if="!isCollapse" @click="goTo('/home/homeMain')">DonQuixotey Book</h4>
+                    <h4 style="padding-top: 10px" class="menuTitle"  v-if="isCollapse" @click="goTo('/home/homeMain')">Book</h4>
                   </el-radio-group>
                    <el-submenu index="1">
                       <template slot="title">
@@ -124,31 +124,19 @@
      <el-container>
          <el-header>
          <el-row>
-                <el-col :span="1" >
-                  <div  style="background:#eef6f6;height: 60px">
-                     <el-radio-group v-model="isCollapse">
-                       <i v-if="!isCollapse" style="font-size:23px" class="el-icon-s-fold" @click="isCollapse=true"></i>
-                       <i v-if="isCollapse" style="font-size:23px" class="el-icon-s-unfold" @click="isCollapse=false"></i>
+                <el-col :span="1" style="background: #eef6f6;height: 60px">
+                     <el-radio-group v-model="isCollapse" style="cursor: pointer">
+                       <i v-if="!isCollapse" style="padding-top: 18px ;font-size:23px" class="el-icon-s-fold" @click="isCollapse=true"></i>
+                       <i v-if="isCollapse" style="padding-top: 18px ;font-size:23px" class="el-icon-s-unfold" @click="isCollapse=false"></i>
                      </el-radio-group>
-                  </div>
                 </el-col>
-                <el-col :span="20"><div class="grid-content">
-                       <el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect" >
-                            <el-submenu index="2">
-                               <template slot="title">图书查阅</template>
-                               <el-menu-item index="2-1">新增图书</el-menu-item>
-                            </el-submenu>
-                          <el-menu-item index="3"><a href="https://element.eleme.cn/#/zh-CN/component/layout" target="_blank">数据分析</a></el-menu-item>
-                       </el-menu>
-                </div></el-col>
-
-                <el-col :span="3">
-                  <div style="background:#eef6f6;height: 60px">
-                      <el-badge is-dot class="item" style="padding-top:0px">
+                <el-col :span="23" style="background:#eef6f6; height: 60px" >
+                  <div style="float:right">
+                      <el-badge is-dot class="item" >
                         <el-button class="share-button" icon="el-icon-message-solid" type="primary" @click="drawer = true"></el-button>
                       </el-badge>
-                      <el-dropdown @command="handleCommand">
-                        <div style="padding-top:10px" >
+                      <el-dropdown @command="handleCommand" style="padding-top: 10px;padding-right: 20px;" >
+                        <div>
                           <el-avatar  src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
                         </div>
                         <el-dropdown-menu slot="dropdown">
@@ -164,14 +152,14 @@
          </el-header>
          <el-main  hight="200px">
             <router-view></router-view>
-                    <el-drawer  :visible.sync="drawer" direction="rtl" size="25%">
-                                <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
-                                  <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
-                                  <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
-                                  <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-                                  <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
-                                </el-tabs>
-                    </el-drawer>
+            <el-drawer  :visible.sync="drawer" direction="rtl" size="25%">
+              <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+                <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
+                <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
+                <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
+                <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
+              </el-tabs>
+            </el-drawer>
          </el-main>
      </el-container>
     </el-container>
@@ -305,8 +293,6 @@
   .el-radio-group {
     font-size: 20px;
     line-height: 20px;
-    margin-top: 20px;
-    margin-left: 20px;
     .shrinkBtn {
       position: fixed;
       left: -18px;

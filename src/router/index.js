@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import VueRouter from "vue-router"
 Vue.use(VueRouter)
+import HomeMain  from '@/views/home/homeMain'
 import BookMain  from '@/views/book/bookMain'
 import BookFlowMain  from '@/views/book/bookFlowMain'
 import ChartMain from '@/views/chart/chartMain'
@@ -20,6 +21,7 @@ import AboutMain  from '@/views/setting/aboutMain'
 import LogMain  from '@/views/monitor/logMain'
 import MapMain  from '@/views/map/mapMain'
 import Login from '@/views/login'
+import Home from '@/views/home'
 import Index from '@/views/index'
 import NotFound from '@/views/404'
 import LoginSuccess from '@/views/loginSuccess'
@@ -38,6 +40,19 @@ const routes = [
     },
     {
         // 首页
+        path: '/home',
+        name: 'Home',
+        component: Home,
+        children:[// 开始嵌套路由，这下面的所有路由都是Main路由的子路由
+                    {
+                        path: '/home/homeMain',
+                        name: 'HomeMain',
+                        component:HomeMain,
+                    }
+                 ]
+    },
+    {
+        // 数据管理
         path: '/index',
         name: 'Index',
         component: Index,
