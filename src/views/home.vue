@@ -71,15 +71,15 @@
           &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
           <el-popover trigger="hover">
             <el-image style="width: 100px; height: 100px" :src="eCodeUrl"></el-image>
-            <el-avatar :size="small" :src="weChatUrl" slot="reference"></el-avatar>
+            <el-avatar size="small" :src="weChatUrl" slot="reference"></el-avatar>
           </el-popover>
           <el-popover trigger="hover">
             <el-image style="width: 100px; height: 100px" :src="eCodeUrl"></el-image>
-            <el-avatar :size="small" :src="sinaUrl" slot="reference"></el-avatar>
+            <el-avatar size="small" :src="sinaUrl" slot="reference"></el-avatar>
           </el-popover>
           <el-popover trigger="hover">
             <el-image style="width: 100px; height: 100px" :src="eCodeUrl"></el-image>
-            <el-avatar :size="small" :src="douBanUrl" slot="reference"></el-avatar>
+            <el-avatar size="small" :src="douBanUrl" slot="reference"></el-avatar>
           </el-popover>
         </el-col>
       </el-row>
