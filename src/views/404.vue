@@ -12,20 +12,20 @@
 </template>
 
 <script>
-    export default {
-        name: "404",
-        data() {
-            return {
-                responseResult: [],
-                // imgSrc:require('../assets/eva.jpg')
-                imgSrc:require('../assets/cosmos008_404_vedio.jpg')
-                //imgSrc:require('../assets/loginBG001.jpg')
-            }
-        },
-        methods: {
-
-        }
+export default {
+  name: '404',
+  data () {
+    return {
+      responseResult: [],
+      // imgSrc:require('../assets/eva.jpg')
+      imgSrc: require('../assets/cosmos008_404_vedio.jpg')
+      // imgSrc:require('../assets/loginBG001.jpg')
     }
+  },
+  methods: {
+
+  }
+}
 </script>
 
 <style>

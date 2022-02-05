@@ -4,11 +4,11 @@
     <el-container style="height: 890px; border: 1px">
       <el-header>
         <el-row>
-          <el-col :span="3" style="background: #eef6f6;height: 60px;cursor: pointer">
+          <el-col :span="3" style="background: #669999;height: 60px;cursor: pointer">
             <h4  style="padding-top: 10px" class="menuTitle"  v-if="!isCollapse" @click="goTo('/user/userInfoMain')">DonQuixotey Book</h4>
           </el-col>
-          <el-col :span="18">
-            <div class="grid-content" style="background:#eef6f6;height: 60px">
+          <el-col :span="18" style="background:#669999;height: 60px">
+            <div class="grid-content" style="background:#669999;height: 60px">
               <el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect" >
                 <el-menu-item index="3">首页</el-menu-item>
                 <el-submenu index="2">
@@ -18,7 +18,7 @@
               </el-menu>
             </div>
           </el-col>
-          <el-col :span="3" style="background:#eef6f6;height: 60px">
+          <el-col :span="3" style="background:#669999;height: 60px">
             <div style="float:right">
               <el-badge is-dot class="item">
                 <el-button class="share-button" icon="el-icon-message-solid" type="primary" @click="drawer = true"></el-button>
@@ -36,53 +36,98 @@
           </el-col>
         </el-row>
       </el-header>
-      <el-main style=" height: 1500px; ">
+      <el-main style="height: 1500px;padding-left: 0px;padding-right: 0px;padding-top: 0px;">
         <router-view></router-view>
       </el-main>
     </el-container>
 
-    <el-footer  style=" height: 100%;padding-left: 0px;padding-right: 0px;">
-      <div>豫公网安备 豫ICP备2020035146号    | Copyright ©2020-2021 www.donQuixotey.com All Rights Reserved</div>
+    <el-footer  style=" height: 100%;padding-left: 0px;padding-right: 0px;background: #669999">
+      <el-row>
+        <el-col :span="24">
+          <el-link :underline="false" href="https://www.nppa.gov.cn" target="_blank">国家新闻出版署</el-link>
+          <el-link :underline="false" href="http://www.nlc.cn" target="_blank">中国国家图书馆</el-link>
+          <el-link :underline="false" href="http://www.ncpssd.org" target="_blank">国家哲学社会科学文献中心</el-link>
+          <el-link :underline="false" href="https://data.stats.gov.cn" target="_blank">国家数据</el-link>
+          <el-link :underline="false" href="https://www.dha.ac.cn" target="_blank">敦煌研究院</el-link>
+          <el-link :underline="false" href="https://www.dpm.org.cn" target="_blank">故宫博物院</el-link>
+          <el-link :underline="false" href="http://www.njmuseum.comzh" target="_blank">南京博物院</el-link>
+          <el-link :underline="false" href="http://www.sxhm.com" target="_blank">陕西历史博物馆</el-link>
+          <el-link :underline="false" href="https://book.douban.com" target="_blank">豆瓣读书</el-link>
+          <el-link :underline="false" href="https://culture.ifeng.com" target="_blank">凤凰读书</el-link>
+          <el-link :underline="false" href="https://www.kongfz.com" target="_blank">孔夫子旧书网</el-link>
+          <el-link :underline="false" href="http://www.aisixiang.com" target="_blank">爱思想网</el-link>
+          <el-link :underline="false" href="https://new.shuge.org" target="_blank">书格</el-link>
+          <el-link :underline="false" href="https://www.ageeye.cn" target="_blank">观沧海</el-link>
+          <el-link :underline="false" href="https://ctext.org" target="_blank">中国哲学书电子化计划</el-link>
+          <el-link :underline="false" href="http://www.xn--5rtnx620bw5s.tw/index.php" target="_blank">漢川草廬</el-link>
+          <el-link :underline="false" href="http://zhongguose.com#tianlan" target="_blank">中国色</el-link>
+          <el-link :underline="false" href="https://www.msdmanuals.cn" target="_blank">默沙东诊疗手册</el-link>
+          <el-link :underline="false" href="https://www.geogebra.org" target="_blank">GeoGebra</el-link>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="24">
+          <span>豫公网安备 豫ICP备2020035146号    | Copyright ©2020-2022 www.donQuixotey.com All Rights Reserved</span>
+          &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+          <el-popover trigger="hover">
+            <el-image style="width: 100px; height: 100px" :src="eCodeUrl"></el-image>
+            <el-avatar :size="small" :src="weChatUrl" slot="reference"></el-avatar>
+          </el-popover>
+          <el-popover trigger="hover">
+            <el-image style="width: 100px; height: 100px" :src="eCodeUrl"></el-image>
+            <el-avatar :size="small" :src="sinaUrl" slot="reference"></el-avatar>
+          </el-popover>
+          <el-popover trigger="hover">
+            <el-image style="width: 100px; height: 100px" :src="eCodeUrl"></el-image>
+            <el-avatar :size="small" :src="douBanUrl" slot="reference"></el-avatar>
+          </el-popover>
+        </el-col>
+      </el-row>
     </el-footer>
   </el-container>
 
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
-    isCollapse: false,
-    activeIndex: '1',
-    activeIndex2: '1',
-    };
+      isCollapse: false,
+      activeIndex: '1',
+      activeIndex2: '1',
+      weChatUrl: require('../assets/image/icon/weChat.png'),
+      sinaUrl: require('../assets/image/icon/sina.png'),
+      douBanUrl: require('../assets/image/icon/douBan.png'),
+      eCodeUrl: require('../assets/image/icon/eCode.jpeg'),
+      douBanUrl1: require('../assets/grild001.jpg'),
+    }
     screenHeight: document.body.clientHeight
   },
   mounted () {
     const that = this
     window.onresize = () => {
       return (() => {
-         window.screenHeight = document.body.clientHeight
-         that.screenHeight = window.screenHeight
+        window.screenHeight = document.body.clientHeight
+        that.screenHeight = window.screenHeight
       })()
     }
   },
   methods: {
-   handleSelect(key, keyPath) {
-    console.log(key, keyPath);
-   },
+    handleSelect (key, keyPath) {
+      console.log(key, keyPath)
+    },
 
-   handleOpen(key, keyPath) {
-     console.log(key, keyPath);
-   },
-   handleClose(key, keyPath) {
-     console.log(key, keyPath);
-   },
-   goTo(path){
-      this.$router.replace(path);
-   },
-   handleCommand(path) {
-      this.$router.replace(path);
-   },
+    handleOpen (key, keyPath) {
+      console.log(key, keyPath)
+    },
+    handleClose (key, keyPath) {
+      console.log(key, keyPath)
+    },
+    goTo (path) {
+      this.$router.replace(path)
+    },
+    handleCommand (path) {
+      this.$router.replace(path)
+    }
   },
   watch: {
     screenHeight (val) {
@@ -102,7 +147,7 @@ export default {
   },
   components: {
   }
- }
+}
 </script>
 <style>
   .el-header {

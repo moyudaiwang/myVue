@@ -1,7 +1,7 @@
 <template>
 <el-container style="{ height: screenHeight + 'px' }; border: 1px">
 
-   <el-container style="height: 890px; border: 1px">
+   <el-container style="height: 890px; border: 1px;background: #eef6f6">
            <el-aside width="auto">
                  <el-menu default-active="1-4-1" class="el-menu-vertical-demo" :unique-opened="true"router  @open="handleOpen" @close="handleClose" :collapse="isCollapse">
                   <el-radio-group v-model="isCollapse" style="padding-left: 16px;cursor: pointer">
@@ -124,13 +124,13 @@
      <el-container>
          <el-header>
          <el-row>
-                <el-col :span="1" style="background: #eef6f6;height: 60px">
+                <el-col :span="1" style="background: #669999;height: 60px">
                      <el-radio-group v-model="isCollapse" style="cursor: pointer">
                        <i v-if="!isCollapse" style="padding-top: 18px ;font-size:23px" class="el-icon-s-fold" @click="isCollapse=true"></i>
                        <i v-if="isCollapse" style="padding-top: 18px ;font-size:23px" class="el-icon-s-unfold" @click="isCollapse=false"></i>
                      </el-radio-group>
                 </el-col>
-                <el-col :span="23" style="background:#eef6f6; height: 60px" >
+                <el-col :span="23" style="background:#669999; height: 60px" >
                   <div style="float:right">
                       <el-badge is-dot class="item" >
                         <el-button class="share-button" icon="el-icon-message-solid" type="primary" @click="drawer = true"></el-button>
@@ -164,8 +164,8 @@
      </el-container>
     </el-container>
 
-  <el-footer  style=" height: 100%;padding-left: 0px;padding-right: 0px;">
-      <div>豫公网安备 豫ICP备2020035146号    | Copyright ©2020-2021 www.donQuixotey.com All Rights Reserved</div>
+  <el-footer  style=" height: 100%;padding-left: 0px;padding-right: 0px;background: #669999;">
+      <div>豫公网安备 豫ICP备2020035146号    | Copyright ©2020-2022 www.donQuixotey.com All Rights Reserved</div>
   </el-footer>
 </el-container>
 

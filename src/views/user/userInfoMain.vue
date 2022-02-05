@@ -18,7 +18,7 @@
 
     <div>
       <!--	描述：项目列表展示-->
-      <el-table  :data="tableData" @selection-change="handleSelectionChange" border fit height="520px" :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}" header-align="center">
+      <el-table  :data="tableData" @selection-change="handleSelectionChange" border fit height="520px" :header-cell-style="{'text-align':'center','background':'#eef6f6'}" :cell-style="{'text-align':'center'}" header-align="center">
         <el-table-column type="selection" fixed ></el-table-column>
          <el-table-column prop="userId" label="用户ID" min-width="150px"></el-table-column>
          <el-table-column prop="userName" label="用户名" min-width="150px"></el-table-column>

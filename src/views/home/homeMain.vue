@@ -1,9 +1,21 @@
 <template>
-  <el-carousel :interval="5000" type="card" height="400px">
-    <el-carousel-item v-for="item in imagesbox" :key="item.id">
-      <img :src="item.idView" class="image">
-    </el-carousel-item>
-  </el-carousel>
+  <div>
+    <el-carousel :interval="5000"  height="500px">
+      <el-carousel-item v-for="item in imagesbox" :key="item.id">
+        <img :src="item.idView" class="image">
+      </el-carousel-item>
+    </el-carousel>
+
+    <div >
+      </br>
+      <span style="float:left;font-weight:bold">咨询</span>
+      </br>
+      <el-divider></el-divider>
+      <span style="float:left;font-weight:bold">咨询</span>
+      </br>
+      <el-divider></el-divider>
+    </div>
+  </div>
 </template>
 <script>
   export default{
@@ -26,7 +38,7 @@
 </script>
 <style >
 .el-carousel__item {
-  width: 50%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
