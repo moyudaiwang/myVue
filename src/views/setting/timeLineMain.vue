@@ -15,24 +15,24 @@
   </div>
 </template>
 <script>
-  export default {
-    data() {
-      return {
-        activities: [
-          {
-            content: '新增时间线，头像',
-            timestamp: '2020-08-21 01:01',
-            type: 'success',
-          },
-          {
-            content: '系统前后台发布1.1.0版本',
-            timestamp: '2022-02-03 01:01',
-            type: 'success',
-          }
-        ]
-      };
+export default {
+  data () {
+    return {
+      activities: [
+        {
+          content: '新增时间线，头像',
+          timestamp: '2020-08-21 01:01',
+          type: 'success'
+        },
+        {
+          content: '系统前后台发布1.1.0版本',
+          timestamp: '2022-02-03 01:01',
+          type: 'success'
+        }
+      ]
     }
-  };
+  }
+}
 </script>
 <style scoped>
 ::v-deep .el-timeline-item__timestamp.is-top {

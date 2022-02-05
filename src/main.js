@@ -11,9 +11,8 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import VueResource from 'vue-resource'
 import axios from 'axios'
-import VueAxios from 'vue-axios'
 import BaiduMap from 'vue-baidu-map'
-//主题（放最后加载）
+// 主题（放最后加载）
 import '../theme/index.css'
 // 导入font-awesome(导入就可以直接用了)
 
@@ -23,7 +22,7 @@ Vue.use(ElementUI, {size: 'medium'})
 Vue.use(VueResource)
 Vue.prototype.$axios = axios
 Vue.use(BaiduMap, {
-  ak: "cAVUjID0iSnAQgt5dyIM2iKUlBdw3eSc"
+  ak: 'cAVUjID0iSnAQgt5dyIM2iKUlBdw3eSc'
 })
 /* eslint-disable no-new */
 

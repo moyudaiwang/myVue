@@ -7,10 +7,10 @@
 <script>
 export default {
   name: 'CHART',
-  data(){
-    return{
-      msg:"hello,CHART"
-    };
+  data () {
+    return {
+      msg: 'hello,CHART'
+    }
   }
 }
 </script>

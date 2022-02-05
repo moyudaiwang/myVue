@@ -148,7 +148,6 @@
                 </div></el-col>
               </el-row>
 
-
          </el-header>
          <el-main  hight="200px">
             <router-view></router-view>
@@ -172,47 +171,47 @@
 </template>
 <script>
 
- export default {
-  data() {
-   return {
-    isCollapse: false,
-    activeIndex: '1',
-    activeIndex2: '1',
-    input: '',
-    drawer: false,
-     activeName: 'first'
-   };
-        screenHeight: document.body.clientHeight
+export default {
+  data () {
+    return {
+      isCollapse: false,
+      activeIndex: '1',
+      activeIndex2: '1',
+      input: '',
+      drawer: false,
+      activeName: 'first'
+    }
+    screenHeight: document.body.clientHeight
   },
   mounted () {
     const that = this
     window.onresize = () => {
       return (() => {
-         window.screenHeight = document.body.clientHeight
-         that.screenHeight = window.screenHeight
-         console.log('that.screenHeightthat.screenHeight---------',that.screenHeight);
+        window.screenHeight = document.body.clientHeight
+        that.screenHeight = window.screenHeight
+        console.log('that.screenHeightthat.screenHeight---------', that.screenHeight)
       })()
     }
   },
   methods: {
-   handleSelect(key, keyPath) {
-    console.log(key, keyPath);
-   },
+    handleSelect (key, keyPath) {
+      console.log(key, keyPath)
+    },
 
-   handleOpen(key, keyPath) {
-     console.log(key, keyPath);
-   },
-   handleClose(key, keyPath) {
-     console.log(key, keyPath);
-   },
-   goTo(path){
-      this.$router.replace(path);
-   },
-   handleCommand(path) {
-      this.$router.replace(path);
-   },
-   handleClick(){
-   }
+    handleOpen (key, keyPath) {
+      console.log(key, keyPath)
+    },
+    handleClose (key, keyPath) {
+      console.log(key, keyPath)
+    },
+    goTo (path) {
+      this.$router.replace(path)
+    },
+    handleCommand (path) {
+      this.$router.replace(path)
+    },
+    handleClick () {
+    }
   },
   watch: {
     screenHeight (val) {
@@ -232,7 +231,7 @@
   },
   components: {
   }
- }
+}
 </script>
 <style>
   .el-header {

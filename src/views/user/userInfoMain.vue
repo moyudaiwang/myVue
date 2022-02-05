@@ -228,158 +228,157 @@
 <script>
 export default {
   name: 'logMain',
-  data(){
-    return{
-      titleName:'用户信息',
-      param:{
-        queryName:'',
-        pageNum:1, //初始页
-        pageSize:10 //每页的数据
+  data () {
+    return {
+      titleName: '用户信息',
+      param: {
+        queryName: '',
+        pageNum: 1, // 初始页
+        pageSize: 10 // 每页的数据
       },
-      total:0,
+      total: 0,
       multipleSelection: [],
-      tableData:[],
-      insVisible:false,
+      tableData: [],
+      insVisible: false,
       insRules: {},
       insForm: {},
-      updVisible:false,
+      updVisible: false,
       updRules: {},
       updForm: {},
       userStatusOptions: [
-         {label: '正常', value: 'Y'}
+        {label: '正常', value: 'Y'}
       ],
-      userStatus:true
-    };
+      userStatus: true
+    }
   },
   mounted () {
-    this.init();
+    this.init()
   },
   methods: {
-      handleSelectionChange(val) {
-        this.multipleSelection = val;
-      },
-      handSizeChange: function (size) {
-        this.param.pageSize = size;
-        this.init();
-      },
-      handCurrentChange: function(pageNum) {
-        this.param.pageNum = pageNum;
-        this.init();
-      },
-      //初始化
-      init() {
-        var _this = this;
-        let donUserInfoEntity = {
-          queryName:this.param.queryName,
-          pageNum:this.param.pageNum,
-          pageSize:this.param.pageSize
+    handleSelectionChange (val) {
+      this.multipleSelection = val
+    },
+    handSizeChange: function (size) {
+      this.param.pageSize = size
+      this.init()
+    },
+    handCurrentChange: function (pageNum) {
+      this.param.pageNum = pageNum
+      this.init()
+    },
+    // 初始化
+    init () {
+      var _this = this
+      let donUserInfoEntity = {
+        queryName: this.param.queryName,
+        pageNum: this.param.pageNum,
+        pageSize: this.param.pageSize
+      }
+      var url = '/api/web/userInfo/query'
+      this.$axios.post(url, donUserInfoEntity).then(res => {
+        if (res.data.code == '100200') {
+          this.tableData = res.data.object.list
+          this.total = res.data.object.total
+        } else {
+          this.$message({message: res.data.msg, type: 'error'})
         }
-        var url = "/api/web/userInfo/query";
-        this.$axios.post(url, donUserInfoEntity).then(res => {
-          if(res.data.code == '100200') {
-            this.tableData = res.data.object.list;
-            this.total = res.data.object.total;
-          }else {
-            this.$message({message: res.data.msg,type: 'error'});
-          }
-        }).catch(error => {
-          console.log(error)
-        })
-      },
-      //查询
-      query() {
-        var _this = this;
-        this.init();
-      },
-      //重置
-      reset() {
-        var _this = this;
-        this.param.queryName = '';
-        this.init();
-      },
-      //新增TO
-      insTo() {
-        this.insVisible = true;
-      },
-      //新增
-      ins() {
-        var _this = this;
-        let donUserInfoEntity = this.insForm;
-        var url = "/api/web/userInfo/insert";
-        this.$axios.post(url, donUserInfoEntity).then(res => {
-          if(res.data.code == '100200') {
-            this.insVisible = false;
-            this.insForm = {};
-            this.init();
-            this.$message({message: res.data.msg,type: 'success',center: true,duration:2000});
-          }else {
-            this.insVisible = false;
-            this.$message({message: res.data.msg,type: 'error',center: true,duration:2000});
-          }
-        }).catch(error => {
-           console.log(error)
-        })
-      },
-      //修改TO
-      updTo(row) {
-        this.updForm = row;
-        this.updVisible = true;
-      },
-      //修改
-      upd() {
-        var _this = this;
-        let donUserInfoEntity = this.updForm;
-        var url = "/api/web/userInfo/update";
-        this.$axios.post(url, donUserInfoEntity).then(res => {
-          if(res.data.code == '100200') {
-            this.updVisible = false;
-            this.init();
-            this.$message({message: res.data.msg,type: 'success',center: true,duration:2000});
-          }else {
-            this.updVisible = false;
-            this.$message({message: res.data.msg,type: 'error',center: true,duration:2000});
-          }
-        }).catch(error => {
-          console.log(error)
-        })
-      },
-      //批量删除
-      delBatch() {
-        var _this = this;
-        if(this.multipleSelection.length != 0){
-          this.$confirm('请确认是否删除?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            let donUserInfoEntityList =this.multipleSelection;
-            var url = "/api/web/userInfo/delete";
-            this.$axios.post(url, donUserInfoEntityList).then(res => {
-              if(res.data.code == '100200'){
-                this.param = '';
-                this.init();
-                this.$message({message: res.data.msg,type: 'success',center: true,duration:2000});
-              }else {
-                this.param = '';
-                this.init();
-                this.$message({message: res.data.msg,type: 'error',center: true,duration:2000});
-              }
-            }).catch(error => {
-              console.log(error)
-            })
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    // 查询
+    query () {
+      this.init()
+    },
+    // 重置
+    reset () {
+      var _this = this
+      this.param.queryName = ''
+      this.init()
+    },
+    // 新增TO
+    insTo () {
+      this.insVisible = true
+    },
+    // 新增
+    ins () {
+      var _this = this
+      let donUserInfoEntity = this.insForm
+      var url = '/api/web/userInfo/insert'
+      this.$axios.post(url, donUserInfoEntity).then(res => {
+        if (res.data.code == '100200') {
+          this.insVisible = false
+          this.insForm = {}
+          this.init()
+          this.$message({message: res.data.msg, type: 'success', center: true, duration: 2000})
+        } else {
+          this.insVisible = false
+          this.$message({message: res.data.msg, type: 'error', center: true, duration: 2000})
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    // 修改TO
+    updTo (row) {
+      this.updForm = row
+      this.updVisible = true
+    },
+    // 修改
+    upd () {
+      var _this = this
+      let donUserInfoEntity = this.updForm
+      var url = '/api/web/userInfo/update'
+      this.$axios.post(url, donUserInfoEntity).then(res => {
+        if (res.data.code == '100200') {
+          this.updVisible = false
+          this.init()
+          this.$message({message: res.data.msg, type: 'success', center: true, duration: 2000})
+        } else {
+          this.updVisible = false
+          this.$message({message: res.data.msg, type: 'error', center: true, duration: 2000})
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    // 批量删除
+    delBatch () {
+      var _this = this
+      if (this.multipleSelection.length != 0) {
+        this.$confirm('请确认是否删除?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          let donUserInfoEntityList = this.multipleSelection
+          var url = '/api/web/userInfo/delete'
+          this.$axios.post(url, donUserInfoEntityList).then(res => {
+            if (res.data.code == '100200') {
+              this.param = ''
+              this.init()
+              this.$message({message: res.data.msg, type: 'success', center: true, duration: 2000})
+            } else {
+              this.param = ''
+              this.init()
+              this.$message({message: res.data.msg, type: 'error', center: true, duration: 2000})
+            }
           }).catch(error => {
             console.log(error)
           })
-        }else {
-          this.$message({message: '请选择要删除的数据',type: 'warning',center: true,duration:2000});
-        }
-      },
-      //导入
-      uploadExcel(){
-      },
-      //导出
-      downloadExcel(){
+        }).catch(error => {
+          console.log(error)
+        })
+      } else {
+        this.$message({message: '请选择要删除的数据', type: 'warning', center: true, duration: 2000})
       }
+    },
+    // 导入
+    uploadExcel () {
+    },
+    // 导出
+    downloadExcel () {
+    }
   }
 
 }

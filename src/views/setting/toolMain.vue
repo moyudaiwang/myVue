@@ -81,158 +81,146 @@ import bookInfo from '@/components/views/book/bookInfo.vue'
 <script>
 export default {
   name: 'USER',
-  data(){
-    return{
-      param:{
-        path:'',
-        type:'UserEntity'
+  data () {
+    return {
+      param: {
+        path: '',
+        type: 'UserEntity'
       },
       input1: '',
       input2: '',
       input3: '',
       select: '',
-      bookStatus:true,
-      pageNum:1, //初始页
-      pageSize:10, //每页的数据
-      total:0,
-      sel:[],
-      createTableVisible:false,
-       limitNum: 10,  // 上传excell时，同时允许上传的最大数
-       fileList: []   // excel文件列表
-    };
+      bookStatus: true,
+      pageNum: 1, // 初始页
+      pageSize: 10, // 每页的数据
+      total: 0,
+      sel: [],
+      createTableVisible: false,
+      limitNum: 10, // 上传excell时，同时允许上传的最大数
+      fileList: [] // excel文件列表
+    }
   },
   mounted () {
-        //this.init()
+    // this.init()
   },
   methods: {
-      //初始化&查询
-      init(){
-          var that  = this;
-          let bookInfoEntity ={
-            bookId:this.param.bookId,
-            isbn:this.param.isbn,
-            bookName:this.param.bookName,
-            pageNum:this.pageNum,
-            pageSize:this.pageSize
-          }
-          var url = "/api/web/bookIn";
-          console.log("url>>>>>",url);
-          this.$axios.post(url, bookInfoEntity).then(response => {
-             console.log(response.data.list.total)
-             this.tableData = response.data.list;
-             this.total = response.data.total
-          }).catch(error => {
-             console.log(error)
+    // 初始化&查询
+    init () {
+      var that = this
+      let bookInfoEntity = {
+        bookId: this.param.bookId,
+        isbn: this.param.isbn,
+        bookName: this.param.bookName,
+        pageNum: this.pageNum,
+        pageSize: this.pageSize
+      }
+      var url = '/api/web/bookIn'
+      console.log('url>>>>>', url)
+      this.$axios.post(url, bookInfoEntity).then(response => {
+        console.log(response.data.list.total)
+        this.tableData = response.data.list
+        this.total = response.data.total
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    createTableTest () {
+      var that = this
+      var names = 'mars'
+      // names= that.form.name;
+      that.$axios.get('http://localhost:8000/web/bookInfo/getBookInfo/ji', {headers: { 'Content-Type': 'application/json;charset=UTF-8'}}).then(function (response) {
+        if (response.data == 'M') {
+          that.$message({
+            message: '恭喜你，这是男孩' + response.data,
+            type: 'success'
           })
-      },
-      createTableTest(){
-          var that  = this;
-          var names ='mars';
-          //names= that.form.name;
-          that.$axios.get('http://localhost:8000/web/bookInfo/getBookInfo/ji',{headers: { 'Content-Type':'application/json;charset=UTF-8'}} ).then(function (response) {
-               if(response.data=='M'){
-                    that.$message({
-                      message: '恭喜你，这是男孩'+response.data,
-                      type: 'success'
-                    });
-               }else{
-                    that.$message({
-                      message: '恭喜你，这是女孩'+response.data,
-                      type: 'success'
-                    });
-               }
-               console.log(response)
-          }).catch(function (error) {
-              that.$message.error('请求失败！');
-          });
-      },
-      //建表导入
-      createTblIm(){
-          var that  = this;
-           that.$message.info('建表ing！！');
-      },
-
-     // 文件超出个数限制时的钩子
-      exceedFile(files, fileList) {
-        this.$message.warning(`只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length + fileList.length} 个`);
-      },
-      // 文件状态改变时的钩子
-      fileChange(file, fileList) {
-        console.log(file.raw);
-        this.fileList.push(file.raw) ;
-        console.log(this.fileList);
-      },
-      // 上传文件之前的钩子, 参数为上传的文件,若返回 false 或者返回 Promise 且被 reject，则停止上传
-      beforeUploadFile(file) {
-        console.log('before upload');
-        console.log(file);
-        let extension = file.name.substring(file.name.lastIndexOf('.')+1);
-        let size = file.size / 1024 / 1024;
-        if(extension !== 'xlsx') {
-          this.$message.warning('只能上传后缀是.xlsx的文件');
-        }
-        if(size > 10) {
-          this.$message.warning('文件大小不得超过10M');
-        }
-      },
-      // 文件上传成功时的钩子
-      handleSuccess(res, file, fileList) {
-        this.$message.success('文件上传成功');
-      },
-      // 文件上传失败时的钩子
-      handleError(err, file, fileList) {
-        this.$message.error('文件上传失败');
-      },
-      uploadUrl:function(){
-       // 因为action参数是必填项，我们使用二次确认进行文件上传时，直接填上传文件的url会因为没有参数导致api报404，所以这里将action设置为一个返回为空的方法就行，避免抛错
-        return ""
-      },
-      createTable() {
-        if (this.fileList.length === 0){
-          this.$message.warning('请上传文件');
         } else {
-          let form = new FormData();
-          for (var i = 0;i<this.fileList.length; i++){
-            form.append('excelFiles', this.fileList[i]);
-          }
-          form.append('module', 'okok');
-          this.$axios({
-            method:"post",
-            url: "/api/web/data/createTable",
-            headers:{
-              'Content-Type': 'multipart/form-data'
-            },
-            data:form
-          }).then(res=>{
-              if(res.data.code=='200'){
-                this.createTableVisible = false;
-                this.fileList = [];
-                this.$message.success(res.data.msg);
-              }else {
-                this.$message.success(res.data.msg);
-              }
-            },err =>{
-              this.$message.success(res.data.msg);
-            });
+          that.$message({
+            message: '恭喜你，这是女孩' + response.data,
+            type: 'success'
+          })
         }
-      },
+        console.log(response)
+      }).catch(function (error) {
+        that.$message.error('请求失败！')
+      })
+    },
+    // 建表导入
+    createTblIm () {
+      var that = this
+      that.$message.info('建表ing！！')
+    },
 
-    createTableVisibleTo(){
-      this.fileList = [];
-      this.createTableVisible = true;
+    // 文件超出个数限制时的钩子
+    exceedFile (files, fileList) {
+      this.$message.warning(`只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length + fileList.length} 个`)
+    },
+    // 文件状态改变时的钩子
+    fileChange (file, fileList) {
+      console.log(file.raw)
+      this.fileList.push(file.raw)
+      console.log(this.fileList)
+    },
+    // 上传文件之前的钩子, 参数为上传的文件,若返回 false 或者返回 Promise 且被 reject，则停止上传
+    beforeUploadFile (file) {
+      console.log('before upload')
+      console.log(file)
+      let extension = file.name.substring(file.name.lastIndexOf('.') + 1)
+      let size = file.size / 1024 / 1024
+      if (extension !== 'xlsx') {
+        this.$message.warning('只能上传后缀是.xlsx的文件')
+      }
+      if (size > 10) {
+        this.$message.warning('文件大小不得超过10M')
+      }
+    },
+    // 文件上传成功时的钩子
+    handleSuccess (res, file, fileList) {
+      this.$message.success('文件上传成功')
+    },
+    // 文件上传失败时的钩子
+    handleError (err, file, fileList) {
+      this.$message.error('文件上传失败')
+    },
+    uploadUrl: function () {
+      // 因为action参数是必填项，我们使用二次确认进行文件上传时，直接填上传文件的url会因为没有参数导致api报404，所以这里将action设置为一个返回为空的方法就行，避免抛错
+      return ''
+    },
+    createTable () {
+      if (this.fileList.length === 0) {
+        this.$message.warning('请上传文件')
+      } else {
+        let form = new FormData()
+        for (var i = 0; i < this.fileList.length; i++) {
+          form.append('excelFiles', this.fileList[i])
+        }
+        form.append('module', 'okok')
+        this.$axios({
+          method: 'post',
+          url: '/api/web/data/createTable',
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          data: form
+        }).then(res => {
+          if (res.data.code == '200') {
+            this.createTableVisible = false
+            this.fileList = []
+            this.$message.success(res.data.msg)
+          } else {
+            this.$message.success(res.data.msg)
+          }
+        }, err => {
+          this.$message.success(res.data.msg)
+        })
+      }
+    },
+
+    createTableVisibleTo () {
+      this.fileList = []
+      this.createTableVisible = true
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
   }
 

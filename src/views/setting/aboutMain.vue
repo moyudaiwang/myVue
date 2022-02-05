@@ -24,10 +24,10 @@
 <script>
 export default {
   name: 'about',
-  data(){
-    return{
-       activeName: '1'
-    };
+  data () {
+    return {
+      activeName: '1'
+    }
   }
 }
 </script>

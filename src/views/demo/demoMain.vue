@@ -62,7 +62,6 @@
             </el-pagination>
       </div>
 
-
       <div>
         	<!--	add 对话框 -->
           <el-dialog title="新增用户信息" :visible.sync="addVisible" width="50%">
@@ -222,25 +221,25 @@ import userInfo from '@/components/views/user/userInfo.vue'
 <script>
 export default {
   name: 'USER',
-  data(){
+  data () {
     const item = {
-          userName: '2016-05-02',
-          nickname: '王小虎',
-          userForeignName: '上海市普陀区金沙江路 1518 弄'
-        };
-    return{
-      param:{
-        userName:'',
-        nickname:'',
-        email:''
+      userName: '2016-05-02',
+      nickname: '王小虎',
+      userForeignName: '上海市普陀区金沙江路 1518 弄'
+    }
+    return {
+      param: {
+        userName: '',
+        nickname: '',
+        email: ''
       },
       userInfo: {
-        userName: "",
-        nickname: ""
+        userName: '',
+        nickname: ''
       },
       tableData1: Array(15).fill(item),
-      tableData:[],
-      addVisible:false,
+      tableData: [],
+      addVisible: false,
       addRules: {},
       addForm: {
         userName: '',
@@ -254,7 +253,7 @@ export default {
         userStatus: '',
         remark: ''
       },
-      updVisible:false,
+      updVisible: false,
       updRules: {},
       updForm: {
         userName: '',
@@ -269,168 +268,168 @@ export default {
         remark: ''
       },
       userStatusOpt: [
-         {label: '正常', value: 'Y'},
-         {label: '暂停', value: 'Z'},
-         {label: '注销', value: 'N'}
+        {label: '正常', value: 'Y'},
+        {label: '暂停', value: 'Z'},
+        {label: '注销', value: 'N'}
       ],
-      userStatus:true,
-      pageNum:1, //初始页
-      pageSize:10, //每页的数据
-      total:0
-    };
+      userStatus: true,
+      pageNum: 1, // 初始页
+      pageSize: 10, // 每页的数据
+      total: 0
+    }
   },
   mounted () {
-        this.init()
+    this.init()
   },
   methods: {
-      // 初始页pageNum、初始每页数据数pageSize和数据data
-      handSizeChange: function (size) {
-          this.pageSize = size;
-          console.log(this.pageSize)  //每页下拉显示数据
-          this.init();
-      },
-      handCurrentChange: function(pageNum){
-          this.pageNum = pageNum;
-          console.log(this.pageNum)  //点击第几页
-          this.init();
-      },
-      handUserList() {
-          this.$http.get('http://localhost:8000/userList').then(res => {  //这是从本地请求的数据接口，
-              this.userList = res.body
-          })
-      },
-      //初始化&查询
-      init(){
-          var that  = this;
-          let userInfoEntity ={
-            userName:this.param.userName,
-            nickname:this.param.nickname,
-            email:this.param.email,
-            pageNum:this.pageNum,
-            pageSize:this.pageSize
-          }
-          var url = "/api/web/userInfo/queryUserInfoPage";
-          console.log("url>>>>>",url);
-          this.$axios.post(url, userInfoEntity).then(response => {
-             console.log(response.data.list.total)
-             this.tableData = response.data.list;
-             this.total = response.data.total
-          }).catch(error => {
-             console.log(error)
-          })
-      },
-      onSubmit(){
-          var that  = this;
-          var names ='mars';
-          //names= that.form.name;
-          that.$axios.get('http://localhost:8000/web/userInfo/getUserInfo/ji',{headers: { 'Content-Type':'application/json;charset=UTF-8'}} ).then(function (response) {
-               if(response.data=='M'){
-                    that.$message({
-                      message: '恭喜你，这是男孩'+response.data,
-                      type: 'success'
-                    });
-               }else{
-                    that.$message({
-                      message: '恭喜你，这是女孩'+response.data,
-                      type: 'success'
-                    });
-               }
-               console.log(response)
-          }).catch(function (error) {
-              that.$message.error('请求失败！');
-          });
-      },
-      handQue(){
-          var _this = this;
-          this.init();
-      },
-
-      testCookie(){
-        var _this = this;
-        this.setCookie('kkk','vvv','sssss');
-      },
-      setCookie(key,value,t){
-          var oDate=new Date();
-          oDate.setDate(oDate.getDate()+t);
-          document.cookie=key+"="+value+"; expires="+oDate.toDateString();
-      },
-
-      //重置
-      reset(){
-         var _this = this;
-         this.param.userName='';
-         this.param.nickname='';
-         this.param.email='';
-      },
-      //新增TO
-      handAddTo(){
-        this.addVisible=true;
-      },
-      //新增
-      handAdd(){
-          var that  = this;
-          let userInfoEntity =this.addForm;
-          var url = "/api/web/userInfo/insertUserInfo";
-          this.$axios.post(url, userInfoEntity).then(res => {
-             if(res.data.code=='200'){
-                this.addVisible=false;
-                this.$message({message: res.data.msg,type: 'success',center: true,duration:2000});
-             }else {
-                 this.addVisible=false;
-                 this.$message({message: res.data.msg,type: 'error',center: true,duration:2000});
-             }
-          }).catch(error => {
-             console.log(error)
-          })
-      },
-      //修改TO
-      handUpdTo(row){
-        this.updForm = row;
-        this.updVisible=true;
-      },
-      //修改
-      handUpd(){
-          var that  = this;
-          let userInfoEntity =this.updForm;
-          var url = "/api/web/userInfo/updateUserInfo";
-          this.$axios.post(url, userInfoEntity).then(res => {
-             if(res.data.code=='200'){
-                this.updVisible=false;
-                this.$message({message: res.data.msg,type: 'success',center: true,duration:2000});
-             }else {
-                 this.updVisible=false;
-                 this.$message({message: res.data.msg,type: 'error',center: true,duration:2000});
-             }
-          }).catch(error => {
-             console.log(error)
-          })
-      },
-      //删除
-      handDel(row){
-          var that  = this;
-          let userInfoEntity =row;
-          console.log(userInfoEntity)
-          var url = "/api/web/userInfo/deleteUserInfo";
-          this.$axios.post(url, userInfoEntity).then(res => {
-             if(res.data.code=='200'){
-                this.param = '';
-                this.init();
-                this.$message({message: res.data.msg,type: 'success',center: true,duration:2000});
-             }else {
-                 this.param = '';
-                 this.init();
-                 this.$message({message: res.data.msg,type: 'error',center: true,duration:2000});
-             }
-          }).catch(error => {
-             console.log(error)
-          })
-      },
-      //导入
-      uploadExcel(){
-      },
-      //导出
-      downloadExcel(){
+    // 初始页pageNum、初始每页数据数pageSize和数据data
+    handSizeChange: function (size) {
+      this.pageSize = size
+      console.log(this.pageSize) // 每页下拉显示数据
+      this.init()
+    },
+    handCurrentChange: function (pageNum) {
+      this.pageNum = pageNum
+      console.log(this.pageNum) // 点击第几页
+      this.init()
+    },
+    handUserList () {
+      this.$http.get('http://localhost:8000/userList').then(res => { // 这是从本地请求的数据接口，
+        this.userList = res.body
+      })
+    },
+    // 初始化&查询
+    init () {
+      var that = this
+      let userInfoEntity = {
+        userName: this.param.userName,
+        nickname: this.param.nickname,
+        email: this.param.email,
+        pageNum: this.pageNum,
+        pageSize: this.pageSize
       }
+      var url = '/api/web/userInfo/queryUserInfoPage'
+      console.log('url>>>>>', url)
+      this.$axios.post(url, userInfoEntity).then(response => {
+        console.log(response.data.list.total)
+        this.tableData = response.data.list
+        this.total = response.data.total
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    onSubmit () {
+      var that = this
+      var names = 'mars'
+      // names= that.form.name;
+      that.$axios.get('http://localhost:8000/web/userInfo/getUserInfo/ji', {headers: { 'Content-Type': 'application/json;charset=UTF-8'}}).then(function (response) {
+        if (response.data == 'M') {
+          that.$message({
+            message: '恭喜你，这是男孩' + response.data,
+            type: 'success'
+          })
+        } else {
+          that.$message({
+            message: '恭喜你，这是女孩' + response.data,
+            type: 'success'
+          })
+        }
+        console.log(response)
+      }).catch(function (error) {
+        that.$message.error('请求失败！')
+      })
+    },
+    handQue () {
+      var _this = this
+      this.init()
+    },
+
+    testCookie () {
+      var _this = this
+      this.setCookie('kkk', 'vvv', 'sssss')
+    },
+    setCookie (key, value, t) {
+      var oDate = new Date()
+      oDate.setDate(oDate.getDate() + t)
+      document.cookie = key + '=' + value + '; expires=' + oDate.toDateString()
+    },
+
+    // 重置
+    reset () {
+      var _this = this
+      this.param.userName = ''
+      this.param.nickname = ''
+      this.param.email = ''
+    },
+    // 新增TO
+    handAddTo () {
+      this.addVisible = true
+    },
+    // 新增
+    handAdd () {
+      var that = this
+      let userInfoEntity = this.addForm
+      var url = '/api/web/userInfo/insertUserInfo'
+      this.$axios.post(url, userInfoEntity).then(res => {
+        if (res.data.code == '200') {
+          this.addVisible = false
+          this.$message({message: res.data.msg, type: 'success', center: true, duration: 2000})
+        } else {
+          this.addVisible = false
+          this.$message({message: res.data.msg, type: 'error', center: true, duration: 2000})
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    // 修改TO
+    handUpdTo (row) {
+      this.updForm = row
+      this.updVisible = true
+    },
+    // 修改
+    handUpd () {
+      var that = this
+      let userInfoEntity = this.updForm
+      var url = '/api/web/userInfo/updateUserInfo'
+      this.$axios.post(url, userInfoEntity).then(res => {
+        if (res.data.code == '200') {
+          this.updVisible = false
+          this.$message({message: res.data.msg, type: 'success', center: true, duration: 2000})
+        } else {
+          this.updVisible = false
+          this.$message({message: res.data.msg, type: 'error', center: true, duration: 2000})
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    // 删除
+    handDel (row) {
+      var that = this
+      let userInfoEntity = row
+      console.log(userInfoEntity)
+      var url = '/api/web/userInfo/deleteUserInfo'
+      this.$axios.post(url, userInfoEntity).then(res => {
+        if (res.data.code == '200') {
+          this.param = ''
+          this.init()
+          this.$message({message: res.data.msg, type: 'success', center: true, duration: 2000})
+        } else {
+          this.param = ''
+          this.init()
+          this.$message({message: res.data.msg, type: 'error', center: true, duration: 2000})
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    // 导入
+    uploadExcel () {
+    },
+    // 导出
+    downloadExcel () {
+    }
   }
 
 }

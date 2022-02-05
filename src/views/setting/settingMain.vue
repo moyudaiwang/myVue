@@ -7,10 +7,10 @@
 <script>
 export default {
   name: 'setting',
-  data(){
-    return{
-      msg:"hello,setting"
-    };
+  data () {
+    return {
+      msg: 'hello,setting'
+    }
   }
 }
 </script>

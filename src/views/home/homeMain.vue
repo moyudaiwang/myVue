@@ -18,22 +18,22 @@
   </div>
 </template>
 <script>
-  export default{
-    data(){
-      return {
-        imagesbox:[
-          {id:0,idView:require("../../assets/home/banner1.jpg")},
-          {id:1,idView:require("../../assets/home/banner2.jpg")},
-          {id:2,idView:require("../../assets/home/banner3.jpg")}
-        ]
-      }
-    },
-    methods: {
-
-    },
-    mounted() {
+export default{
+  data () {
+    return {
+      imagesbox: [
+        {id: 0, idView: require('../../assets/home/banner1.jpg')},
+        {id: 1, idView: require('../../assets/home/banner2.jpg')},
+        {id: 2, idView: require('../../assets/home/banner3.jpg')}
+      ]
     }
+  },
+  methods: {
+
+  },
+  mounted () {
   }
+}
 
 </script>
 <style >
