@@ -1,25 +1,24 @@
 <template>
-  <div class="USER-app">
-      <div>
-           <!--	描述：新增、删除和运行按钮 -->
-           <div class="filter-container">
-           	 <div class="letf-items" style="float: left;" size="medium" >
-                 <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handAddTo()">新  增</el-button>
-                 <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-delete" @click="delBatch()">删  除</el-button>
-                 <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="uploadExcelTo()">导  入</el-button>
-                 <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-download" @click="downloadExcel()">导  出</el-button>
-           	 </div>
-             <div class="right-items" style="float: right">
-                 <el-input placeholder="图书ID/ISBN/图书名" v-model="param.queryName" size="medium" style="width: 200px;" class="filter-item"/>
-                 <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-search" @click="handQue()">Search</el-button>
-                 <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="reset()">Reset</el-button>
-       <!--      <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="onSubmit()">onSubmit</el-button>    -->
-           	 </div>
-           </div>
-      </div>
+    <div class="USER-app">
+        <div>
+            <div class="filter-container">
+                <div class="letf-items" style="float: left;" size="medium" >
+                    <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handAddTo()">新  增</el-button>
+                    <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-delete" @click="delBatch()">删  除</el-button>
+                    <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="uploadExcelTo()">导  入</el-button>
+                    <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-download" @click="downloadExcel()">导  出</el-button>
+                </div>
+                <div class="right-items" style="float: right">
+                    <el-input placeholder="图书ID/ISBN/图书名" v-model="param.queryName" size="medium" style="width: 200px;" class="filter-item"/>
+                    <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-search" @click="handQue()">Search</el-button>
+                    <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="reset()">Reset</el-button>
+                    <!-- <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="onSubmit()">onSubmit</el-button>    -->
+                </div>
+            </div>
+        </div>
 
-      <div>
-          <!--	描述：项目列表展示-->
+        <div>
+          <!--项目列表展示-->
            <el-table  :data="tableData" @selection-change="handleSelectionChange" border fit height="470px"style="width: 100%" :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}" header-align="center">
             <el-table-column type="selection" fixed width="55"></el-table-column>
             <el-table-column prop="bookId" label="图书ID" min-width="150px"></el-table-column>
@@ -66,13 +65,12 @@
             <el-table-column prop="bookAvatar" label="书像" min-width="150px"></el-table-column>
             <el-table-column prop="remark" label="备注" min-width="150px"></el-table-column>
             <el-table-column label="操作" fixed="right" width="100">
-      	      <template slot-scope="scope">
-      	        <el-button size="mini"  type="success"  @click="handUpdTo(scope.row)">Edit</el-button>
-      	       <!-- <el-button size="mini" type="danger" @click="handDel(scope.row)">Delete</el-button>   -->
-      	      </template>
-      	    </el-table-column>
+         <template slot-scope="scope">
+           <el-button size="mini"  type="success"  @click="handUpdTo(scope.row)">Edit</el-button>
+          <!-- <el-button size="mini" type="danger" @click="handDel(scope.row)">Delete</el-button>   -->
+         </template>
+      </el-table-column>
            </el-table>
-           <!--  	描述：分页 -->
             <el-pagination
                     @size-change="handSizeChange"
                     @current-change="handCurrentChange"
@@ -84,11 +82,10 @@
             </el-pagination>
       </div>
 
-
       <div>
-        	<!--	add 对话框 -->
+        <!--add 对话框 -->
           <el-dialog title="新增图书信息" :visible.sync="addVisible" width="50%">
-      		  <el-form ref="addRef" :model="addForm" :rules="addRules" label-position="right" label-width="100px" style="margin-left:40px;">
+            <el-form ref="addRef" :model="addForm" :rules="addRules" label-position="right" label-width="100px" style="margin-left:40px;">
                 <el-row>
                     <el-col :span="10">
                         <el-form-item label="图书ID" prop="bookId">
@@ -348,17 +345,17 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-      		  </el-form>
-      		  <div slot="footer" class="dialog-footer">
-      		    <el-button @click="addVisible = false">取 消</el-button>
-      		    <el-button type="primary" @click="handAdd()">确 定</el-button>
-      		  </div>
-          </el-dialog>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="addVisible = false">取 消</el-button>
+                <el-button type="primary" @click="handAdd()">确 定</el-button>
+            </div>
+        </el-dialog>
       </div>
       <div>
-        	<!--	upd 对话框 -->
+
           <el-dialog title="修改图书信息" :visible.sync="updVisible" width="50%">
-      		  <el-form ref="updRef" :model="updForm" :rules="updRules" label-position="right" label-width="100px" style="margin-left:40px;">
+            <el-form ref="updRef" :model="updForm" :rules="updRules" label-position="right" label-width="100px" style="margin-left:40px;">
                 <el-row>
                     <el-col :span="10">
                         <el-form-item label="图书ID" prop="bookId">
@@ -618,11 +615,11 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-      		  </el-form>
-      		  <div slot="footer" class="dialog-footer">
-      		    <el-button @click="updVisible = false">取 消</el-button>
-      		    <el-button type="primary" @click="handUpd()">确 定</el-button>
-      		  </div>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="updVisible = false">取 消</el-button>
+                <el-button type="primary" @click="handUpd()">确 定</el-button>
+            </div>
           </el-dialog>
       </div>
 
@@ -652,355 +649,343 @@
       </el-dialog>
       </div>
 
-
   </div>
 </template>
 import bookInfo from '@/components/views/book/bookInfo.vue'
 <script>
 export default {
   name: 'USER',
-  data(){
-    return{
-      param:{
-        queryName:'B00000000069',
-        pageNum:1, //初始页
-        pageSize:10 //每页的数据
+  data () {
+    return {
+      param: {
+        queryName: 'B00000000069',
+        pageNum: 1, // 初始页
+        pageSize: 10 // 每页的数据
       },
-      total:0,
+      total: 0,
       multipleSelection: [],
-      tableData:[],
-      addVisible:false,
+      tableData: [],
+      addVisible: false,
       addRules: {},
       addForm: {
-          bookId : '',
-          isbn : '',
-          isbnPid : '',
-          isbnSid : '',
-          bookName : '',
-          bookForeignName : '',
-          author : '',
-          authorForeignName  : '',
-          authorCountry : '',
-          translator : '',
-          translatorForeignName : '',
-          editorCharge : '',
-          coverDesign : '',
-          collection : '',
-          press : '',
-          issue : '',
-          printHouse : '',
-          price : '',
-          currencyType : '',
-          editionFirstDate : '',
-          impressionFirstDate : '',
-          editionDate : '',
-          impressionDate : '',
-          edition : '',
-          impression  : '',
-          sheetsNum  : '',
-          bookFormat : '',
-          wordNum : '',
-          pageNum : '',
-          printNumStart : '',
-          printNumEnd  : '',
-          printNum : '',
-          language : '',
-          clc  : '',
-          flc  : '',
-          bindType : '',
-          lwh  : '',
-          volume  : '',
-          weight  : '',
-          signFlag : '',
-          signetFlag : '',
-          bookAvatar : '',
-          remark  : '',
-          createBy : '',
-          createDate : '',
-          updateBy : '',
-          updateDate : '',
-          donBookInfoId : ''
+        bookId: '',
+        isbn: '',
+        isbnPid: '',
+        isbnSid: '',
+        bookName: '',
+        bookForeignName: '',
+        author: '',
+        authorForeignName: '',
+        authorCountry: '',
+        translator: '',
+        translatorForeignName: '',
+        editorCharge: '',
+        coverDesign: '',
+        collection: '',
+        press: '',
+        issue: '',
+        printHouse: '',
+        price: '',
+        currencyType: '',
+        editionFirstDate: '',
+        impressionFirstDate: '',
+        editionDate: '',
+        impressionDate: '',
+        edition: '',
+        impression: '',
+        sheetsNum: '',
+        bookFormat: '',
+        wordNum: '',
+        pageNum: '',
+        printNumStart: '',
+        printNumEnd: '',
+        printNum: '',
+        language: '',
+        clc: '',
+        flc: '',
+        bindType: '',
+        lwh: '',
+        volume: '',
+        weight: '',
+        signFlag: '',
+        signetFlag: '',
+        bookAvatar: '',
+        remark: '',
+        createBy: '',
+        createDate: '',
+        updateBy: '',
+        updateDate: '',
+        donBookInfoId: ''
       },
-      updVisible:false,
+      updVisible: false,
       updRules: {},
       updForm: {
-          bookId : '',
-          isbn : '',
-          isbnPid : '',
-          isbnSid : '',
-          bookName : '',
-          bookForeignName : '',
-          author  : '',
-          authorForeignName  : '',
-          authorCountry : '',
-          translator  : '',
-          translatorForeignName : '',
-          editorCharge  : '',
-          coverDesign : '',
-          collection  : '',
-          press : '',
-          issue : '',
-          printHouse : '',
-          price : '',
-          currencyType  : '',
-          editionFirstDate : '',
-          impressionFirstDate : '',
-          editionDate : '',
-          impressionDate : '',
-          edition : '',
-          impression  : '',
-          sheetsNum  : '',
-          bookFormat : '',
-          wordNum : '',
-          pageNum : '',
-          printNumStart : '',
-          printNumEnd  : '',
-          printNum : '',
-          language : '',
-          clc  : '',
-          flc  : '',
-          bindType : '',
-          lwh  : '',
-          volume  : '',
-          weight  : '',
-          signFlag : '',
-          signetFlag : '',
-          bookAvatar : '',
-          remark  : '',
-          createBy : '',
-          createDate : '',
-          updateBy : '',
-          updateDate : '',
-          donBookInfoId : ''
+        bookId: '',
+        isbn: '',
+        isbnPid: '',
+        isbnSid: '',
+        bookName: '',
+        bookForeignName: '',
+        author: '',
+        authorForeignName: '',
+        authorCountry: '',
+        translator: '',
+        translatorForeignName: '',
+        editorCharge: '',
+        coverDesign: '',
+        collection: '',
+        press: '',
+        issue: '',
+        printHouse: '',
+        price: '',
+        currencyType: '',
+        editionFirstDate: '',
+        impressionFirstDate: '',
+        editionDate: '',
+        impressionDate: '',
+        edition: '',
+        impression: '',
+        sheetsNum: '',
+        bookFormat: '',
+        wordNum: '',
+        pageNum: '',
+        printNumStart: '',
+        printNumEnd: '',
+        printNum: '',
+        language: '',
+        clc: '',
+        flc: '',
+        bindType: '',
+        lwh: '',
+        volume: '',
+        weight: '',
+        signFlag: '',
+        signetFlag: '',
+        bookAvatar: '',
+        remark: '',
+        createBy: '',
+        createDate: '',
+        updateBy: '',
+        updateDate: '',
+        donBookInfoId: ''
       },
       bookStatusOptions: [
-         {label: '正常', value: 'Y'},
-         {label: '暂停', value: 'Z'},
-         {label: '注销', value: 'N'}
+        {label: '正常', value: 'Y'},
+        {label: '暂停', value: 'Z'},
+        {label: '注销', value: 'N'}
       ],
-      bookStatus:true,
-      sel:[],
-      uplVisible:false,
-      limitNum: 1,  // 上传excell时，同时允许上传的最大数
-      fileList: []   // excel文件列表
-    };
+      bookStatus: true,
+      sel: [],
+      uplVisible: false,
+      limitNum: 1, // 上传excell时，同时允许上传的最大数
+      fileList: [] // excel文件列表
+    }
   },
   mounted () {
-        this.init()
+    this.init()
   },
   methods: {
-      handleSelectionChange(val) {
-        this.multipleSelection = val;
-      },
-      // 初始页pageNum、初始每页数据数pageSize和数据data
-      handSizeChange: function (size) {
-          this.param.pageSize = size;
-          this.init();
-      },
-      handCurrentChange: function(pageNum){
-          this.param.pageNum = pageNum;
-          this.init();
-      },
-      handBookList() {
-          this.$http.get('http://localhost:8000/bookList').then(res => {  //这是从本地请求的数据接口，
-              this.bookList = res.body
-          })
-      },
-      //初始化&查询
-      init(){
-          var that  = this;
-          let bookInfoEntity ={
-            queryName:this.param.queryName,
-            pageNum:this.param.pageNum,
-            pageSize:this.param.pageSize
-          }
-          var url = "/api/web/bookInfo/query";
-          this.$axios.post(url, bookInfoEntity).then(response => {
-             this.tableData = response.data.object.list;
-             this.total = response.data.object.total
-          }).catch(error => {
-             console.log(error)
-          })
-      },
-      onSubmit(){
-          var that  = this;
-          var names ='mars';
-          //names= that.form.name;
-          that.$axios.get('http://localhost:8000/web/bookInfo/getBookInfo/ji',{headers: { 'Content-Type':'application/json;charset=UTF-8'}} ).then(function (response) {
-               if(response.data=='M'){
-                    that.$message({
-                      message: '恭喜你，这是男孩'+response.data,
-                      type: 'success'
-                    });
-               }else{
-                    that.$message({
-                      message: '恭喜你，这是女孩'+response.data,
-                      type: 'success'
-                    });
-               }
-               console.log(response)
-          }).catch(function (error) {
-              that.$message.error('请求失败！');
-          });
-      },
-      handQue(){
-          var _this = this;
-          this.init();
-      },
-      //重置
-      reset(){
-         var _this = this;
-         this.param.queryName='';
-         this.init();
-      },
-      //新增TO
-      handAddTo(){
-        this.addVisible=true;
-      },
-      //新增
-      handAdd(){
-          var that  = this;
-          let bookInfoEntity =this.addForm;
-          var url = "/api/web/bookInfo/insert";
-          this.$axios.post(url, bookInfoEntity).then(res => {
-             if(res.data.code=='100200'){
-                this.addVisible=false;
-                this.init();
-                this.$message({message: res.data.msg,type: 'success',center: true,duration:2000});
-             }else {
-                 this.addVisible=false;
-                 this.$message({message: res.data.msg,type: 'error',center: true,duration:2000});
-             }
-          }).catch(error => {
-             console.log(error)
-          })
-      },
-      //修改TO
-      handUpdTo(row){
-        this.updForm = row;
-        this.updVisible=true;
-      },
-      //修改
-      handUpd(){
-          var that  = this;
-          let bookInfoEntity =this.updForm;
-          var url = "/api/web/bookInfo/update";
-          this.$axios.post(url, bookInfoEntity).then(res => {
-             if(res.data.code=='100200'){
-                this.updVisible=false;
-                this.init();
-                this.$message({message: res.data.msg,type: 'success',center: true,duration:2000});
-             }else {
-                 this.updVisible=false;
-                 this.$message({message: res.data.msg,type: 'error',center: true,duration:2000});
-             }
-          }).catch(error => {
-             console.log(error)
-          })
-      },
-      //批量删除
-      delBatch(){
-        var that  = this;
-        if(this.multipleSelection.length != 0){
-          this.$confirm('请确认是否删除?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            let donBookInfoEntityList =this.multipleSelection;
-            var url = "/api/web/bookInfo/delete";
-            this.$axios.post(url, donBookInfoEntityList).then(res => {
-               if(res.data.code=='100200'){
-                  this.param = '';
-                  this.init();
-                  this.$message({message: res.data.msg,type: 'success',center: true,duration:2000});
-               }else {
-                   this.param = '';
-                   this.init();
-                   this.$message({message: res.data.msg,type: 'error',center: true,duration:2000});
-               }
-            }).catch(error => {
-               console.log(error)
-            })
-          }).catch(() => {
-          });
-        }else {
-          this.$message({message: '请选择要删除的数据',type: 'warning',center: true,duration:2000});
-        }
-      },
-      //导入
-      uploadExcelTo(){
-        this.uplVisible=true;
-      },
-
-      // 上传文件之前的钩子, 参数为上传的文件,若返回 false 或者返回 Promise 且被 reject，则停止上传
-      beforeUpload(file) {
-      let extension = file.name.substring(file.name.lastIndexOf('.')+1)
-        let size = file.size / 1024 / 1024
-        if(extension !== 'xlsx') {
-          this.$message.warning('只能上传后缀是.xlsx的文件')
-        }
-        if(size > 10) {
-          this.$message.warning('文件大小不得超过10M')
-        }
-      },
-
-      // 文件状态改变
-      handleChange(file, fileList) {
-        if (file) {
-          this.fileList = fileList.slice(-3)
-        }
-      },
-
-      // 删除文件
-      handleRemove(file, fileList) {
-        this.fileList = []
-      },
-
-      // 文件超出个数限制
-      handleExceed(files, fileList) {
-        this.$message.warning(`只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length + fileList.length} 个`)
-      },
-
-      // 文件上传成功
-      handleSuccess(res, file, fileList) {
-        this.$message.success('文件上传成功')
-      },
-
-      // 文件上传失败
-      handleError(err, file, fileList) {
-        this.$message.error('文件上传失败')
-      },
-      // 覆盖默认的上传行为，自定义上传的实现
-      uploadExcel() {
-        if (this.fileList.length === 0){
-          this.$message.warning('请上传文件')
-        } else {
-          const data = new FormData();
-          console.log("ffffffff",this.fileList)
-          data.append('multipartFiles', this.fileList)
-          data.append('module', 'bookExcel')
-          this.$axios({
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            },
-            url: '/api/web/excel/analyze',
-            data: data,
-            method: 'post'
-          }).then(res=>{
-            console.log(res)
-          },err =>{
-            console.log(err)
-          })
-        }
-      },
-
-
-
-
-      //导出
-      downloadExcel(){
+    handleSelectionChange (val) {
+      this.multipleSelection = val
+    },
+    // 初始页pageNum、初始每页数据数pageSize和数据data
+    handSizeChange: function (size) {
+      this.param.pageSize = size
+      this.init()
+    },
+    handCurrentChange: function (pageNum) {
+      this.param.pageNum = pageNum
+      this.init()
+    },
+    handBookList () {
+      this.$http.get('http://localhost:8000/bookList').then(res => { // 这是从本地请求的数据接口，
+        this.bookList = res.body
+      })
+    },
+    // 初始化&查询
+    init () {
+      let bookInfoEntity = {
+        queryName: this.param.queryName,
+        pageNum: this.param.pageNum,
+        pageSize: this.param.pageSize
       }
+      var url = '/api/web/bookInfo/query'
+      this.$axios.post(url, bookInfoEntity).then(response => {
+        this.tableData = response.data.object.list
+        this.total = response.data.object.total
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    onSubmit () {
+      this.$axios.get('http://localhost:8000/web/bookInfo/getBookInfo/ji', {headers: { 'Content-Type': 'application/json;charset=UTF-8'}}).then(function (response) {
+        if (response.data == 'M') {
+          this.$message({
+            message: '恭喜你，这是男孩' + response.data,
+            type: 'success'
+          })
+        } else {
+          this.$message({
+            message: '恭喜你，这是女孩' + response.data,
+            type: 'success'
+          })
+        }
+        console.log(response)
+      }).catch(error => {
+        console.log(error)
+        this.$message.error('请求失败！')
+      })
+    },
+    handQue () {
+      this.init()
+    },
+    // 重置
+    reset () {
+      this.param.queryName = ''
+      this.init()
+    },
+    // 新增TO
+    handAddTo () {
+      this.addVisible = true
+    },
+    // 新增
+    handAdd () {
+      let bookInfoEntity = this.addForm
+      var url = '/api/web/bookInfo/insert'
+      this.$axios.post(url, bookInfoEntity).then(res => {
+        if (res.data.code == '100200') {
+          this.addVisible = false
+          this.init()
+          this.$message({message: res.data.msg, type: 'success', center: true, duration: 2000})
+        } else {
+          this.addVisible = false
+          this.$message({message: res.data.msg, type: 'error', center: true, duration: 2000})
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    // 修改TO
+    handUpdTo (row) {
+      this.updForm = row
+      this.updVisible = true
+    },
+    // 修改
+    handUpd () {
+      let bookInfoEntity = this.updForm
+      var url = '/api/web/bookInfo/update'
+      this.$axios.post(url, bookInfoEntity).then(res => {
+        if (res.data.code == '100200') {
+          this.updVisible = false
+          this.init()
+          this.$message({message: res.data.msg, type: 'success', center: true, duration: 2000})
+        } else {
+          this.updVisible = false
+          this.$message({message: res.data.msg, type: 'error', center: true, duration: 2000})
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    // 批量删除
+    delBatch () {
+      if (this.multipleSelection.length != 0) {
+        this.$confirm('请确认是否删除?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          let donBookInfoEntityList = this.multipleSelection
+          var url = '/api/web/bookInfo/delete'
+          this.$axios.post(url, donBookInfoEntityList).then(res => {
+            if (res.data.code == '100200') {
+              this.param = ''
+              this.init()
+              this.$message({message: res.data.msg, type: 'success', center: true, duration: 2000})
+            } else {
+              this.param = ''
+              this.init()
+              this.$message({message: res.data.msg, type: 'error', center: true, duration: 2000})
+            }
+          }).catch(error => {
+            console.log(error)
+          })
+        }).catch(() => {
+        })
+      } else {
+        this.$message({message: '请选择要删除的数据', type: 'warning', center: true, duration: 2000})
+      }
+    },
+    // 导入
+    uploadExcelTo () {
+      this.uplVisible = true
+    },
+
+    // 上传文件之前的钩子, 参数为上传的文件,若返回 false 或者返回 Promise 且被 reject，则停止上传
+    beforeUpload (file) {
+      let extension = file.name.substring(file.name.lastIndexOf('.') + 1)
+      let size = file.size / 1024 / 1024
+      if (extension !== 'xlsx') {
+        this.$message.warning('只能上传后缀是.xlsx的文件')
+      }
+      if (size > 10) {
+        this.$message.warning('文件大小不得超过10M')
+      }
+    },
+
+    // 文件状态改变
+    handleChange (file, fileList) {
+      if (file) {
+        this.fileList = fileList.slice(-3)
+      }
+    },
+
+    // 删除文件
+    handleRemove (file, fileList) {
+      this.fileList = []
+    },
+
+    // 文件超出个数限制
+    handleExceed (files, fileList) {
+      this.$message.warning(`只能选择 ${this.limitNum} 个文件，当前共选择了 ${files.length + fileList.length} 个`)
+    },
+
+    // 文件上传成功
+    handleSuccess (res, file, fileList) {
+      this.$message.success('文件上传成功')
+    },
+
+    // 文件上传失败
+    handleError (err, file, fileList) {
+      this.$message.error('文件上传失败')
+    },
+    // 覆盖默认的上传行为，自定义上传的实现
+    uploadExcel () {
+      if (this.fileList.length === 0) {
+        this.$message.warning('请上传文件')
+      } else {
+        const data = new FormData()
+        console.log('ffffffff', this.fileList)
+        data.append('multipartFiles', this.fileList)
+        data.append('module', 'bookExcel')
+        this.$axios({
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          url: '/api/web/excel/analyze',
+          data: data,
+          method: 'post'
+        }).then(res => {
+          console.log(res)
+        }, err => {
+          console.log(err)
+        })
+      }
+    },
+
+    // 导出
+    downloadExcel () {
+    }
   }
 
 }
@@ -1008,9 +993,8 @@ export default {
 
 <style scoped>
 
-
 .sysBox .el-pagination.is-background .el-pager li:not(.disabled).active {
-  background-color: #FD7A3A;   // 进行修改背景和字体
+  background-color: #FD7A3A;   /* 进行修改背景和字体*/
   color: #ff2f;
 }
 

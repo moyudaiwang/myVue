@@ -1,6 +1,5 @@
 <template>
   <div class="USER-app">
-     <!--	描述：新增、删除和运行按钮 -->
      <div class="filter-container">
        <div class="letf-items" style="float: left;" size="medium" >
            <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handAddTo()">新  增</el-button>
@@ -30,7 +29,6 @@
                 </el-card>
               </el-col>
             </el-row>
-            <!--  	描述：分页 -->
             <el-pagination
                     @size-change="handSizeChange"
                     @current-change="handCurrentChange"
@@ -113,7 +111,6 @@ export default {
     },
     // 初始化&查询
     init () {
-      var that = this
       let bookInfoEntity = {
         bookId: this.param.bookId,
         isbn: this.param.isbn,
@@ -132,12 +129,10 @@ export default {
       })
     },
     handQue () {
-      var _this = this
       this.init()
     },
     // 重置
     reset () {
-      var _this = this
       this.param.bookId = ''
       this.param.isbn = ''
       this.param.bookName = ''
@@ -149,7 +144,6 @@ export default {
     },
     // 新增
     handAdd () {
-      var that = this
       let bookInfoEntity = this.addForm
       var url = '/api/web/bookInfo/insertBookInfo'
       this.$axios.post(url, bookInfoEntity).then(res => {
@@ -171,7 +165,6 @@ export default {
     },
     // 修改
     handUpd () {
-      var that = this
       let bookInfoEntity = this.updForm
       var url = '/api/web/bookInfo/updateBookInfo'
       this.$axios.post(url, bookInfoEntity).then(res => {
@@ -188,7 +181,6 @@ export default {
     },
     // 删除
     handDel (row) {
-      var that = this
       let bookInfoEntity = row
       console.log(bookInfoEntity)
       var url = '/api/web/bookInfo/deleteBookInfo'
@@ -254,8 +246,8 @@ export default {
 }
 /*表格与表头线对齐 */
 .el-table th.gutter{
-	    display: table-cell!important;
-},
+  display: table-cell!important;
+}
  .time {
     font-size: 13px;
   }

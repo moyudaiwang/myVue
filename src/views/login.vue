@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     login () {
-      var that = this
       let accountCodeEntity = {
         account: this.loginForm.username,
         pwd: this.loginForm.password
@@ -48,13 +47,13 @@ export default {
       var url = '/api/web/login/check'
       this.$axios.post(url, accountCodeEntity).then(response => {
         if (response.data.code == '100200') {
-          that.$message({message: response.data.msg, type: 'success'})
+          this.$message({message: response.data.msg, type: 'success'})
           this.$router.replace('/user/userInfoMain')
         } else {
-          that.$message({message: response.data.msg, type: 'warning'})
+          this.$message({message: response.data.msg, type: 'warning'})
         }
       }).catch(error => {
-        that.$message({message: response.data.msg, type: 'error'})
+        console.log(error)
       })
     }
   }

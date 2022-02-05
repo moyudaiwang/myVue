@@ -17,7 +17,7 @@
     </div>
 
     <div>
-      <!--	描述：项目列表展示-->
+      <!--项目列表展示-->
       <el-table  :data="tableData" @selection-change="handleSelectionChange" border fit height="520px" :header-cell-style="{'text-align':'center','background':'#eef6f6'}" :cell-style="{'text-align':'center'}" header-align="center">
         <el-table-column type="selection" fixed ></el-table-column>
          <el-table-column prop="userId" label="用户ID" min-width="150px"></el-table-column>
@@ -50,7 +50,6 @@
       </el-pagination>
     </div>
 
-    <!-- 新增对话框 -->
     <div>
       <el-dialog :title="'新增'+titleName" :visible.sync="insVisible" width="55%">
         <el-form ref="insRef" :model="insForm" :rules="insRules" label-position="right" label-width="100px">
@@ -136,7 +135,6 @@
       </el-dialog>
     </div>
 
-    <!-- 修改对话框 -->
     <div>
       <el-dialog :title="'修改'+titleName" :visible.sync="updVisible" width="55%">
         <el-form ref="updRef" :model="updForm" :rules="updRules" label-position="right" label-width="100px">
@@ -268,7 +266,6 @@ export default {
     },
     // 初始化
     init () {
-      var _this = this
       let donUserInfoEntity = {
         queryName: this.param.queryName,
         pageNum: this.param.pageNum,
@@ -292,7 +289,6 @@ export default {
     },
     // 重置
     reset () {
-      var _this = this
       this.param.queryName = ''
       this.init()
     },
@@ -302,7 +298,6 @@ export default {
     },
     // 新增
     ins () {
-      var _this = this
       let donUserInfoEntity = this.insForm
       var url = '/api/web/userInfo/insert'
       this.$axios.post(url, donUserInfoEntity).then(res => {
@@ -326,7 +321,6 @@ export default {
     },
     // 修改
     upd () {
-      var _this = this
       let donUserInfoEntity = this.updForm
       var url = '/api/web/userInfo/update'
       this.$axios.post(url, donUserInfoEntity).then(res => {
@@ -344,7 +338,6 @@ export default {
     },
     // 批量删除
     delBatch () {
-      var _this = this
       if (this.multipleSelection.length != 0) {
         this.$confirm('请确认是否删除?', '提示', {
           confirmButtonText: '确定',

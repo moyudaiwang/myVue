@@ -1,23 +1,22 @@
 <template>
   <div class="USER-app">
       <div>
-           <!--	描述：新增、删除和运行按钮 -->
-           <div class="filter-container">
-           	 <div class="letf-items" style="float: left;" size="medium" >
+            <div class="filter-container">
+              <div class="letf-items" style="float: left;" size="medium" >
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handAddTo()">新  增</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-delete" @click="delBatch(sel)">删  除</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="createTableVisibleTo()">Create Table(ORACLE)</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="createTableVisibleTo()">Create Table(MYSQL)</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-download" @click="downloadExcel()">导  出</el-button>
-           	 </div>
-             <div class="right-items" style="float: right">
+              </div>
+              <div class="right-items" style="float: right">
                  <el-input placeholder="图书ID" v-model="param.bookId" size="medium" style="width: 200px;" class="filter-item"/>
                  <el-input placeholder="ISBN" v-model="param.isbn" size="medium" style="width: 200px;" class="filter-item"/>
                  <el-input placeholder="图书名" v-model="param.bookName" size="medium" style="width: 200px;" class="filter-item"/>
                  <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-search" @click="handQue()">Search</el-button>
                  <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="reset()">Reset</el-button>
        <!--      <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="onSubmit()">onSubmit</el-button>    -->
-           	 </div>
+              </div>
            </div>
       </div>
       <div>
@@ -107,7 +106,6 @@ export default {
   methods: {
     // 初始化&查询
     init () {
-      var that = this
       let bookInfoEntity = {
         bookId: this.param.bookId,
         isbn: this.param.isbn,
@@ -126,30 +124,26 @@ export default {
       })
     },
     createTableTest () {
-      var that = this
-      var names = 'mars'
-      // names= that.form.name;
-      that.$axios.get('http://localhost:8000/web/bookInfo/getBookInfo/ji', {headers: { 'Content-Type': 'application/json;charset=UTF-8'}}).then(function (response) {
+      this.$axios.get('http://localhost:8000/web/bookInfo/getBookInfo/ji', {headers: { 'Content-Type': 'application/json;charset=UTF-8'}}).then(function (response) {
         if (response.data == 'M') {
-          that.$message({
+          this.$message({
             message: '恭喜你，这是男孩' + response.data,
             type: 'success'
           })
         } else {
-          that.$message({
+          this.$message({
             message: '恭喜你，这是女孩' + response.data,
             type: 'success'
           })
         }
         console.log(response)
-      }).catch(function (error) {
-        that.$message.error('请求失败！')
+      }).catch(error => {
+        console.log(error)
       })
     },
     // 建表导入
     createTblIm () {
-      var that = this
-      that.$message.info('建表ing！！')
+      this.$message.info('建表ing！！')
     },
 
     // 文件超出个数限制时的钩子
@@ -211,8 +205,8 @@ export default {
           } else {
             this.$message.success(res.data.msg)
           }
-        }, err => {
-          this.$message.success(res.data.msg)
+        }).catch(error => {
+          console.log(error)
         })
       }
     },
@@ -244,7 +238,7 @@ export default {
 }
 /*表格与表头线对齐 */
 .el-table th.gutter{
-	    display: table-cell!important;
+  display: table-cell!important;
 }
 
   .text {

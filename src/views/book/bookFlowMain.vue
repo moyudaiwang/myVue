@@ -17,7 +17,7 @@
     </div>
 
     <div>
-      <!--	描述：项目列表展示-->
+      <!--项目列表展示-->
       <el-table  :data="tableData" @selection-change="handleSelectionChange" border fit height="520px" :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}" header-align="center">
         <el-table-column type="selection" fixed ></el-table-column>
          <el-table-column prop="bookId" label="图书ID" min-width="150px"></el-table-column>
@@ -71,7 +71,6 @@
       </el-pagination>
     </div>
 
-    <!-- 新增对话框 -->
     <div>
       <el-dialog :title="'新增'+titleName" :visible.sync="insVisible" width="55%">
         <el-form ref="insRef" :model="insForm" :rules="insRules" label-position="right" label-width="100px">
@@ -282,7 +281,6 @@
       </el-dialog>
     </div>
 
-    <!-- 修改对话框 -->
     <div>
       <el-dialog :title="'修改'+titleName" :visible.sync="updVisible" width="55%">
         <el-form ref="updRef" :model="updForm" :rules="updRules" label-position="right" label-width="100px">
@@ -499,158 +497,152 @@
 <script>
 export default {
   name: 'logMain',
-  data(){
-    return{
-      titleName:'图书流动信息',
-      param:{
-        queryName:'',
-        pageNum:1, //初始页
-        pageSize:10 //每页的数据
+  data () {
+    return {
+      titleName: '图书流动信息',
+      param: {
+        queryName: '',
+        pageNum: 1, // 初始页
+        pageSize: 10 // 每页的数据
       },
-      total:0,
+      total: 0,
       multipleSelection: [],
-      tableData:[],
-      insVisible:false,
+      tableData: [],
+      insVisible: false,
       insRules: {},
       insForm: {},
-      updVisible:false,
+      updVisible: false,
       updRules: {},
       updForm: {},
       userStatusOptions: [
-         {label: '正常', value: 'Y'}
+        {label: '正常', value: 'Y'}
       ],
-      userStatus:true
-    };
+      userStatus: true
+    }
   },
   mounted () {
-    this.init();
+    this.init()
   },
   methods: {
-      handleSelectionChange(val) {
-        this.multipleSelection = val;
-      },
-      handSizeChange: function (size) {
-        this.param.pageSize = size;
-        this.init();
-      },
-      handCurrentChange: function(pageNum) {
-        this.param.pageNum = pageNum;
-        this.init();
-      },
-      //初始化
-      init() {
-        var _this = this;
-        let donBookFlowEntity = {
-          queryName:this.param.queryName,
-          pageNum:this.param.pageNum,
-          pageSize:this.param.pageSize
+    handleSelectionChange (val) {
+      this.multipleSelection = val
+    },
+    handSizeChange: function (size) {
+      this.param.pageSize = size
+      this.init()
+    },
+    handCurrentChange: function (pageNum) {
+      this.param.pageNum = pageNum
+      this.init()
+    },
+    // 初始化
+    init () {
+      let donBookFlowEntity = {
+        queryName: this.param.queryName,
+        pageNum: this.param.pageNum,
+        pageSize: this.param.pageSize
+      }
+      var url = '/api/web/bookFlow/query'
+      this.$axios.post(url, donBookFlowEntity).then(res => {
+        if (res.data.code == '100200') {
+          this.tableData = res.data.object.list
+          this.total = res.data.object.total
+        } else {
+          this.$message({message: res.data.msg, type: 'error'})
         }
-        var url = "/api/web/bookFlow/query";
-        this.$axios.post(url, donBookFlowEntity).then(res => {
-          if(res.data.code == '100200') {
-            this.tableData = res.data.object.list;
-            this.total = res.data.object.total;
-          }else {
-            this.$message({message: res.data.msg,type: 'error'});
-          }
-        }).catch(error => {
-          console.log(error)
-        })
-      },
-      //查询
-      query() {
-        var _this = this;
-        this.init();
-      },
-      //重置
-      reset() {
-        var _this = this;
-        this.param.queryName = '';
-        this.init();
-      },
-      //新增TO
-      insTo() {
-        this.insVisible = true;
-      },
-      //新增
-      ins() {
-        var _this = this;
-        let donBookFlowEntity = this.insForm;
-        var url = "/api/web/bookFlow/insert";
-        this.$axios.post(url, donBookFlowEntity).then(res => {
-          if(res.data.code == '100200') {
-            this.insVisible = false;
-            this.insForm = {};
-            this.init();
-            this.$message({message: res.data.msg,type: 'success',center: true,duration:2000});
-          }else {
-            this.insVisible = false;
-            this.$message({message: res.data.msg,type: 'error',center: true,duration:2000});
-          }
-        }).catch(error => {
-           console.log(error)
-        })
-      },
-      //修改TO
-      updTo(row) {
-        this.updForm = row;
-        this.updVisible = true;
-      },
-      //修改
-      upd() {
-        var _this = this;
-        let donBookFlowEntity = this.updForm;
-        var url = "/api/web/bookFlow/update";
-        this.$axios.post(url, donBookFlowEntity).then(res => {
-          if(res.data.code == '100200') {
-            this.updVisible = false;
-            this.init();
-            this.$message({message: res.data.msg,type: 'success',center: true,duration:2000});
-          }else {
-            this.updVisible = false;
-            this.$message({message: res.data.msg,type: 'error',center: true,duration:2000});
-          }
-        }).catch(error => {
-          console.log(error)
-        })
-      },
-      //批量删除
-      delBatch() {
-        var _this = this;
-        if(this.multipleSelection.length != 0){
-          this.$confirm('请确认是否删除?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            let donUserInfoEntityList =this.multipleSelection;
-            var url = "/api/web/bookFlow/delete";
-            this.$axios.post(url, donUserInfoEntityList).then(res => {
-              if(res.data.code == '100200'){
-                this.param = '';
-                this.init();
-                this.$message({message: res.data.msg,type: 'success',center: true,duration:2000});
-              }else {
-                this.param = '';
-                this.init();
-                this.$message({message: res.data.msg,type: 'error',center: true,duration:2000});
-              }
-            }).catch(error => {
-              console.log(error)
-            })
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    // 查询
+    query () {
+      this.init()
+    },
+    // 重置
+    reset () {
+      this.param.queryName = ''
+      this.init()
+    },
+    // 新增TO
+    insTo () {
+      this.insVisible = true
+    },
+    // 新增
+    ins () {
+      let donBookFlowEntity = this.insForm
+      var url = '/api/web/bookFlow/insert'
+      this.$axios.post(url, donBookFlowEntity).then(res => {
+        if (res.data.code == '100200') {
+          this.insVisible = false
+          this.insForm = {}
+          this.init()
+          this.$message({message: res.data.msg, type: 'success', center: true, duration: 2000})
+        } else {
+          this.insVisible = false
+          this.$message({message: res.data.msg, type: 'error', center: true, duration: 2000})
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    // 修改TO
+    updTo (row) {
+      this.updForm = row
+      this.updVisible = true
+    },
+    // 修改
+    upd () {
+      let donBookFlowEntity = this.updForm
+      var url = '/api/web/bookFlow/update'
+      this.$axios.post(url, donBookFlowEntity).then(res => {
+        if (res.data.code == '100200') {
+          this.updVisible = false
+          this.init()
+          this.$message({message: res.data.msg, type: 'success', center: true, duration: 2000})
+        } else {
+          this.updVisible = false
+          this.$message({message: res.data.msg, type: 'error', center: true, duration: 2000})
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    // 批量删除
+    delBatch () {
+      if (this.multipleSelection.length != 0) {
+        this.$confirm('请确认是否删除?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          let donUserInfoEntityList = this.multipleSelection
+          var url = '/api/web/bookFlow/delete'
+          this.$axios.post(url, donUserInfoEntityList).then(res => {
+            if (res.data.code == '100200') {
+              this.param = ''
+              this.init()
+              this.$message({message: res.data.msg, type: 'success', center: true, duration: 2000})
+            } else {
+              this.param = ''
+              this.init()
+              this.$message({message: res.data.msg, type: 'error', center: true, duration: 2000})
+            }
           }).catch(error => {
             console.log(error)
           })
-        }else {
-          this.$message({message: '请选择要删除的数据',type: 'warning',center: true,duration:2000});
-        }
-      },
-      //导入
-      uploadExcel(){
-      },
-      //导出
-      downloadExcel(){
+        }).catch(error => {
+          console.log(error)
+        })
+      } else {
+        this.$message({message: '请选择要删除的数据', type: 'warning', center: true, duration: 2000})
       }
+    },
+    // 导入
+    uploadExcel () {
+    },
+    // 导出
+    downloadExcel () {
+    }
   }
 
 }

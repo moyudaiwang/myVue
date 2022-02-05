@@ -3,7 +3,7 @@
 
    <el-container style="height: 890px; border: 1px;background: #eef6f6">
            <el-aside width="auto">
-                 <el-menu default-active="1-4-1" class="el-menu-vertical-demo" :unique-opened="true"router  @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+                 <el-menu default-active="1-4-1" class="el-menu-vertical-demo" :unique-opened="true" router  @open="handleOpen" @close="handleClose" :collapse="isCollapse">
                   <el-radio-group v-model="isCollapse" style="padding-left: 16px;cursor: pointer">
                     <h4 style="padding-top: 10px" class="menuTitle"  v-if="!isCollapse" @click="goTo('/home/homeMain')">DonQuixotey Book</h4>
                     <h4 style="padding-top: 10px" class="menuTitle"  v-if="isCollapse" @click="goTo('/home/homeMain')">Book</h4>

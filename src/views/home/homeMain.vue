@@ -42,10 +42,10 @@ export default{
   display: flex;
   align-items: center;
   justify-content: center;
-  .carousel-image {
-    max-width: 100%;
-    max-height: 100%;
-  }
+    .carousel-image {
+      max-width: 100%;
+      max-height: 100%;
+    }
 }
 
 </style>

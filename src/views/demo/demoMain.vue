@@ -1,29 +1,28 @@
 <template>
   <div class="USER-app">
       <div>
-           <!--	描述：新增、删除和运行按钮 -->
            <div class="filter-container">
-           	 <div class="letf-items" style="float: left;" size="medium" >
+          <div class="letf-items" style="float: left;" size="medium" >
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handAddTo()">新  增</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-delete" >删  除</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="uploadExcel()">导er  入</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-download" @click="downloadExcel()">导we  出</el-button>
                  <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-download" @click="testCookie()">TESTTESET</el-button>
-           	 </div>
-             <div class="right-items" style="float: right">
-                 <el-input placeholder="用户名" v-model="param.userName" size="medium" style="width: 200px;" class="filter-item"/>
-                 <el-input placeholder="昵称"   v-model="param.nickname" size="medium" style="width: 200px;" class="filter-item"/>
-                 <el-input placeholder="邮箱" v-model="param.email" size="medium" style="width: 200px;" class="filter-item"/>
-                 <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-search" @click="handQue()">Search</el-button>
-                 <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="reset()">Reset</el-button>
-       <!--      <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="onSubmit()">onSubmit</el-button>    -->
-           	 </div>
+          </div>
+          <div class="right-items" style="float: right">
+              <el-input placeholder="用户名" v-model="param.userName" size="medium" style="width: 200px;" class="filter-item"/>
+              <el-input placeholder="昵称"   v-model="param.nickname" size="medium" style="width: 200px;" class="filter-item"/>
+              <el-input placeholder="邮箱" v-model="param.email" size="medium" style="width: 200px;" class="filter-item"/>
+              <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-search" @click="handQue()">Search</el-button>
+              <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="reset()">Reset</el-button>
+    <!--      <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="onSubmit()">onSubmit</el-button>    -->
+          </div>
            </div>
       </div>
 
       <div>
-          <!--	描述：项目列表展示-->
-           <el-table  :data="tableData" border fit height="470px"style="width: 100%" :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}" header-align="center">
+          <!--项目列表展示-->
+           <el-table  :data="tableData" border fit height="470px" style="width: 100%" :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}" header-align="center">
             <el-table-column type="selection" fixed width="55"></el-table-column>
      <!--   <el-table-column prop="userId" label="用户ID" min-width="150px"></el-table-column> -->
             <el-table-column prop="userName" label="用户名" min-width="150px"></el-table-column>
@@ -44,13 +43,12 @@
    <!--     <el-table-column prop="donUserInfoId" label="主键" min-width="150px"></el-table-column>   -->
 
             <el-table-column label="操作" fixed="right" width="160">
-      	      <template slot-scope="scope">
-      	        <el-button size="mini"  type="success"  @click="handUpdTo(scope.row)">Edit</el-button>
-      	        <el-button size="mini" type="danger" @click="handDel(scope.row)">Delete</el-button>
-      	      </template>
-      	    </el-table-column>
+              <template slot-scope="scope">
+                <el-button size="mini"  type="success"  @click="handUpdTo(scope.row)">Edit</el-button>
+                <el-button size="mini" type="danger" @click="handDel(scope.row)">Delete</el-button>
+              </template>
+            </el-table-column>
            </el-table>
-           <!--  	描述：分页 -->
             <el-pagination
                     @size-change="handSizeChange"
                     @current-change="handCurrentChange"
@@ -63,9 +61,9 @@
       </div>
 
       <div>
-        	<!--	add 对话框 -->
+          <!--add 对话框 -->
           <el-dialog title="新增用户信息" :visible.sync="addVisible" width="50%">
-      		  <el-form ref="addRef" :model="addForm" :rules="addRules" label-position="right" label-width="100px" style="margin-left:40px;">
+            <el-form ref="addRef" :model="addForm" :rules="addRules" label-position="right" label-width="100px" style="margin-left:40px;">
                      <el-row>
                          <el-col :span="10">
                                 <el-form-item label="用户名" prop="userName">
@@ -121,7 +119,7 @@
                          <el-col :span="10">
                               <el-form-item label="用户状态" prop="userStatus">
                                   <el-select v-model="addForm.userStatus" placeholder="用户状态">
-                                      <el-option v-for="item in userStatusOpt":key="item.value" :label="item.label" :value="item.value"></el-option>
+                                      <el-option v-for="item in userStatusOpt" :key="item.value" :label="item.label" :value="item.value"></el-option>
                                   </el-select>
                               </el-form-item>
                          </el-col>
@@ -131,17 +129,17 @@
                               </el-form-item>
                          </el-col>
                      </el-row>
-      		  </el-form>
-      		  <div slot="footer" class="dialog-footer">
-      		    <el-button @click="addVisible = false">取 消</el-button>
-      		    <el-button type="primary" @click="handAdd()">确 定</el-button>
-      		  </div>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+              <el-button @click="addVisible = false">取 消</el-button>
+              <el-button type="primary" @click="handAdd()">确 定</el-button>
+            </div>
           </el-dialog>
       </div>
       <div>
-        	<!--	upd 对话框 -->
+          <!--upd 对话框 -->
           <el-dialog title="修改用户信息" :visible.sync="updVisible" width="50%">
-      		  <el-form ref="updRef" :model="updForm" :rules="updRules" label-position="right" label-width="100px" style="margin-left:40px;">
+            <el-form ref="updRef" :model="updForm" :rules="updRules" label-position="right" label-width="100px" style="margin-left:40px;">
                      <el-row>
                          <el-col :span="10">
                                 <el-form-item label="用户名" prop="userName">
@@ -197,7 +195,7 @@
                          <el-col :span="10">
                               <el-form-item label="用户状态" prop="userStatus">
                                   <el-select v-model="updForm.userStatus" placeholder="用户状态">
-                                      <el-option v-for="item in userStatusOpt":key="item.value" :label="item.label" :value="item.value"></el-option>
+                                      <el-option v-for="item in userStatusOpt" :key="item.value" :label="item.label" :value="item.value"></el-option>
                                   </el-select>
                               </el-form-item>
                          </el-col>
@@ -207,11 +205,11 @@
                               </el-form-item>
                          </el-col>
                      </el-row>
-      		  </el-form>
-      		  <div slot="footer" class="dialog-footer">
-      		    <el-button @click="updVisible = false">取 消</el-button>
-      		    <el-button type="primary" @click="handUpd()">确 定</el-button>
-      		  </div>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+              <el-button @click="updVisible = false">取 消</el-button>
+              <el-button type="primary" @click="handUpd()">确 定</el-button>
+            </div>
           </el-dialog>
       </div>
 
@@ -300,7 +298,6 @@ export default {
     },
     // 初始化&查询
     init () {
-      var that = this
       let userInfoEntity = {
         userName: this.param.userName,
         nickname: this.param.nickname,
@@ -319,33 +316,28 @@ export default {
       })
     },
     onSubmit () {
-      var that = this
-      var names = 'mars'
-      // names= that.form.name;
-      that.$axios.get('http://localhost:8000/web/userInfo/getUserInfo/ji', {headers: { 'Content-Type': 'application/json;charset=UTF-8'}}).then(function (response) {
+      this.$axios.get('http://localhost:8000/web/userInfo/getUserInfo/ji', {headers: { 'Content-Type': 'application/json;charset=UTF-8'}}).then(function (response) {
         if (response.data == 'M') {
-          that.$message({
+          this.$message({
             message: '恭喜你，这是男孩' + response.data,
             type: 'success'
           })
         } else {
-          that.$message({
+          this.$message({
             message: '恭喜你，这是女孩' + response.data,
             type: 'success'
           })
         }
         console.log(response)
-      }).catch(function (error) {
-        that.$message.error('请求失败！')
+      }).catch(error => {
+        console.log(error)
       })
     },
     handQue () {
-      var _this = this
       this.init()
     },
 
     testCookie () {
-      var _this = this
       this.setCookie('kkk', 'vvv', 'sssss')
     },
     setCookie (key, value, t) {
@@ -356,7 +348,6 @@ export default {
 
     // 重置
     reset () {
-      var _this = this
       this.param.userName = ''
       this.param.nickname = ''
       this.param.email = ''
@@ -367,7 +358,6 @@ export default {
     },
     // 新增
     handAdd () {
-      var that = this
       let userInfoEntity = this.addForm
       var url = '/api/web/userInfo/insertUserInfo'
       this.$axios.post(url, userInfoEntity).then(res => {
@@ -389,7 +379,6 @@ export default {
     },
     // 修改
     handUpd () {
-      var that = this
       let userInfoEntity = this.updForm
       var url = '/api/web/userInfo/updateUserInfo'
       this.$axios.post(url, userInfoEntity).then(res => {
@@ -406,7 +395,6 @@ export default {
     },
     // 删除
     handDel (row) {
-      var that = this
       let userInfoEntity = row
       console.log(userInfoEntity)
       var url = '/api/web/userInfo/deleteUserInfo'
@@ -452,6 +440,6 @@ export default {
 }
 /*表格与表头线对齐 */
 .el-table th.gutter{
-	    display: table-cell!important;
+  display: table-cell!important;
 }
 </style>
