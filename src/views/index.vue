@@ -112,11 +112,38 @@
                        <span slot="title">日志列表</span>
                      </el-menu-item>
                    </el-submenu>
-                   <el-menu-item index="8" @click="goTo('/map/mapMain')">
-                     <i class="el-icon-s-data"></i>
-                     <span slot="title">书式地图</span>
-                   </el-menu-item>
-
+                   <el-submenu index="8">
+                     <template slot="title">
+                       <i class="el-icon-bicycle"></i>
+                       <span slot="title">书式地图</span>
+                     </template>
+                     <el-submenu index="8-1">
+                     <template slot="title">
+                       <i class="el-icon-bicycle"></i>
+                       <span slot="title">图谱</span>
+                     </template>
+                     <el-menu-item index="8-1-1" @click="goTo('/map/graph/hlmMain')">
+                       <i class="el-icon-notebook-2"></i>
+                       <span slot="title">红楼梦人物关系图谱</span>
+                     </el-menu-item>
+                     <el-menu-item index="8-1-2" @click="goTo('/map/graph/xyjMain')">
+                       <i class="el-icon-notebook-2"></i>
+                       <span slot="title">西游记人物关系图谱</span>
+                     </el-menu-item>
+                     <el-menu-item index="8-1-3" @click="goTo('/map/graph/shzMain')">
+                       <i class="el-icon-notebook-2"></i>
+                       <span slot="title">水浒传人物关系图谱</span>
+                     </el-menu-item>
+                     <el-menu-item index="8-1-4" @click="goTo('/map/graph/sgyyMain')">
+                       <i class="el-icon-notebook-2"></i>
+                       <span slot="title">三国演义人物关系图谱</span>
+                     </el-menu-item>
+                   </el-submenu>
+                     <el-menu-item index="8-2" @click="goTo('/map/mapMain')">
+                       <i class="el-icon-s-data"></i>
+                       <span slot="title">书式地图</span>
+                     </el-menu-item>
+                   </el-submenu>
                  </el-menu>
 
            </el-aside>
@@ -189,7 +216,7 @@ export default {
       return (() => {
         window.screenHeight = document.body.clientHeight
         that.screenHeight = window.screenHeight
-        console.log('that.screenHeightthat.screenHeight---------', that.screenHeight)
+        //console.log('that.screenHeightthat.screenHeight---------', that.screenHeight)
       })()
     }
   },
