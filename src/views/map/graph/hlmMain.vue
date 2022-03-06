@@ -260,6 +260,7 @@ export default {
           // 根据关系，找到丈夫节点
           var nodeFid = ''
           var linkLevel = ''
+
           for (var j = 0; j < this.hlmRelData.length; j++) {
             if (this.hlmRelData[j].toId == nodeQ.id && this.hlmRelData[j].relType == 'FQ') {
               nodeFid = this.hlmRelData[j].fromId
