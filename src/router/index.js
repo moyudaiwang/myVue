@@ -18,6 +18,7 @@ import PersonalMain from '@/views/setting/personalMain'
 import AboutMain from '@/views/setting/aboutMain'
 import LogMain from '@/views/monitor/logMain'
 import MapMain from '@/views/map/mapMain'
+import HlmMain from '@/views/map/graph/hlmMain'
 import Login from '@/views/login'
 import Home from '@/views/home'
 import Index from '@/views/index'
@@ -134,6 +135,11 @@ const routes = [
         path: '/monitor/logMain',
         name: 'LogMain',
         component: LogMain
+      },
+      {
+        path: '/map/graph/hlmMain',
+        name: 'HlmMain',
+        component: HlmMain
       },
       {
         path: '/map/mapMain',
