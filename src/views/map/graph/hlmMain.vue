@@ -56,7 +56,10 @@ export default {
       hlmRelData: [],
       hlmInfoTotal: 0,
       hlmRelTotal: 0,
-      // ----------------------------------------------------------------------------------
+      // -------------------------------初始化动作参数---------------------------------------------------
+      baseHigh: 0,
+      rootNode: {},
+
       // ----------------------------节点详情悬浮框------------------------------------------
       isShowNodeTipsPanel: false, // 默认隐藏
       nodeMenuPanelPosition: { x: 0, y: 0 }, // 初始坐标
@@ -85,10 +88,10 @@ export default {
             'label': '自动',
             'layoutName': 'tree',
             'layoutClassName': 'seeks-layout-center',
-            'min_per_width': 10,
-            // 'max_per_width': 50,
-            'min_per_height': 180
-            // 'max_per_height': 1000,
+            'min_per_width': 90, // 调解节点间最小宽度
+            'max_per_width': 170, // 调解节点间最大宽度
+            'min_per_height': 180, // 调解节点间最小高度
+            'max_per_height': 190 // 调解节点间最大高度
             // 'levelDistance': 1100
           },
           {
@@ -104,9 +107,10 @@ export default {
             'defaultJunctionPoint': 'lr', // 默认的连线与节点接触的方式（border:边缘/ltrb:上下左右/tb:上下/lr:左右）当布局为树状布局时应使用tb或者lr，这样才会好看
             'defaultLineShape': 4,
 
-            'min_per_width': 40,
-            'max_per_width': 70,
-            'min_per_height': 200
+            'min_per_width': 140,
+            'max_per_width': 200,
+            'min_per_height': 200,
+            'max_per_height': 500
           }
         ]
 
@@ -174,7 +178,9 @@ export default {
             innerHTML: '<div slot="node" slot-scope="{node}" @mouseover="showNodeTips(node, $event)" @mouseout="hideNodeTips(node, $event)"><div class="c-my-node" style="background-image: url(https://dss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3098576865,849900134&fm=58&app=83&f=JPEG?w=250&h=250&s=EDE01A63A65917DC104509920300C0C1);border:#6cc0ff solid 3px;"><div class="c-node-name" style="color:#6cc0ff">' + this.hlmInfoData[i].userName + '</div></div></div>',
             data: {
               isGoodMan: true,
-              sexType: '男'
+              sexType: '男',
+              sex: 'M',
+              userLevel: this.hlmInfoData[i].userLevel
             }
           }
           newData.nodes.push(objM)
@@ -187,7 +193,9 @@ export default {
             innerHTML: '<div class="c-my-node" style="background-image: url(https://dss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3749144697,3456463661&fm=58&app=83&f=JPEG?w=250&h=250&s=783823D3FE621E94138CC08B030070C2);border:#ff875e solid 3px;"><div class="c-node-name" style="color:#ff875e">' + this.hlmInfoData[i].userName + '</div></div>',
             data: {
               isGoodMan: true,
-              sexType: '女'
+              sexType: '女',
+              sex: 'F',
+              userLevel: this.hlmInfoData[i].userLevel
             }
           }
           newData.nodes.push(objF)
@@ -216,7 +224,8 @@ export default {
 
       this.$refs.seeksRelationGraph.setJsonData(newData, (seeksRGGraph) => {
         // 这些写上当图谱初始化完成后需要执行的代码
-        this.fqAction()
+        this.initAction()
+        this.baseAction()
       })
     },
     // 鼠标点击节点触发
@@ -250,17 +259,72 @@ export default {
       this.isShowNodeTipsPanel = false
     },
 
-    // 夫妻头像自动靠近
-    fqAction () {
-      // 拿到妻子节点
+    // 初始化动作
+    initAction () {
+      /// /-------------------------计算基准节点高度间距（以红楼梦人物关系图谱-贾家间距为准）----------------------------------------
       var graph = this.$refs.seeksRelationGraph
       for (var i = 0; i < this.hlmInfoData.length; i++) {
+        if (this.hlmInfoData[i].userName == '红楼梦人物关系图谱') {
+          this.rootNode = graph.getNodeById(this.hlmInfoData[i].userId)
+          var nodeROOT = graph.getNodeById(this.hlmInfoData[i].userId)
+        }
+        if (this.hlmInfoData[i].userName == '贾家') {
+          var nodeJJ = graph.getNodeById(this.hlmInfoData[i].userId)
+        }
+      }
+      this.baseHigh = nodeJJ.y - nodeROOT.y
+    },
+
+    // 等级转换Y轴间距
+    userLevelTran (level) {
+      if (level == 'A') {
+        return this.baseHigh * 2
+      }
+      if (level == 'B') {
+        return this.baseHigh * 3
+      }
+      if (level == 'C') {
+        return this.baseHigh * 4
+      }
+      if (level == 'D') {
+        return this.baseHigh * 5
+      }
+      if (level == 'E') {
+        return this.baseHigh * 6
+      }
+      if (level == 'F') {
+        return this.baseHigh * 7
+      }
+      if (level == 'G') {
+        return this.baseHigh * 8
+      }
+      if (level == 'H') {
+        return this.baseHigh * 9
+      }
+      if (level == 'I') {
+        return this.baseHigh * 10
+      }
+    },
+    // 基础动作
+    baseAction () {
+      var graph = this.$refs.seeksRelationGraph
+      for (var k = 0; k < this.hlmInfoData.length; k++) {
+      // --------------------------获取指定节点坐标----------------------------------------
+        // 获取根节点坐标y轴
+        // 循环所有非0的人物类型，按等级计算y轴
+        if (this.hlmInfoData[k].userLevel != '0') {
+          var s = this.userLevelTran(this.hlmInfoData[k].userLevel)
+          graph.getNodeById(this.hlmInfoData[k].userId).y = this.rootNode.y + s
+        }
+      }
+
+      for (var i = 0; i < this.hlmInfoData.length; i++) {
+        // --------------------------夫妻头像自动靠近及夫妻线隐藏----------------------------------------
         if (this.hlmInfoData[i].sex == 'F') {
           var nodeQ = graph.getNodeById(this.hlmInfoData[i].userId)
           // 根据关系，找到丈夫节点
           var nodeFid = ''
           var linkLevel = ''
-
           for (var j = 0; j < this.hlmRelData.length; j++) {
             if (this.hlmRelData[j].toId == nodeQ.id && this.hlmRelData[j].relType == 'FQ') {
               nodeFid = this.hlmRelData[j].fromId
