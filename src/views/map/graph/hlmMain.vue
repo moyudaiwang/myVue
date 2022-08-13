@@ -9,18 +9,18 @@
           <el-radio-button label="男"></el-radio-button>
           <el-radio-button label="女"></el-radio-button>
         </el-radio-group>
-        &nbsp;&nbsp;&nbsp;&nbsp;
         <el-radio-group v-model="checked_isgoodman" size="mini" style="margin-left:50px;" @change="doFilter">
           <el-radio-button label="">全部</el-radio-button>
           <el-radio-button :label="true">正面人物</el-radio-button>
           <el-radio-button :label="false">反面人物</el-radio-button>
         </el-radio-group>
+        <el-checkbox-group v-model="rel_checkList" size="mini" @change="doFilter">
+          <el-checkbox v-for="thisItem in all_rel_type" :key="thisItem" :label="thisItem" />
+        </el-checkbox-group>
       </div>
       <div>
         <!-- <div style="line-height: 20px;">关系筛选：</div> -->
-        <el-checkbox-group v-model="rel_checkList" @change="doFilter">
-          <el-checkbox v-for="thisItem in all_rel_type" :key="thisItem" :label="thisItem" />
-        </el-checkbox-group>
+
       </div>
     </div>
     <div ref="myPage" style="margin-top:0px;width: calc(100% - 10px);height:calc(100vh - 200px);">
@@ -70,8 +70,8 @@ export default {
       demoname: '---',
       checked_sex: '',
       checked_isgoodman: '',
-      rel_checkList: ['师生', '上下级', '亲戚', '情人', '朋友', '夫妻', '勾结', '腐化', '举报'],
-      all_rel_type: ['师生', '上下级', '亲戚', '情人', '朋友', '夫妻', '勾结', '腐化', '举报'],
+      rel_checkList: ['家族', '主仆', '亲戚', '朋友', '夫妻'],
+      all_rel_type: ['家族', '主仆', '亲戚', '朋友', '夫妻'],
       graphOptions: {
         layoutName: 'tree',
         from: 'top',

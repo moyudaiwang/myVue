@@ -7,13 +7,52 @@
     </el-carousel>
 
     <div >
-      </br>
-      <span style="float:left;font-weight:bold">咨询</span>
-      </br>
-      <el-divider></el-divider>
-      <span style="float:left;font-weight:bold">咨询</span>
-      </br>
-      <el-divider></el-divider>
+      <el-row >
+        <el-col :span="6">
+          <el-card class="box-card" shadow="hover">
+            <template #header>
+              <div class="card-header">
+                <span>图书资讯</span>
+                <el-button class="button" text><i class="el-icon-more"></i></el-button>
+              </div>
+            </template>
+            <div v-for="o in 4" :key="o" class="text item">{{ '《受命（终局版）》在北京举行新书发布会 ' + o }}</div>
+          </el-card>
+        </el-col>
+        <el-col :span="6">
+          <el-card class="box-card" shadow="hover">
+            <template #header>
+              <div class="card-header">
+                <span>行业动态</span>
+                <el-button class="button" text><i class="el-icon-more"></i></el-button>
+              </div>
+            </template>
+            <div v-for="o in 4" :key="o" class="text item">{{ '《受命（终局版）》在北京举行新书发布会 ' + o }}</div>
+          </el-card>
+        </el-col>
+        <el-col :span="6">
+          <el-card class="box-card" shadow="hover">
+            <template #header>
+              <div class="card-header">
+                <span>书人书事</span>
+                <el-button class="button" text><i class="el-icon-more"></i></el-button>
+              </div>
+            </template>
+            <div v-for="o in 4" :key="o" class="text item">{{ '张爱玲与鲁迅 ' + o }}</div>
+          </el-card>
+        </el-col>
+        <el-col :span="6">
+          <el-card class="box-card" shadow="hover">
+            <template #header>
+              <div class="card-header">
+                <span>书情书话</span>
+                <el-button class="button" text><i class="el-icon-more"></i></el-button>
+              </div>
+            </template>
+            <div v-for="o in 4" :key="o" class="text item">{{ '张爱玲与鲁迅 ' + o }}</div>
+          </el-card>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -48,4 +87,18 @@ export default{
     }
 }
 
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.text {
+  font-size: 10px;
+}
+.item {
+  margin-bottom: 10px;
+}
+.box-card {
+  width: 475px;
+}
 </style>

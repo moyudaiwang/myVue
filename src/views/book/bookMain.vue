@@ -3,7 +3,7 @@
         <div>
             <div class="filter-container">
                 <div class="letf-items" style="float: left;" size="medium" >
-                    <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handAddTo()">新  增</el-button>
+                    <el-button class="filter-item" size="medium" style="margin-left: 50px;" type="primary" icon="el-icon-edit" @click="handAddTo()">新  增</el-button>
                     <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-delete" @click="delBatch()">删  除</el-button>
                     <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="uploadExcelTo()">导  入</el-button>
                     <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-download" @click="downloadExcel()">导  出</el-button>
@@ -21,7 +21,6 @@
           <!--项目列表展示-->
            <el-table  :data="tableData" @selection-change="handleSelectionChange" border fit height="470px"style="width: 100%" :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}" header-align="center">
             <el-table-column type="selection" fixed width="55"></el-table-column>
-            <el-table-column prop="bookId" label="图书ID" min-width="150px"></el-table-column>
             <el-table-column prop="isbn" label="ISBN" min-width="150px"></el-table-column>
             <el-table-column prop="isbnPid" label="ISBN_PID" min-width="150px"></el-table-column>
             <el-table-column prop="isbnSid" label="ISBN_SID" min-width="150px"></el-table-column>

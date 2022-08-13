@@ -4,21 +4,23 @@
     <el-container style="height: 890px; border: 1px">
       <el-header>
         <el-row>
-          <el-col :span="3" style="background: #669999;height: 60px;cursor: pointer">
-            <h4  style="padding-top: 10px" class="menuTitle"  v-if="!isCollapse" @click="goTo('/user/userInfoMain')">DonQuixotey Book</h4>
-          </el-col>
-          <el-col :span="18" style="background:#669999;height: 60px">
-            <div class="grid-content" style="background:#669999;height: 60px">
-              <el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect" >
-                <el-menu-item index="3">首页</el-menu-item>
-                <el-submenu index="2">
-                  <template slot="title">图书查阅</template>
-                  <el-menu-item index="2-1">新增图书</el-menu-item>
+<!--          <el-col :span="24" style="background:#669999;height: 60px">
+          &lt;!&ndash;  <h4    class="menuTitle"  v-if="!isCollapse" @click="goTo('/user/userInfoMain')">DonQuixotey Book</h4>&ndash;&gt;
+
+          </el-col>-->
+          <el-col :span="24" style="background:#669999;height: 60px">
+            <div style="float:left">
+
+              <el-menu :default-active="activeIndex2" class="el-menu-demo" style="background:#669999" mode="horizontal" @select="handleSelect" >
+                <el-menu-item index="1" @click="goTo('/user/userInfoMain')">首页</el-menu-item>
+                <el-menu-item index="2" @click="goTo('/book/bookMain')">图书管理</el-menu-item>
+                <el-submenu index="3">
+                  <template slot="title" @click="goTo('/book/bookMain')">图书交流</template>
+                  <el-menu-item index="3-1">购书</el-menu-item>
+                  <el-menu-item index="3-2">出售</el-menu-item>
                 </el-submenu>
               </el-menu>
             </div>
-          </el-col>
-          <el-col :span="3" style="background:#669999;height: 60px">
             <div style="float:right">
               <el-badge is-dot class="item">
                 <el-button class="share-button" icon="el-icon-message-solid" type="primary" @click="drawer = true"></el-button>
@@ -70,15 +72,15 @@
           <span>豫公网安备 豫ICP备2020035146号    | Copyright ©2020-2022 www.donQuixotey.com All Rights Reserved</span>
           &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
           <el-popover trigger="hover">
-            <el-image style="width: 100px; height: 100px" :src="eCodeUrl"></el-image>
+            <el-image style="width: 100px; height: 100px" :src="weChatCodeUrl"></el-image>
             <el-avatar size="small" :src="weChatUrl" slot="reference"></el-avatar>
           </el-popover>
           <el-popover trigger="hover">
-            <el-image style="width: 100px; height: 100px" :src="eCodeUrl"></el-image>
+            <el-image style="width: 100px; height: 100px" :src="sinaCodeUrl"></el-image>
             <el-avatar size="small" :src="sinaUrl" slot="reference"></el-avatar>
           </el-popover>
           <el-popover trigger="hover">
-            <el-image style="width: 100px; height: 100px" :src="eCodeUrl"></el-image>
+            <el-image style="width: 100px; height: 100px" :src="douBanCodeUrl"></el-image>
             <el-avatar size="small" :src="douBanUrl" slot="reference"></el-avatar>
           </el-popover>
         </el-col>
@@ -95,10 +97,11 @@ export default {
       activeIndex: '1',
       activeIndex2: '1',
       weChatUrl: require('../assets/image/icon/weChat.png'),
+      weChatCodeUrl: require('../assets/image/code/weChatCode.jpg'),
       sinaUrl: require('../assets/image/icon/sina.png'),
+      sinaCodeUrl: require('../assets/image/code/weChatCode.jpg'),
       douBanUrl: require('../assets/image/icon/douBan.png'),
-      eCodeUrl: require('../assets/image/icon/eCode.jpeg'),
-      douBanUrl1: require('../assets/grild001.jpg'),
+      douBanCodeUrl: require('../assets/image/code/weChatCode.jpg'),
     }
     screenHeight: document.body.clientHeight
   },
