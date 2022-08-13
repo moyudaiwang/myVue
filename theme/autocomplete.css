@@ -514,7 +514,7 @@
     width: 100%;
     font-size: inherit;
     color: #606266;
-    background-color: #FFFFFF;
+    background-color: #eef6f6;
     background-image: none;
     border: 1px solid #DCDFE6;
     border-radius: 4px;
@@ -534,10 +534,10 @@
       border-color: #C0C4CC; }
     .el-textarea__inner:focus {
       outline: none;
-      border-color: #409EFF; }
+      border-color: #0099CC; }
   .el-textarea .el-input__count {
     color: #909399;
-    background: #FFFFFF;
+    background: #eef6f6;
     position: absolute;
     font-size: 12px;
     bottom: 5px;
@@ -602,13 +602,13 @@
     color: #909399;
     font-size: 12px; }
     .el-input .el-input__count .el-input__count-inner {
-      background: #FFFFFF;
+      background: #eef6f6;
       line-height: initial;
       display: inline-block;
       padding: 0 5px; }
   .el-input__inner {
     -webkit-appearance: none;
-    background-color: #FFFFFF;
+    background-color: #eef6f6;
     background-image: none;
     border-radius: 4px;
     border: 1px solid #DCDFE6;
@@ -640,7 +640,7 @@
       border-color: #C0C4CC; }
     .el-input__inner:focus {
       outline: none;
-      border-color: #409EFF; }
+      border-color: #0099CC; }
   .el-input__suffix {
     position: absolute;
     height: 100%;
@@ -679,7 +679,7 @@
     pointer-events: none; }
   .el-input.is-active .el-input__inner {
     outline: none;
-    border-color: #409EFF; }
+    border-color: #0099CC; }
   .el-input.is-disabled .el-input__inner {
     background-color: #F5F7FA;
     border-color: #E4E7ED;
@@ -1370,7 +1370,7 @@
   .el-popper[x-placement^="top"] .popper__arrow::after {
     bottom: 1px;
     margin-left: -6px;
-    border-top-color: #FFFFFF;
+    border-top-color: #eef6f6;
     border-bottom-width: 0; }
 
 .el-popper[x-placement^="bottom"] {
@@ -1386,7 +1386,7 @@
     top: 1px;
     margin-left: -6px;
     border-top-width: 0;
-    border-bottom-color: #FFFFFF; }
+    border-bottom-color: #eef6f6; }
 
 .el-popper[x-placement^="right"] {
   margin-left: 12px; }
@@ -1400,7 +1400,7 @@
   .el-popper[x-placement^="right"] .popper__arrow::after {
     bottom: -6px;
     left: 1px;
-    border-right-color: #FFFFFF;
+    border-right-color: #eef6f6;
     border-left-width: 0; }
 
 .el-popper[x-placement^="left"] {
@@ -1417,7 +1417,7 @@
     bottom: -6px;
     margin-left: -6px;
     border-right-width: 0;
-    border-left-color: #FFFFFF; }
+    border-left-color: #eef6f6; }
 
 .el-autocomplete {
   position: relative;
@@ -1431,7 +1431,7 @@
   border: 1px solid #E4E7ED;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  background-color: #FFFFFF; }
+  background-color: #eef6f6; }
   .el-autocomplete-suggestion__wrap {
     max-height: 280px;
     padding: 10px 0;
@@ -1472,6 +1472,6 @@
       height: 100%;
       vertical-align: middle; }
     .el-autocomplete-suggestion.is-loading li:hover {
-      background-color: #FFFFFF; }
+      background-color: #eef6f6; }
   .el-autocomplete-suggestion.is-loading .el-icon-loading {
     vertical-align: middle; }

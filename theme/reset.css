@@ -127,12 +127,12 @@ body {
   -webkit-font-smoothing: antialiased; }
 
 a {
-  color: #409EFF;
+  color: #0099CC;
   text-decoration: none; }
   a:hover, a:focus {
-    color: #66b1ff; }
+    color: #30acd4; }
   a:active {
-    color: #3a8ee6; }
+    color: #008ab8; }
 
 h1, h2, h3, h4, h5, h6 {
   color: #606266;

@@ -278,7 +278,7 @@
   .el-popper[x-placement^="top"] .popper__arrow::after {
     bottom: 1px;
     margin-left: -6px;
-    border-top-color: #FFFFFF;
+    border-top-color: #eef6f6;
     border-bottom-width: 0; }
 
 .el-popper[x-placement^="bottom"] {
@@ -294,7 +294,7 @@
     top: 1px;
     margin-left: -6px;
     border-top-width: 0;
-    border-bottom-color: #FFFFFF; }
+    border-bottom-color: #eef6f6; }
 
 .el-popper[x-placement^="right"] {
   margin-left: 12px; }
@@ -308,7 +308,7 @@
   .el-popper[x-placement^="right"] .popper__arrow::after {
     bottom: -6px;
     left: 1px;
-    border-right-color: #FFFFFF;
+    border-right-color: #eef6f6;
     border-left-width: 0; }
 
 .el-popper[x-placement^="left"] {
@@ -325,4 +325,4 @@
     bottom: -6px;
     margin-left: -6px;
     border-right-width: 0;
-    border-left-color: #FFFFFF; }
+    border-left-color: #eef6f6; }

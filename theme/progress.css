@@ -317,7 +317,7 @@
     left: 0;
     top: 0;
     height: 100%;
-    background-color: #409EFF;
+    background-color: #0099CC;
     text-align: right;
     border-radius: 100px;
     line-height: 1;
@@ -332,7 +332,7 @@
   .el-progress-bar__innerText {
     display: inline-block;
     vertical-align: middle;
-    color: #FFFFFF;
+    color: #eef6f6;
     font-size: 12px;
     margin: 0 5px; }
 

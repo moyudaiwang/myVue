@@ -285,18 +285,18 @@
   .el-message--info .el-message__content {
     color: #909399; }
   .el-message--success {
-    background-color: #f0f9eb;
-    border-color: #e1f3d8; }
+    background-color: #e1f1e3;
+    border-color: #d3ecd0; }
     .el-message--success .el-message__content {
       color: #67C23A; }
   .el-message--warning {
-    background-color: #fdf6ec;
-    border-color: #faecd8; }
+    background-color: #edeee3;
+    border-color: #ece5d1; }
     .el-message--warning .el-message__content {
       color: #E6A23C; }
   .el-message--error {
-    background-color: #fef0f0;
-    border-color: #fde2e2; }
+    background-color: #efe8e8;
+    border-color: #efdada; }
     .el-message--error .el-message__content {
       color: #F56C6C; }
   .el-message__icon {

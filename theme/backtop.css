@@ -250,11 +250,11 @@
 --------------------------*/
 .el-backtop {
   position: fixed;
-  background-color: #FFFFFF;
+  background-color: #eef6f6;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  color: #409EFF;
+  color: #0099CC;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
