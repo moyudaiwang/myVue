@@ -4,21 +4,19 @@
     <el-container style="height: 890px; border: 1px">
       <el-header>
         <el-row>
-<!--          <el-col :span="24" style="background:#669999;height: 60px">
-          &lt;!&ndash;  <h4    class="menuTitle"  v-if="!isCollapse" @click="goTo('/user/userInfoMain')">DonQuixotey Book</h4>&ndash;&gt;
-
-          </el-col>-->
           <el-col :span="24" style="background:#669999;height: 60px">
+            <div style="float:left; cursor: pointer">
+              <h4 style="padding-top: 10px" class="menuTitle radius" @click="goTo('/home/homeMain')">DonQuixotey Book</h4>
+            </div>
             <div style="float:left">
-
               <el-menu :default-active="activeIndex2" class="el-menu-demo" style="background:#669999" mode="horizontal" @select="handleSelect" >
-                <el-menu-item index="1" @click="goTo('/user/userInfoMain')">首页</el-menu-item>
-                <el-menu-item index="2" @click="goTo('/book/bookMain')">图书管理</el-menu-item>
-                <el-submenu index="3">
+                <el-menu-item index="1" @click="goTo('/book/bookMain')">图书管理</el-menu-item>
+                <el-submenu index="1">
                   <template slot="title" @click="goTo('/book/bookMain')">图书交流</template>
                   <el-menu-item index="3-1">购书</el-menu-item>
                   <el-menu-item index="3-2">出售</el-menu-item>
                 </el-submenu>
+                <el-menu-item index="1" @click="goTo('/article/articleMain')">论坛</el-menu-item>
               </el-menu>
             </div>
             <div style="float:right">
@@ -27,7 +25,7 @@
               </el-badge>
               <el-dropdown @command="handleCommand" style="padding-top: 10px;padding-right: 20px;">
                 <div>
-                  <el-avatar  src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                  <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
                 </div>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item command="/setting/personalMain">个人中心</el-dropdown-item>
@@ -38,8 +36,16 @@
           </el-col>
         </el-row>
       </el-header>
-      <el-main style="height: 1500px;padding-left: 0px;padding-right: 0px;padding-top: 0px;">
+      <el-main style="height: 100px;padding-left: 0px;padding-right: 0px;padding-top: 0px;">
         <router-view></router-view>
+        <el-drawer  :visible.sync="drawer" direction="rtl" size="25%">
+          <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+            <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
+            <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
+            <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
+            <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
+          </el-tabs>
+        </el-drawer>
       </el-main>
     </el-container>
 
@@ -73,15 +79,15 @@
           &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
           <el-popover trigger="hover">
             <el-image style="width: 100px; height: 100px" :src="weChatCodeUrl"></el-image>
-            <el-avatar size="small" :src="weChatUrl" slot="reference"></el-avatar>
+            <el-avatar style="cursor: pointer" size="small" :src="weChatUrl" slot="reference"></el-avatar>
           </el-popover>
           <el-popover trigger="hover">
             <el-image style="width: 100px; height: 100px" :src="sinaCodeUrl"></el-image>
-            <el-avatar size="small" :src="sinaUrl" slot="reference"></el-avatar>
+            <el-avatar style="cursor: pointer" size="small" :src="sinaUrl" slot="reference"></el-avatar>
           </el-popover>
           <el-popover trigger="hover">
             <el-image style="width: 100px; height: 100px" :src="douBanCodeUrl"></el-image>
-            <el-avatar size="small" :src="douBanUrl" slot="reference"></el-avatar>
+            <el-avatar style="cursor: pointer" size="small" :src="douBanUrl" slot="reference"></el-avatar>
           </el-popover>
         </el-col>
       </el-row>
@@ -102,6 +108,8 @@ export default {
       sinaCodeUrl: require('../assets/image/code/weChatCode.jpg'),
       douBanUrl: require('../assets/image/icon/douBan.png'),
       douBanCodeUrl: require('../assets/image/code/weChatCode.jpg'),
+      activeName:'',
+      drawer: false,
     }
     screenHeight: document.body.clientHeight
   },
@@ -130,6 +138,8 @@ export default {
     },
     handleCommand (path) {
       this.$router.replace(path)
+    },
+    handleClick(){
     }
   },
   watch: {
