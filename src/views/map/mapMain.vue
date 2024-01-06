@@ -29,50 +29,52 @@
         <!-- 缩放控件   anchor代表控件停靠位置   anchor="BMAP_ANCHOR_TOP_RIGHT"代表放在右上角-->
         <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
         <!-- 起点终点 dragging：是否能够拖拽 -->
-        <bm-marker :position="startPoint" :dragging="true" @click="markerCli">
-          <!--展示点的文字说明-->
-          <!--  <bm-label content="起点" :labelStyle="{ color: 'black', fontSize: '16px' }" :offset="{ width: -35, height: 25 }" /> -->
-        </bm-marker>
+<!--        <bm-marker :position="startPoint" :dragging="true" @click="markerCli">
+          &lt;!&ndash;展示点的文字说明&ndash;&gt;
+            <bm-label content="起点" :labelStyle="{ color: 'black', fontSize: '16px' }" :offset="{ width: -35, height: 25 }" />
+        </bm-marker>-->
         <!--点聚合-->
+
         <bml-marker-clusterer :averageCenter="true">
-          <bm-marker v-for="(item, index) of markers" :key = "index" :position="{ lng: item.lng, lat: item.lat }" :title="item.name" @click="markerCli"></bm-marker>
+          <div v-for="(item, index) of markers">
+            <bm-marker :position="{ lng: item.lng, lat: item.lat }" :title="item.name" @click="markerCli(item)">
+              <bm-label :content="item.landmark" :labelStyle="{ color: 'black', fontSize: '12px' }" :offset="{ width: -35, height: 25 }" />
+            </bm-marker>
+          </div>
         </bml-marker-clusterer>
         <!--信息窗体-->
         <bm-info-window :position="infoPoint" :show="infoWindow.show" @close="infoWindowClose" @open="infoWindowOpen">
-          <p v-text="infoWindow.contents"></p>
-          <el-descriptions class="margin-top" title="李白墓" :column="3" :size="size" border>
-            <template slot="extra">
-              <el-button type="primary" size="small">更多</el-button>
-            </template>
+          <el-descriptions class="margin-top" :title="pointInfo.landmark" :column="3" :size="size" border>
+
             <el-descriptions-item>
-              <template slot="label"> <i class="el-icon-reading"></i> 书名 </template> 觅经记
+              <template slot="label"> <i class="el-icon-reading"></i> 书名 </template> {{pointInfo.bookName}}
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label"> <i class="el-icon-user"></i> 人物 </template> 李白
+              <template slot="label"> <i class="el-icon-user"></i> 人物 </template> {{pointInfo.hero}}
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label"> <i class="el-icon-sunrise"></i> 年代 </template> 唐代
+              <template slot="label"> <i class="el-icon-sunrise"></i> 年代 </template> {{pointInfo.times}}
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label"> <i class="el-icon-files"></i> 相关图书 </template> 《李太白全集》
+              <template slot="label"> <i class="el-icon-files"></i> 相关图书 </template> {{pointInfo.relBook}}
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label"> <i class="el-icon-s-custom"></i> 陪访人 </template> 卜若愚
+              <template slot="label"> <i class="el-icon-s-custom"></i> 陪访人 </template> {{pointInfo.companion}}
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label"> <i class="el-icon-date"></i> 寻访时间 </template> 2018.12.05
+              <template slot="label"> <i class="el-icon-date"></i> 寻访时间 </template> {{pointInfo.searchTime}}
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label"> <i class="el-icon-s-ticket"></i> 门票 </template> 40
+              <template slot="label"> <i class="el-icon-s-ticket"></i> 门票 </template> {{pointInfo.tickets}}
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label"> <i class="el-icon-magic-stick"></i> 轶事 </template> 中午没吃饭
+              <template slot="label"> <i class="el-icon-magic-stick"></i> 轶事 </template> {{pointInfo.anecdote}}
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label"> <i class="el-icon-location-outline"></i> 地址 </template> 江苏省苏州市吴中区吴中大道 1188 号
+              <template slot="label"> <i class="el-icon-location-outline"></i> 地址 </template> {{pointInfo.address}}
             </el-descriptions-item>
             <el-descriptions-item>
-              <template slot="label"> <i class="el-icon-location-outline"></i> 备注 </template> 备注
+              <template slot="label"> <i class="el-icon-location-outline"></i> 备注 </template> {{pointInfo.remark}}
             </el-descriptions-item>
           </el-descriptions>
         </bm-info-window>
@@ -101,11 +103,12 @@ import {
   BmGeolocation,
   BmlMarkerClusterer
 } from "vue-baidu-map";
+import { queryMapPoints } from '@/api/map'
 export default {
   data() {
     return {
       //定位位置信息
-      center: {lng: 126.404, lat: 39.915 },
+      center: {lng: 116.404, lat: 39.915 },
       //检索关键字
       keyword: "",
       //输入框input值
@@ -120,8 +123,10 @@ export default {
       ],
       points: [],
       markers:[],
-      infoWindow: { show: true, contents: '' },
-      infoPoint: { lng: 126.404, lat: 39.915 },
+      infoWindow: { show: false },
+      infoPoint: {},
+      pointList:[],
+      pointInfo: {},
 
 
     };
@@ -138,20 +143,42 @@ export default {
     BmlMarkerClusterer
   },
   mounted () {
-    this.addPoints();
-    this.initMarkers();
+    // this.addPoints();
+    // this.initMarkers();
+    this.queryMapPoints();
   },
   methods: {
-    initMarkers(){
-      const markers = []
-      for (let i = 0; i < 10; i++) {
-        const position = {lng: Math.random() * 40 + 85, lat: Math.random() * 30 + 21}
-        this.markers.push(position)
+
+  queryMapPoints(){
+    const markers = []
+    let param = {
+      table: '韦力寻访',
+      module: '觅曲记'
+    }
+    queryMapPoints(param).then(res => {
+      if (res.data.code == '200') {
+        var list = res.data.object;
+        this.pointList = [];
+        for (let i = 0; i < list.length; i++) {
+          if(list[i].x != '' && list[i].x != null){
+            const position = list[i]
+            position.lng = list[i].x
+            position.lat = list[i].y
+            this.markers.push(position);
+            this.pointList.push(list[i]);
+          }
+        }
+      } else {
+        this.$message({message: res.data.msg, type: 'error'})
       }
-    },
+    }).catch(error => {
+      console.log(error)
+    })
+  },
     //输入框
     inputfz() {
       this.keyword = this.input3;
+      this.queryMapPoints();
     },
     clickEvent(){
     },
@@ -177,11 +204,10 @@ export default {
       );
     },
     markerCli(e){
-        console.log('sssssssssssssss')
-        this.infoPoint.lng = e.point.lng
-        this.infoPoint.lat = e.point.lat
-        this.infoWindow.show = true
-        // alert(`单击点的坐标为ssss：${e.point.lng}, ${e.point.lat}, ${e.point.tx}`);
+      this.infoPoint.lng = e.lng;
+      this.infoPoint.lat = e.lat;
+      this.pointInfo = e;
+      this.infoWindow.show = true
     },
 
     infoWindowClose (e) {
@@ -189,9 +215,6 @@ export default {
     },
     infoWindowOpen (e) {
       this.infoWindow.show = true
-    },
-    clear () {
-      this.infoWindow.contents = ''
     },
 
     clickPoint (e) {
@@ -206,7 +229,13 @@ export default {
       }
       this.points = points
     },
-
+    initMarkers(){
+      const markers = []
+      for (let i = 0; i < 10; i++) {
+        const position = {lng: Math.random() * 40 + 85, lat: Math.random() * 30 + 21}
+        // this.markers.push(position)
+      }
+    },
 
   }
 };
