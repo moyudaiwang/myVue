@@ -33,8 +33,53 @@
           <!--展示点的文字说明-->
           <!--  <bm-label content="起点" :labelStyle="{ color: 'black', fontSize: '16px' }" :offset="{ width: -35, height: 25 }" /> -->
         </bm-marker>
+        <!--点聚合-->
+        <bml-marker-clusterer :averageCenter="true">
+          <bm-marker v-for="(item, index) of markers" :key = "index" :position="{ lng: item.lng, lat: item.lat }" :title="item.name" @click="markerCli"></bm-marker>
+        </bml-marker-clusterer>
+        <!--信息窗体-->
+        <bm-info-window :position="infoPoint" :show="infoWindow.show" @close="infoWindowClose" @open="infoWindowOpen">
+          <p v-text="infoWindow.contents"></p>
+          <el-descriptions class="margin-top" title="李白墓" :column="3" :size="size" border>
+            <template slot="extra">
+              <el-button type="primary" size="small">更多</el-button>
+            </template>
+            <el-descriptions-item>
+              <template slot="label"> <i class="el-icon-reading"></i> 书名 </template> 觅经记
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template slot="label"> <i class="el-icon-user"></i> 人物 </template> 李白
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template slot="label"> <i class="el-icon-sunrise"></i> 年代 </template> 唐代
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template slot="label"> <i class="el-icon-files"></i> 相关图书 </template> 《李太白全集》
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template slot="label"> <i class="el-icon-s-custom"></i> 陪访人 </template> 卜若愚
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template slot="label"> <i class="el-icon-date"></i> 寻访时间 </template> 2018.12.05
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template slot="label"> <i class="el-icon-s-ticket"></i> 门票 </template> 40
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template slot="label"> <i class="el-icon-magic-stick"></i> 轶事 </template> 中午没吃饭
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template slot="label"> <i class="el-icon-location-outline"></i> 地址 </template> 江苏省苏州市吴中区吴中大道 1188 号
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template slot="label"> <i class="el-icon-location-outline"></i> 备注 </template> 备注
+            </el-descriptions-item>
+          </el-descriptions>
+        </bm-info-window>
         <!--海量点-->
+<!--
         <bm-point-collection :points="points" shape="BMAP_POINT_SHAPE_STAR" color="red" size="BMAP_POINT_SIZE_SMALL" @click="clickPoint"></bm-point-collection>
+-->
         <!--全景地图控件-->
         <!--<bm-panorama></bm-panorama>-->
 
@@ -54,12 +99,13 @@ import {
   BmLocalSearch,
   BmMarker,
   BmGeolocation,
+  BmlMarkerClusterer
 } from "vue-baidu-map";
 export default {
   data() {
     return {
       //定位位置信息
-      center: {lng: 116.369, lat: 39.947 },
+      center: {lng: 126.404, lat: 39.915 },
       //检索关键字
       keyword: "",
       //输入框input值
@@ -73,6 +119,9 @@ export default {
         { value: '觅诗记', label: '觅诗记' },
       ],
       points: [],
+      markers:[],
+      infoWindow: { show: true, contents: '' },
+      infoPoint: { lng: 126.404, lat: 39.915 },
 
 
     };
@@ -86,11 +135,20 @@ export default {
     BmLocalSearch,
     BmMarker,
     BmGeolocation,
+    BmlMarkerClusterer
   },
   mounted () {
     this.addPoints();
+    this.initMarkers();
   },
   methods: {
+    initMarkers(){
+      const markers = []
+      for (let i = 0; i < 10; i++) {
+        const position = {lng: Math.random() * 40 + 85, lat: Math.random() * 30 + 21}
+        this.markers.push(position)
+      }
+    },
     //输入框
     inputfz() {
       this.keyword = this.input3;
@@ -109,17 +167,33 @@ export default {
       geolocation.getCurrentPosition(
         function (r) {
           //可以console.log看一下这个r，他里面包含了检索到的位置信息。下面就把两个维度信息赋值给center来定位
-          _this.center = {
-            lng: r.point.lng,
-            lat: r.point.lat,
-          };
+          //_this.center = {
+          //  lng: r.point.lng,
+          //  lat: r.point.lat,
+          //};
         },
         //启用高精度
         { enableHighAccuracy: true }
       );
     },
-    markerCli(){
+    markerCli(e){
+        console.log('sssssssssssssss')
+        this.infoPoint.lng = e.point.lng
+        this.infoPoint.lat = e.point.lat
+        this.infoWindow.show = true
+        // alert(`单击点的坐标为ssss：${e.point.lng}, ${e.point.lat}, ${e.point.tx}`);
     },
+
+    infoWindowClose (e) {
+      this.infoWindow.show = false
+    },
+    infoWindowOpen (e) {
+      this.infoWindow.show = true
+    },
+    clear () {
+      this.infoWindow.contents = ''
+    },
+
     clickPoint (e) {
       console.log('sssssssssssssss')
       alert(`单击点的坐标为：${e.point.lng}, ${e.point.lat}, ${e.point.tx}`);
