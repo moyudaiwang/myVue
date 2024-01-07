@@ -37,15 +37,16 @@
 
         <bml-marker-clusterer :averageCenter="true">
           <div v-for="(item, index) of markers">
-            <bm-marker :position="{ lng: item.lng, lat: item.lat }" :title="item.name" @click="markerCli(item)">
-              <bm-label :content="item.landmark" :labelStyle="{ color: 'black', fontSize: '12px' }" :offset="{ width: -35, height: 25 }" />
-            </bm-marker>
+              <bm-marker :position="{ lng: item.lng, lat: item.lat }" :title="item.name" @click="markerCli(item)">
+                <!--
+                              <bm-label :content="item.landmark" :labelStyle="{ color: 'black', fontSize: '12px' }" :offset="{ width: -35, height: 25 }" />
+                -->
+              </bm-marker>
           </div>
         </bml-marker-clusterer>
         <!--信息窗体-->
         <bm-info-window :position="infoPoint" :show="infoWindow.show" @close="infoWindowClose" @open="infoWindowOpen">
-          <el-descriptions class="margin-top" :title="pointInfo.landmark" :column="3" :size="size" border>
-
+          <el-descriptions class="margin-top" :title="pointInfo.landmark" :column="3" border>
             <el-descriptions-item>
               <template slot="label"> <i class="el-icon-reading"></i> 书名 </template> {{pointInfo.bookName}}
             </el-descriptions-item>
@@ -204,10 +205,14 @@ export default {
       );
     },
     markerCli(e){
-      this.infoPoint.lng = e.lng;
-      this.infoPoint.lat = e.lat;
-      this.pointInfo = e;
-      this.infoWindow.show = true
+      if(this.infoWindow.show != true ){
+        this.infoPoint.lng = e.lng;
+        this.infoPoint.lat = e.lat;
+        this.pointInfo = e;
+        this.infoWindow.show = true
+      }else {
+        this.infoWindow.show = false;
+      }
     },
 
     infoWindowClose (e) {
