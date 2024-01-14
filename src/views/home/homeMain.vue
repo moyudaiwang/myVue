@@ -1,12 +1,12 @@
 <template>
   <div>
-    <el-carousel :interval="5000"  height="500px">
+    <el-carousel :interval="5000"  height="800px">
       <el-carousel-item v-for="item in imagesbox" :key="item.id">
         <img :src="item.idView" class="image">
       </el-carousel-item>
     </el-carousel>
 
-    <div >
+<!--    <div >
       <el-row >
         <el-col :span="6">
           <el-card class="box-card" shadow="hover">
@@ -53,7 +53,7 @@
           </el-card>
         </el-col>
       </el-row>
-    </div>
+    </div>-->
   </div>
 </template>
 <script>

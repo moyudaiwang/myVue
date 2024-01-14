@@ -51,11 +51,13 @@ export default {
   methods: {
     login () {
       let accountCodeEntity = {
-        account: this.loginForm.username,
+        alien: this.loginForm.username,
         pwd: this.loginForm.password
       }
-      var url = '/api/web/login/check'
+      var url = '/api/web/portal/login'
       this.$axios.post(url, accountCodeEntity).then(response => {
+      //TODO 直接进入首页
+      this.$router.replace('/home/homeMain')
         if (response.data.code == '100200') {
           this.$message({message: response.data.msg, type: 'success'})
           //setCookie("name",this.loginForm.username,1);

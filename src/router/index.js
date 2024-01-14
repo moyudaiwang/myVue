@@ -21,7 +21,7 @@ import PersonalMain from '@/views/setting/personalMain'
 import AboutMain from '@/views/setting/aboutMain'
 import LogMain from '@/views/monitor/logMain'
 import MapMain from '@/views/map/mapMain'
-import HlmMain from '@/views/map/graph/hlmMain'
+import HlmMain from '@/views/graph/literature/hlmMain'
 import Login from '@/views/login'
 import Home from '@/views/home'
 import Index from '@/views/index'
@@ -57,7 +57,7 @@ const routes = [
             { path: '/setting/personalMain', name: 'PersonalMain', component: PersonalMain},
             { path: '/setting/aboutMain', name: 'AboutMain', component: AboutMain},
             { path: '/monitor/logMain', name: 'LogMain', component: LogMain},
-            { path: '/map/graph/hlmMain', name: 'HlmMain', component: HlmMain},
+            { path: '/graph/literature/hlmMain', name: 'HlmMain', component: HlmMain},
             { path: '/map/mapMain', name: 'MapMain', component: MapMain},
             { path: '/*', name: '404', component: NotFound} // 注意，这里不是嵌套路由了，这是为了设置404页面，一定要放在最后面，这样当服务器找不到页面的时候就会全部跳转到404
           ]

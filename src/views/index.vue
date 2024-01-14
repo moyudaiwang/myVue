@@ -2,6 +2,10 @@
 <el-container style="{ height: screenHeight + 'px' }; border: 10px; background: #eef6f6">
        <el-aside  style=" { height: screenHeight + 'px' } " width="auto">
          <el-menu default-active="1-4-1" class="el-menu-vertical-demo" :unique-opened="true" router  @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+           <el-radio-group v-model="isCollapse" style="cursor: pointer">
+             <i v-if="!isCollapse" style=" font-size:20px" class="el-icon-s-fold" @click="isCollapse=true"></i>
+             <i v-if="isCollapse" style=" font-size:20px" class="el-icon-s-unfold" @click="isCollapse=false"></i>
+           </el-radio-group>
            <el-submenu index="1">
              <template slot="title">
                <i class="el-icon-s-custom"></i>
@@ -116,19 +120,19 @@
                  <i class="el-icon-bicycle"></i>
                  <span slot="title">图谱</span>
                </template>
-               <el-menu-item index="8-1-1" @click="goTo('/map/graph/hlmMain')">
+               <el-menu-item index="8-1-1" @click="goTo('/graph/literature/hlmMain')">
                  <i class="el-icon-notebook-2"></i>
                  <span slot="title">红楼梦人物关系图谱</span>
                </el-menu-item>
-               <el-menu-item index="8-1-2" @click="goTo('/map/graph/xyjMain')">
+               <el-menu-item index="8-1-2" @click="goTo('/graph/literature/xyjMain')">
                  <i class="el-icon-notebook-2"></i>
                  <span slot="title">西游记人物关系图谱</span>
                </el-menu-item>
-               <el-menu-item index="8-1-3" @click="goTo('/map/graph/shzMain')">
+               <el-menu-item index="8-1-3" @click="goTo('/graph/literature/shzMain')">
                  <i class="el-icon-notebook-2"></i>
                  <span slot="title">水浒传人物关系图谱</span>
                </el-menu-item>
-               <el-menu-item index="8-1-4" @click="goTo('/map/graph/sgyyMain')">
+               <el-menu-item index="8-1-4" @click="goTo('/graph/literature/sgyyMain')">
                  <i class="el-icon-notebook-2"></i>
                  <span slot="title">三国演义人物关系图谱</span>
                </el-menu-item>
@@ -140,12 +144,6 @@
            </el-submenu>
          </el-menu>
        </el-aside>
-       <el-col :span="1" style="height: 0px; padding-top: 0px;">
-         <el-radio-group v-model="isCollapse" style="cursor: pointer">
-           <i v-if="!isCollapse" style=" font-size:23px" class="el-icon-s-fold" @click="isCollapse=true"></i>
-           <i v-if="isCollapse" style=" font-size:23px" class="el-icon-s-unfold" @click="isCollapse=false"></i>
-         </el-radio-group>
-       </el-col>
        <el-main hight="600px">
           <router-view></router-view>
        </el-main>
@@ -261,7 +259,8 @@ export default {
 
   .el-radio-group {
     font-size: 20px;
-    line-height: 20px;
+    margin-top: 20px;
+    margin-left: 5px;
     .shrinkBtn {
       position: fixed;
       left: -18px;
@@ -269,10 +268,6 @@ export default {
       margin-left: 10px;
       transform: rotate(180deg);
     }
-  }
-  .item {
-    margin-top: -30px;
-    margin-right: 10px;
   }
   .el-icon-arrow-down {
     font-size: 12px;

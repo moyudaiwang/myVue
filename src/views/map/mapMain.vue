@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-card style="height: 89vh">
-      <el-select v-model="bookMod" placeholder="请选择">
+      <el-select v-model="bookMod" placeholder="请选择" @change="queryMapPoints">
         <el-option
-          v-for="item in bookOpt"
+          v-for="(item,index) in bookOpt"
           :key="item.value"
           :label="item.label"
           :value="item.value">
@@ -37,7 +37,7 @@
 
         <bml-marker-clusterer :averageCenter="true">
           <div v-for="(item, index) of markers">
-              <bm-marker :position="{ lng: item.lng, lat: item.lat }" :title="item.name" @click="markerCli(item)">
+              <bm-marker :position="{ lng: item.lng, lat: item.lat }" :title="item.name" @click="markerCli($event)">
                 <!--
                               <bm-label :content="item.landmark" :labelStyle="{ color: 'black', fontSize: '12px' }" :offset="{ width: -35, height: 25 }" />
                 -->
@@ -104,7 +104,7 @@ import {
   BmGeolocation,
   BmlMarkerClusterer
 } from "vue-baidu-map";
-import { queryMapPoints } from '@/api/map'
+import { initMapMenu, queryMapPoints } from '@/api/map'
 export default {
   data() {
     return {
@@ -116,12 +116,7 @@ export default {
       input3: "",
       startPoint: { lng: 126.404, lat: 39.915 },
       bookMod:"",
-      bookOpt:[{ value: '觅经记', label: '觅经记' },
-        { value: '觅理记', label: '觅理记' },
-        { value: '觅曲记', label: '觅曲记' },
-        { value: '觅圣记', label: '觅圣记' },
-        { value: '觅诗记', label: '觅诗记' },
-      ],
+      bookOpt:[],
       points: [],
       markers:[],
       infoWindow: { show: false },
@@ -146,36 +141,45 @@ export default {
   mounted () {
     // this.addPoints();
     // this.initMarkers();
+    this.initMapMenu();
     this.queryMapPoints();
   },
   methods: {
+    initMapMenu(){
+      let param = {}
+      initMapMenu(param).then(res => {
+        this.bookOpt = res.data.object
+      })
 
-  queryMapPoints(){
-    const markers = []
-    let param = {
-      table: '韦力寻访',
-      module: '觅曲记'
-    }
-    queryMapPoints(param).then(res => {
-      if (res.data.code == '200') {
-        var list = res.data.object;
-        this.pointList = [];
-        for (let i = 0; i < list.length; i++) {
-          if(list[i].x != '' && list[i].x != null){
-            const position = list[i]
-            position.lng = list[i].x
-            position.lat = list[i].y
-            this.markers.push(position);
-            this.pointList.push(list[i]);
-          }
-        }
-      } else {
-        this.$message({message: res.data.msg, type: 'error'})
+    },
+    queryMapPoints(value){
+      const markers = []
+      console.log('ssssssssss',this.bookMod)
+      console.log('sssssss2342sss',value)
+      let param = {
+        table: '韦力寻访',
+        module: this.bookMod
       }
-    }).catch(error => {
-      console.log(error)
-    })
-  },
+      queryMapPoints(param).then(res => {
+        if (res.data.code == '200') {
+          var list = res.data.object;
+          this.pointList = [];
+          for (let i = 0; i < list.length; i++) {
+            if(list[i].x != '' && list[i].x != null){
+              const position = list[i]
+              position.lng = list[i].x
+              position.lat = list[i].y
+              this.markers.push(position);
+              this.pointList.push(list[i]);
+            }
+          }
+        } else {
+          this.$message({message: res.data.msg, type: 'error'})
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
     //输入框
     inputfz() {
       this.keyword = this.input3;

@@ -2,25 +2,33 @@
     <div class="USER-app">
         <div>
             <div class="filter-container">
-                <div class="letf-items" style="float: left;" size="medium" >
-                    <el-button class="filter-item" size="medium" style="margin-left: 50px;" type="primary" icon="el-icon-edit" @click="handAddTo()">新  增</el-button>
-                    <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-delete" @click="delBatch()">删  除</el-button>
-                    <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-upload2" @click="uploadExcelTo()">导  入</el-button>
-                    <el-button class="filter-item" size="medium" style="margin-left: 10px;" type="primary" icon="el-icon-download" @click="downloadExcel()">导  出</el-button>
-                </div>
-                <div class="right-items" style="float: right">
-                    <el-input placeholder="图书ID/ISBN/图书名" v-model="param.queryName" size="medium" style="width: 200px;" class="filter-item"/>
-                    <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-search" @click="handQue()">Search</el-button>
-                    <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="reset()">Reset</el-button>
-                    <!-- <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="onSubmit()">onSubmit</el-button>    -->
-                </div>
+              <div class="left-items" style="float: left;">
+                  <el-button type="primary" icon="el-icon-edit" @click="addTo()">新增</el-button>
+                  <el-button type="primary" icon="el-icon-delete" @click="delBatch()">删除</el-button>
+                  <el-button type="primary" icon="el-icon-upload2" @click="uploadTo()">导入</el-button>
+                  <el-button type="primary" icon="el-icon-download" @click="download()">导出</el-button>
+              </div>
+              <div class="right-items" style="float: right">
+                <el-input placeholder="ISBN/书名/作者" v-model="param.queryName" style="width: 200px;margin-right: 10px;" />
+                <el-button type="primary" icon="el-icon-search" @click="query()">查询</el-button>
+                <el-button type="primary" icon="el-icon-refresh-left" @click="reset()">重置</el-button>
+              </div>
             </div>
         </div>
 
         <div>
           <!--项目列表展示-->
            <el-table  :data="tableData" @selection-change="handleSelectionChange" border fit height="470px"style="width: 100%" :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}" header-align="center">
-            <el-table-column type="selection" fixed width="55"></el-table-column>
+             <el-table-column type="selection" fixed width="55"></el-table-column>
+             <el-table-column type="expand">
+               <template slot-scope="props">
+                 <el-form label-position="left" inline class="demo-table-expand">
+                   <el-form-item label="译者">
+                     <span>{{ props.row.translator }}</span>
+                   </el-form-item>
+                 </el-form>
+               </template>
+             </el-table-column>
             <el-table-column prop="isbn" label="ISBN" min-width="150px"></el-table-column>
             <el-table-column prop="isbnPid" label="ISBN_PID" min-width="150px"></el-table-column>
             <el-table-column prop="isbnSid" label="ISBN_SID" min-width="150px"></el-table-column>
@@ -65,8 +73,7 @@
             <el-table-column prop="remark" label="备注" min-width="150px"></el-table-column>
             <el-table-column label="操作" fixed="right" width="100">
          <template slot-scope="scope">
-           <el-button size="mini"  type="success"  @click="handUpdTo(scope.row)">Edit</el-button>
-          <!-- <el-button size="mini" type="danger" @click="handDel(scope.row)">Delete</el-button>   -->
+           <el-button size="mini"  type="success"  @click="updTo(scope.row)">Edit</el-button>
          </template>
       </el-table-column>
            </el-table>
@@ -347,7 +354,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="addVisible = false">取 消</el-button>
-                <el-button type="primary" @click="handAdd()">确 定</el-button>
+                <el-button type="primary" @click="add()">确 定</el-button>
             </div>
         </el-dialog>
       </div>
@@ -617,7 +624,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="updVisible = false">取 消</el-button>
-                <el-button type="primary" @click="handUpd()">确 定</el-button>
+                <el-button type="primary" @click="upd()">确 定</el-button>
             </div>
           </el-dialog>
       </div>
@@ -664,7 +671,7 @@ export default {
       total: 0,
       multipleSelection: [],
       tableData: [],
-      addVisible: false,
+      addVisible: true,
       addRules: {},
       addForm: {
         bookId: '',
@@ -835,7 +842,7 @@ export default {
         this.$message.error('请求失败！')
       })
     },
-    handQue () {
+    query () {
       this.init()
     },
     // 重置
@@ -844,16 +851,66 @@ export default {
       this.init()
     },
     // 新增TO
-    handAddTo () {
+    addTo () {
       this.addVisible = true
     },
     // 新增
-    handAdd () {
+    add () {
       let bookInfoEntity = this.addForm
       var url = '/api/web/bookInfo/insert'
       this.$axios.post(url, bookInfoEntity).then(res => {
         if (res.data.code == '100200') {
-          this.addVisible = false
+          this.addVisible = true
+          this.addForm = {
+        bookId: '',
+        isbn: '',
+        isbnPid: '',
+        isbnSid: '',
+        bookName: '',
+        bookForeignName: '',
+        author: '',
+        authorForeignName: '',
+        authorCountry: '',
+        translator: '',
+        translatorForeignName: '',
+        editorCharge: '',
+        coverDesign: '',
+        collection: '',
+        press: '',
+        issue: '',
+        printHouse: '',
+        price: '',
+        currencyType: '',
+        editionFirstDate: '',
+        impressionFirstDate: '',
+        editionDate: '',
+        impressionDate: '',
+        edition: '',
+        impression: '',
+        sheetsNum: '',
+        bookFormat: '',
+        wordNum: '',
+        pageNum: '',
+        printNumStart: '',
+        printNumEnd: '',
+        printNum: '',
+        language: '',
+        clc: '',
+        flc: '',
+        bindType: '',
+        lwh: '',
+        volume: '',
+        weight: '',
+        signFlag: '',
+        signetFlag: '',
+        bookAvatar: '',
+        remark: '',
+        createBy: '',
+        createDate: '',
+        updateBy: '',
+        updateDate: '',
+        donBookInfoId: ''
+      };
           this.init()
           this.$message({message: res.data.msg, type: 'success', center: true, duration: 2000})
         } else {
@@ -865,12 +922,12 @@ export default {
       })
     },
     // 修改TO
-    handUpdTo (row) {
+    updTo (row) {
       this.updForm = row
       this.updVisible = true
     },
     // 修改
-    handUpd () {
+    upd () {
       let bookInfoEntity = this.updForm
       var url = '/api/web/bookInfo/update'
       this.$axios.post(url, bookInfoEntity).then(res => {
@@ -916,7 +973,7 @@ export default {
       }
     },
     // 导入
-    uploadExcelTo () {
+    uploadTo () {
       this.uplVisible = true
     },
 
@@ -983,7 +1040,7 @@ export default {
     },
 
     // 导出
-    downloadExcel () {
+    download () {
     }
   }
 
