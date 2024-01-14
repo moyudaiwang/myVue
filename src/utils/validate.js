@@ -85,3 +85,34 @@ export function isArray (arg) {
   }
   return Array.isArray(arg)
 }
+// 是否是邮箱
+export function isEmail (str) {
+  const reg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+  return reg.test(str)
+}
+// 是否是手机
+export function isPhone (str) {
+  const reg = /^(?:(?:\+|00)86)?1[3-9]\d{9}$/
+  return reg.test(str)
+}
+// 是否是数字
+export function isNum (str) {
+  const reg = /^\d+$/
+  return reg.test(str)
+}
+// 是否是中文
+export function isChinese (str) {
+  const reg = /[\u4e00-\u9fa5]/
+  return reg.test(str)
+}
+// 是否是IP
+export function isIP (str) {
+  const reg = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/
+  return reg.test(str)
+}
+
+//去除空格
+export function replaceSpace (str) {
+console.log(str)
+  return str.split(/[\t\r\f\n\s]*/g).join('')
+}

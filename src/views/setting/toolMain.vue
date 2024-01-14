@@ -13,8 +13,8 @@
                  <el-input placeholder="图书ID" v-model="param.bookId" size="medium" style="width: 200px;" class="filter-item"/>
                  <el-input placeholder="ISBN" v-model="param.isbn" size="medium" style="width: 200px;" class="filter-item"/>
                  <el-input placeholder="图书名" v-model="param.bookName" size="medium" style="width: 200px;" class="filter-item"/>
-                 <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-search" @click="handQue()">Search</el-button>
-                 <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="reset()">Reset</el-button>
+                 <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-search" @click="handQue()">搜  索</el-button>
+                 <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="reset()">刷  新</el-button>
        <!--      <el-button v-waves class="filter-item" size="medium" type="primary" icon="el-icon-refresh-left" @click="onSubmit()">onSubmit</el-button>    -->
               </div>
            </div>

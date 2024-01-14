@@ -2,36 +2,36 @@
   <div class="main-app">
     <div>
       <div class="filter-container">
-        <div class="letf-items">
-          <el-button type="primary" icon="el-icon-edit" @click="insTo()">新增</el-button>
+        <div class="left-items" style="float: left;">
+          <el-button type="primary" icon="el-icon-edit" @click="addTo()">新增</el-button>
           <el-button type="primary" icon="el-icon-delete" @click="delBatch()">删除</el-button>
-          <el-button type="primary" icon="el-icon-upload2" @click="uploadExcel()">导入</el-button>
-          <el-button type="primary" icon="el-icon-download" @click="downloadExcel()">导出</el-button>
+          <el-button type="primary" icon="el-icon-upload2" @click="uploadTo()">导入</el-button>
+          <el-button type="primary" icon="el-icon-download" @click="download()">导出</el-button>
         </div>
-        <div class="right-items">
-          <el-input placeholder="请输入内容" v-model="param.queryName" class="input-with-select"></el-input>
-          <el-button  type="primary" icon="el-icon-search" @click="query()">查询</el-button>
-          <el-button  type="primary" icon="el-icon-refresh-left" @click="reset()">重置</el-button>
+        <div class="right-items" style="float: right">
+          <el-input placeholder="用户ID/用户名/手机号" v-model="param.queryName" style="width: 200px;margin-right: 10px;" />
+          <el-button type="primary" icon="el-icon-search" @click="query()">查询</el-button>
+          <el-button type="primary" icon="el-icon-refresh-left" @click="reset()">重置</el-button>
         </div>
       </div>
     </div>
 
     <div>
       <!--项目列表展示-->
-      <el-table  :data="tableData" @selection-change="handleSelectionChange" border fit height="520px" :header-cell-style="{'text-align':'center','background':'#eef6f6'}" :cell-style="{'text-align':'center'}" header-align="center">
+      <el-table ref="table" :data="tableData" @selection-change="handleSelectionChange" border fit :max-height="tableHeight" :header-cell-style="{'text-align':'center','background':'#eef6f6'}" :cell-style="{'text-align':'center'}" header-align="center" >
         <el-table-column type="selection" fixed ></el-table-column>
-         <el-table-column prop="userId" label="用户ID" min-width="150px"></el-table-column>
-         <el-table-column prop="userName" label="用户名" min-width="150px"></el-table-column>
-         <el-table-column prop="nickname" label="昵称" min-width="150px"></el-table-column>
-         <el-table-column prop="userForeignName" label="外文名" min-width="150px"></el-table-column>
-         <el-table-column prop="sex" label="性别" min-width="150px"></el-table-column>
-         <el-table-column prop="birthday" label="出生日期" min-width="150px"></el-table-column>
-         <el-table-column prop="phoneNo" label="手机号" min-width="150px"></el-table-column>
-         <el-table-column prop="email" label="电子邮箱" min-width="150px"></el-table-column>
-         <el-table-column prop="address" label="地址" min-width="150px"></el-table-column>
-         <el-table-column prop="avatar" label="头像" min-width="150px"></el-table-column>
-         <el-table-column prop="userStatus" label="用户状态" min-width="150px"></el-table-column>
-         <el-table-column prop="remark" label="备注" min-width="150px"></el-table-column>
+<!--         <el-table-column prop="userId" label="用户ID" min-width="150px"></el-table-column>-->
+         <el-table-column prop="userName" label="用户名" min-width="150px" show-overflow-tooltip></el-table-column>
+         <el-table-column prop="nickname" label="昵称" min-width="150px" show-overflow-tooltip></el-table-column>
+         <el-table-column prop="userForeignName" label="外文名" min-width="150px" show-overflow-tooltip></el-table-column>
+         <el-table-column prop="sex" label="性别" min-width="150px" show-overflow-tooltip></el-table-column>
+         <el-table-column prop="birthday" label="出生日期" min-width="150px" show-overflow-tooltip></el-table-column>
+         <el-table-column prop="phoneNo" label="手机号" min-width="150px" show-overflow-tooltip></el-table-column>
+         <el-table-column prop="email" label="电子邮箱" min-width="150px" show-overflow-tooltip></el-table-column>
+         <el-table-column prop="address" label="地址" min-width="150px" show-overflow-tooltip></el-table-column>
+         <el-table-column prop="avatar" label="头像" min-width="150px" show-overflow-tooltip></el-table-column>
+         <el-table-column prop="userStatus" label="用户状态" min-width="150px" show-overflow-tooltip></el-table-column>
+         <el-table-column prop="remark" label="备注" min-width="150px" show-overflow-tooltip></el-table-column>
         <el-table-column label="操作" fixed="right" width="100px">
           <template slot-scope="scope">
             <el-button size="mini" type="success" @click="updTo(scope.row)">编辑</el-button>
@@ -80,12 +80,25 @@
             <el-row>
                 <el-col :span="10">
                     <el-form-item label="性别" prop="sex">
-                        <el-input v-model="insForm.sex" placeholder="性别"/>
+                      <el-select v-model="insForm.sex" clearable placeholder="性别">
+                        <el-option
+                          v-for="item in sexOptions"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value">
+                        </el-option>
+                      </el-select>
                     </el-form-item>
                 </el-col>
                 <el-col :span="10">
                     <el-form-item label="出生日期" prop="birthday">
-                        <el-input v-model="insForm.birthday" placeholder="出生日期"/>
+                      <div class="block">
+                        <el-date-picker
+                          v-model="insForm.birthday"
+                          type="date"
+                          placeholder="选择日期">
+                        </el-date-picker>
+                      </div>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -116,7 +129,14 @@
             <el-row>
                 <el-col :span="10">
                     <el-form-item label="用户状态" prop="userStatus">
-                        <el-input v-model="insForm.userStatus" placeholder="用户状态"/>
+                      <el-select v-model="insForm.userStatus" clearable placeholder="用户状态">
+                        <el-option
+                          v-for="item in userStatusOptions"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value">
+                        </el-option>
+                      </el-select>
                     </el-form-item>
                 </el-col>
                 <el-col :span="10">
@@ -130,7 +150,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="insVisible = false">取消</el-button>
-          <el-button type="primary" @click="ins()">确定</el-button>
+          <el-button type="primary" @click="add()">确定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -244,12 +264,19 @@ export default {
       updRules: {},
       updForm: {},
       userStatusOptions: [
-        {label: '正常', value: 'Y'}
+        {label: '正常', value: 'Y'},{label: '锁定', value: 'S'},{label: '其他', value: 'N'}
       ],
-      userStatus: true
+      userStatus: true,
+      sexOptions: [
+        {label: '男', value: 'M'},{label: '女', value: 'F'},{label: '保密', value: 'N'}
+      ],
+      tableHeight:0,
     }
   },
   mounted () {
+    this.$nextTick(()=>{
+        	this.tableHeight = window.innerHeight-100
+		})
     this.init()
   },
   methods: {
@@ -293,11 +320,11 @@ export default {
       this.init()
     },
     // 新增TO
-    insTo () {
+    addTo () {
       this.insVisible = true
     },
     // 新增
-    ins () {
+    add () {
       let donUserInfoEntity = this.insForm
       var url = '/api/web/userInfo/insert'
       this.$axios.post(url, donUserInfoEntity).then(res => {
@@ -367,10 +394,10 @@ export default {
       }
     },
     // 导入
-    uploadExcel () {
+    uploadTo () {
     },
     // 导出
-    downloadExcel () {
+    download () {
     }
   }
 
@@ -381,13 +408,9 @@ export default {
   /*表头高度 */
   .el-table__header tr, .el-table__header th {
     padding: 0;
-    height: 40px;
-    line-height: 50px;
   }
   .el-table__body tr, .el-table__body td {
     padding: 0;
-    height: 40px;
-    line-height: 40px;
   }
   /*表格与表头线对齐 */
   .el-table th.gutter{
@@ -404,7 +427,7 @@ export default {
     float: left;
   }
   /*按钮靠左对齐*/
-  .letf-items {
+  .left-items {
     float: left;
   }
   /*搜索栏、按钮靠右对齐*/
@@ -417,7 +440,10 @@ export default {
   }
   /*表单*/
   .el-form {
-    margin-left:40px;
+    margin-left:20px;
   }
-
+/* elementui中table超出隐藏提示框宽度 */
+.el-tooltip__popper {
+  max-width: 200px;
+}
 </style>
